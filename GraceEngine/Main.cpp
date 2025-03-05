@@ -7,7 +7,7 @@ using namespace std;
 
 int main() {
 	graceEngine window("SFML App", 480, 600);
-
+	
 	//Make sure the background textures are not overwritten
 	Texture texture;
 	texture.loadFromFile("textures/background-stars.png");
@@ -21,31 +21,27 @@ int main() {
 			int randomNum = rand() % 4;
 			randomNum = rotations[randomNum];
 
-			spriteObject background("bgStar", texture, { 64 * x, 64 * y }, {64, 64});
-			background.setOrigin({ 32, 32 });
-			background.setAngle(randomNum);
+			spriteObject* background = new spriteObject("bgStar", texture, { 64 * x, 64 * y }, {64, 64});
+			background->setOrigin({ 32, 32 });
+			background->setAngle(randomNum);
 
 			window.pushToQueue(background);
 		}
-	} 	
+	}
+	
 
 	//PlayerShip
-	spriteObject playerShip("player", "textures/spaceship.png", { 50, 100 }, { 60, 68 });
+	spriteObject* playerShip = new spriteObject("player", "textures/spaceship.png", { 50, 100 }, { 60, 68 });
 	window.pushToQueue(playerShip);
 
 	//Scoreboard
 	int score = 0;
-	textObject scoreboard("score", "Score: " + to_string(score), { 50, 10 }, "font/Roboto.ttf", 30);
-	scoreboard.setOrigin({ scoreboard.getSize().x / 2, scoreboard.getSize().y / 2 });
+	textObject* scoreboard = new textObject("score", "Score: " + to_string(score), { 50, 10 }, "font/Roboto.ttf", 30);
+	scoreboard->setOrigin({ scoreboard->getSize().x / 2, scoreboard->getSize().y / 2 });
 	window.pushToQueue(scoreboard);
 
 
 	Vector2f playerSize = { 60, 68 };
-	
-	// Clock clock;
-	// float endTime;
-	// int frames = 0;
-	// int waitFrames = 200;
 	
 	while (window.isRunning()) {
 		window.updateEvents();
@@ -56,68 +52,41 @@ int main() {
 				window.stopRunning();
 			}
 
-			if (Keyboard::isKeyPressed(Keyboard::Down))
+			if (Keyboard::isKeyPressed(Keyboard::F))
 			{
-				playerSize.x -= 1;
-				playerSize.y -= 1;
-				playerShip.setSize(playerSize);
-				window.reloadObject(playerShip);
+				window.printQueue();
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Up))
 			{
-				playerSize.x += 1;
-				playerSize.y += 1;
-				playerShip.setSize(playerSize);
-				window.reloadObject(playerShip);
+				playerSize.x++;
+				playerSize.y++;
+				playerShip->setSize(playerSize);
 			}
 
-			if (Keyboard::isKeyPressed(Keyboard::F))
+			if (Keyboard::isKeyPressed(Keyboard::Down))
 			{
-				window.printQueue();
+				playerSize.x--;
+				playerSize.y--;
+				playerShip->setSize(playerSize);
 			}
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::A))
 		{
-			playerShip.left(6, 10);
-			window.reloadObject(playerShip);
-		}
-		else if (Keyboard::isKeyPressed(Keyboard::D))
-		{
-			playerShip.right(6, window.getWidth() - playerShip.getSize().x - 10);
-			window.reloadObject(playerShip);
+			playerShip->left(10, 10);
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::W))
+		if (Keyboard::isKeyPressed(Keyboard::D))
 		{
-			playerShip.up(10, 10);
-			window.reloadObject(playerShip);
-		}
-		else if (Keyboard::isKeyPressed(Keyboard::S))
-		{
-			playerShip.down(10, window.getHeight() - playerShip.getSize().y - 10);
-			window.reloadObject(playerShip);
+			playerShip->right(10, window.getWidth() - playerShip->getSize().x - 10);
 		}
 
 		window.renderObjects();
-
-		
-		// frames++;
-		// endTime = 1.f / clock.restart().asSeconds();
-		//
-		// if (frames >= waitFrames)
-		// {
-		// 	waitFrames = frames + 200;
-		// 	
-		// 	scoreboard.updateString(to_string(endTime));
-		// 	window.reloadObject(scoreboard);
-		//
-		// }
-		
 	}
-	
 
+	//Delete all pointers and the renderQueue
+	window.~graceEngine();
 	return 0;
 
 }

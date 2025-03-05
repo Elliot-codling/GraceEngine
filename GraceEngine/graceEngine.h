@@ -26,14 +26,13 @@ public:
 	int getHeight() { return window.getSize().y; }
 
 	//Render and the renderQueue - spriteObject
-	void pushToQueue(spriteObject object);
+	void pushToQueue(spriteObject* object);
 	void popFromQueue(int index);
-	void popFromQueue(spriteObject object);
-	void reloadObject(spriteObject object);
+	void popFromQueue(spriteObject* object);
+
 	//Render and the renderQueue - textObject
-	void pushToQueue(textObject object);
-	void popFromQueue(textObject object);
-	void reloadObject(textObject object);
+	void pushToQueue(textObject* object);
+	void popFromQueue(textObject* object);
 
 	void printQueue();
 	void orderRenderQueue();
@@ -54,7 +53,8 @@ private:
 	RenderWindow window;
 
 	//Render Queue
-	vector<unique_ptr<gameObject>> renderQueue;
+	//vector<unique_ptr<gameObject>> renderQueue;
+	vector<gameObject*> renderQueue;
 
 	//Used for events;
 	gameEvents eventHandler;

@@ -25,7 +25,11 @@ window(VideoMode({width, height}), name)
 
 graceEngine::~graceEngine()
 {
-	
+	for (gameObject* object: renderQueue)
+	{
+		delete object;
+	}
+	renderQueue.clear();
 }
 
 // GraceEngine main functions ---------------------------------------------------------------------------
@@ -43,14 +47,14 @@ bool graceEngine::getEvent(Event::EventType eventType)
 // ----------------------------------------
 
 //Items can be pushed onto the render queue
-void graceEngine::pushToQueue(spriteObject object)
+void graceEngine::pushToQueue(spriteObject* object)
 {
-	renderQueue.push_back(make_unique<spriteObject>(object));
+	renderQueue.push_back(object);
 }
 
-void graceEngine::pushToQueue(textObject object)
+void graceEngine::pushToQueue(textObject* object)
 {
-	renderQueue.push_back(make_unique<textObject>(object));
+	renderQueue.push_back(object);
 }
 
 
@@ -62,12 +66,12 @@ void graceEngine::popFromQueue(int index)
 
 //Go through the renderQueue and identify the index where the specified object is
 //Remove the object by its index value
-void graceEngine::popFromQueue(spriteObject object)
+void graceEngine::popFromQueue(spriteObject* object)
 {
 	int index;
 	for (int i = 0; i <= renderQueue.size(); i++)
 	{
-		if (renderQueue[i]->getId() == object.getId())
+		if (renderQueue[i]->getId() == object->getId())
 		{
 			index = i;
 			break;
@@ -76,32 +80,18 @@ void graceEngine::popFromQueue(spriteObject object)
 	popFromQueue(index);
 }
 
-void graceEngine::popFromQueue(textObject object)
+void graceEngine::popFromQueue(textObject* object)
 {
 	int index;
 	for (int i = 0; i <= renderQueue.size(); i++)
 	{
-		if (renderQueue[i]->getId() == object.getId())
+		if (renderQueue[i]->getId() == object->getId())
 		{
 			index = i;
 			break;
 		}
 	}
 	popFromQueue(index);
-}
-
-
-//Reload the object in the vector as it currently is not referenced
-void graceEngine::reloadObject(spriteObject object)
-{
-	popFromQueue(object);
-	pushToQueue(object);
-}
-
-void graceEngine::reloadObject(textObject object)
-{
-	popFromQueue(object);
-	pushToQueue(object);
 }
 
 void graceEngine::printQueue()
