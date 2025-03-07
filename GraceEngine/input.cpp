@@ -8,7 +8,7 @@ gameEvents::~gameEvents() {
 
 }
 
-void gameEvents::updateEvents(RenderWindow& target)
+void gameEvents::updateEvents(sf::RenderWindow& target)
 {
 	currentEvents.clear();
 	while (target.pollEvent(eventQueue))
@@ -18,11 +18,11 @@ void gameEvents::updateEvents(RenderWindow& target)
 }
 
 
-bool gameEvents::getEvent(bool& windowOpen, Event::EventType eventType)
+bool gameEvents::getEvent(bool& windowOpen, sf::Event::EventType eventType)
 {
 	for (auto& event : currentEvents)
 	{
-		if (event == Event::Closed)
+		if (event == sf::Event::Closed)
 		{
 			windowOpen = false;
 		}

@@ -54,7 +54,7 @@ int main() {
 
 			if (Keyboard::isKeyPressed(Keyboard::F))
 			{
-				window.printQueue();
+				window.orderRenderQueue();
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Up))

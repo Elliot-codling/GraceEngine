@@ -1,7 +1,7 @@
 #include "graceEngine.h"
 // GraceEngine Constructor -----------------------------------------------------------------------------------
-graceEngine::graceEngine(string name, uint16_t const width, uint16_t const height, Color color):
-window(VideoMode({width, height}), name)
+graceEngine::graceEngine(std::string name, uint16_t const width, uint16_t const height, sf::Color color):
+window(sf::VideoMode({width, height}), name)
 {
 	//Constructor should create the render window
 	if (window.isOpen())
@@ -10,8 +10,8 @@ window(VideoMode({width, height}), name)
 	}
 	else
 	{		//If cannot initialise SFML, exit program
-		cout << "Failed to initialise: SFML Window";
-		_getch();
+		std::cout << "Failed to initialise: SFML Window";
+		std::cin.get();
 		exit(EXIT_FAILURE);
 	}
 	backgroundColor = color;
@@ -40,7 +40,7 @@ void graceEngine::updateEvents()
 	eventHandler.updateEvents(window);
 }
 
-bool graceEngine::getEvent(Event::EventType eventType)
+bool graceEngine::getEvent(sf::Event::EventType eventType)
 {
 	return eventHandler.getEvent(windowOpen, eventType);
 }
@@ -98,13 +98,14 @@ void graceEngine::printQueue()
 {
 	for (auto& object: renderQueue)
 	{
-		cout << object->getId() << "\n";
+		std::cout << object->getId() << "\n";
 		
 	}
 }
 
 void graceEngine::orderRenderQueue()
 {
+	/*
 	bool swapped;
 	do
 	{
@@ -119,6 +120,38 @@ void graceEngine::orderRenderQueue()
 			}
 		}
 	} while (swapped);
+	*/
+	std::vector<gameObject*> tempList;
+	int lengthOfQueue;
+	for (gameObject* object: renderQueue)
+	{
+		lengthOfQueue = sizeof(tempList);
+		for (int index = lengthOfQueue; index > -1; index--)
+		{
+			if (tempList[index]->getLayer() < object->getLayer())
+			{
+				tempList.insert(tempList.begin() + index + 1, object);
+				break;
+			}
+			else
+			{
+				if (index == 0)
+				{
+					tempList.insert(tempList.begin() + index, object);
+					
+				}
+				continue;
+			}
+		}
+	}
+
+	for (gameObject* object : tempList)
+	{
+		std::cout << object->getId() << "\n";
+	}
+
+
+
 }
 
 
@@ -128,7 +161,7 @@ void graceEngine::renderObjects()
 	window.clear(backgroundColor);
 
 	//sort(renderQueue.begin(), renderQueue.end());
-	orderRenderQueue();
+	//orderRenderQueue();
 
 	//Iterate through the display vector and then draw the object to the display
 	for (auto& object: renderQueue)
