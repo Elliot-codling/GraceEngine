@@ -105,53 +105,37 @@ void graceEngine::printQueue()
 
 void graceEngine::orderRenderQueue()
 {
-	/*
-	bool swapped;
-	do
-	{
-		swapped = false;
-		for (int index = 0; index < renderQueue.size() - 1; index++)
-		{
-			if (renderQueue[index]->getLayer() > renderQueue[index + 1]->getLayer())
-			{
-
-				swap(renderQueue[index], renderQueue[index + 1]);
-				swapped = true;
-			}
-		}
-	} while (swapped);
-	*/
+	//Sorts the renderQueue from the smallest layer number to the largest
+	//Whatever was last pushed to the queue will be on top if all the layer numbers are the same
 	std::vector<gameObject*> tempList;
+	tempList.push_back(renderQueue[0]);
 	int lengthOfQueue;
-	for (gameObject* object: renderQueue)
+	gameObject* object = nullptr;
+	for (int indexOfOjbect = 1; indexOfOjbect < size(renderQueue); indexOfOjbect++)
 	{
-		lengthOfQueue = sizeof(tempList);
-		for (int index = lengthOfQueue; index > -1; index--)
+		object = renderQueue[indexOfOjbect];
+		lengthOfQueue = size(tempList);
+		for (int index = 0; index < lengthOfQueue; index++)
 		{
-			if (tempList[index]->getLayer() < object->getLayer())
+			//For the last item
+			if (index == lengthOfQueue - 1)
 			{
 				tempList.insert(tempList.begin() + index + 1, object);
 				break;
 			}
-			else
+
+			//Insert only if at the correct index
+			if (object->getLayer() < tempList[index]->getLayer())
 			{
-				if (index == 0)
-				{
-					tempList.insert(tempList.begin() + index, object);
-					
-				}
-				continue;
+				tempList.insert(tempList.begin() + index, object);
+				break;
 			}
 		}
 	}
-
-	for (gameObject* object : tempList)
-	{
-		std::cout << object->getId() << "\n";
-	}
-
-
-
+	object = nullptr;
+	renderQueue = tempList;
+	delete object;		//Ensure no memory leaks
+	
 }
 
 
@@ -159,9 +143,7 @@ void graceEngine::orderRenderQueue()
 void graceEngine::renderObjects()
 {
 	window.clear(backgroundColor);
-
-	//sort(renderQueue.begin(), renderQueue.end());
-	//orderRenderQueue();
+	orderRenderQueue();		//Sort renderQueue
 
 	//Iterate through the display vector and then draw the object to the display
 	for (auto& object: renderQueue)

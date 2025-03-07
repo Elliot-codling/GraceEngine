@@ -7,7 +7,7 @@ using namespace std;
 
 int main() {
 	graceEngine window("SFML App", 480, 600);
-	
+
 	//Make sure the background textures are not overwritten
 	Texture texture;
 	texture.loadFromFile("textures/background-stars.png");
@@ -29,7 +29,6 @@ int main() {
 		}
 	}
 	
-
 	//PlayerShip
 	spriteObject* playerShip = new spriteObject("player", "textures/spaceship.png", { 50, 100 }, { 60, 68 });
 	window.pushToQueue(playerShip);
@@ -39,9 +38,8 @@ int main() {
 	textObject* scoreboard = new textObject("score", "Score: " + to_string(score), { 50, 10 }, "font/Roboto.ttf", 30);
 	scoreboard->setOrigin({ scoreboard->getSize().x / 2, scoreboard->getSize().y / 2 });
 	window.pushToQueue(scoreboard);
-
-
 	Vector2f playerSize = { 60, 68 };
+
 	
 	while (window.isRunning()) {
 		window.updateEvents();

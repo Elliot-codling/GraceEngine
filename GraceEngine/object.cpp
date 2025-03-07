@@ -2,7 +2,7 @@
 // spriteObject constructor ---------------------------------------------------------------------------------
 //Texture will be loaded from the directory given by string
 
-spriteObject::spriteObject(std::string objectId, std::string textureDir, sf::Vector2i position, sf::Vector2f size, int objectLayer)
+spriteObject::spriteObject(std::string objectId, std::string textureDir, sf::Vector2i position, sf::Vector2f size, short objectLayer)
 {
 	//Load the texture from the directory provided
 	if (!texture.loadFromFile(textureDir))
@@ -20,7 +20,7 @@ spriteObject::spriteObject(std::string objectId, std::string textureDir, sf::Vec
 }
 
 //Assuming texture has loaded, set the sprite to the textureFile
-spriteObject::spriteObject(std::string objectId, sf::Texture& textureFile, sf::Vector2i position, sf::Vector2f size, int objectLayer)
+spriteObject::spriteObject(std::string objectId, sf::Texture& textureFile, sf::Vector2i position, sf::Vector2f size, short objectLayer)
 {
 	//Apply texture to sprite, set its position and then apply its scale
 	sprite.setTexture(textureFile);
@@ -93,7 +93,7 @@ bool spriteObject::down(int velocity, int borderBottom)
 
 
 // textObject constructor ------------------------------------------------------------------------------
-textObject::textObject(std::string objectId, std::string message, sf::Vector2i position, std::string fontDir, int fontSize, int objectLayer)
+textObject::textObject(std::string objectId, std::string message, sf::Vector2i position, std::string fontDir, int fontSize, short objectLayer)
 {
 	if (!font.loadFromFile(fontDir))
 	{

@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+
 //Base gameObject that will be sent to the renderer
 //This allows both the sprites and the text to be passed into the renderer
 class gameObject
@@ -14,15 +15,16 @@ public:
 	std::string getId() { return id; }
 	int getLayer() { return layer; }
 
-	void setId(std::string& objectId) { id = objectId; }
-	void setLayer(int& objectLayer) { layer = objectLayer; }
+	void setId(std::string& objectId) { id = std::move(objectId); }
+	void setLayer(short& objectLayer) { layer = objectLayer; }
 
 private:
-	int layer = 0;
+	short layer = 0;
 	std::string id;
 
 	//spriteObject Specific functions
 	virtual void replaceTexture(std::string textureDir, sf::Vector2f size) = 0;
+	virtual void setSize(sf::Vector2f size) = 0;
 
 	//textObject specific functions
 	
@@ -33,8 +35,8 @@ class spriteObject : public gameObject
 {
 public:
 	//Constructor
-	spriteObject(std::string objectId, std::string textureDir, sf::Vector2i position, sf::Vector2f size, int objectLayer = 0);
-	spriteObject(std::string objectId, sf::Texture& textureFile, sf::Vector2i position, sf::Vector2f size, int objectLayer = 0);
+	spriteObject(std::string objectId, std::string textureDir, sf::Vector2i position, sf::Vector2f size, short objectLayer = 0);
+	spriteObject(std::string objectId, sf::Texture& textureFile, sf::Vector2i position, sf::Vector2f size, short objectLayer = 0);
 	~spriteObject() override;
 
 	//Child functions ----------------------------
@@ -49,7 +51,7 @@ public:
 	void incrementPosition(sf::Vector2i position) { sprite.setPosition(sprite.getPosition().x + position.x, sprite.getPosition().y + position.y); }
 #
 	//Scale
-	void setSize(sf::Vector2f size) { sprite.setScale(size.x / texture.getSize().x, size.y / texture.getSize().y); }
+	void setSize(sf::Vector2f size) override { sprite.setScale(size.x / texture.getSize().x, size.y / texture.getSize().y); }
 
 	//Rotations
 	void setOrigin(sf::Vector2f origin) { sprite.setOrigin(origin.x / sprite.getScale().x, origin.y / sprite.getScale().y); }
@@ -77,7 +79,7 @@ class textObject : public gameObject
 {
 public:
 	//Constructor
-	textObject(std::string objectId, std::string message, sf::Vector2i position, std::string fontDir, int fontSize, int objectLayer = 0);
+	textObject(std::string objectId, std::string message, sf::Vector2i position, std::string fontDir, int fontSize, short objectLayer = 0);
 	~textObject() override;
 
 	//Get functions
@@ -108,4 +110,5 @@ private:
 
 	//Not used
 	void replaceTexture(std::string textureDir, sf::Vector2f size) override { return; }
+	void setSize(sf::Vector2f size) override { return; };
 };
