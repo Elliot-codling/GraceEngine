@@ -2,7 +2,7 @@
 // spriteObject constructor ---------------------------------------------------------------------------------
 //Texture will be loaded from the directory given by string
 
-spriteObject::spriteObject(string objectId, string textureDir, Vector2i position, Vector2f size, int objectLayer)
+spriteObject::spriteObject(std::string objectId, std::string textureDir, sf::Vector2i position, sf::Vector2f size, short objectLayer)
 {
 	//Load the texture from the directory provided
 	if (!texture.loadFromFile(textureDir))
@@ -20,7 +20,7 @@ spriteObject::spriteObject(string objectId, string textureDir, Vector2i position
 }
 
 //Assuming texture has loaded, set the sprite to the textureFile
-spriteObject::spriteObject(string objectId, Texture& textureFile, Vector2i position, Vector2f size, int objectLayer)
+spriteObject::spriteObject(std::string objectId, sf::Texture& textureFile, sf::Vector2i position, sf::Vector2f size, short objectLayer)
 {
 	//Apply texture to sprite, set its position and then apply its scale
 	sprite.setTexture(textureFile);
@@ -36,7 +36,7 @@ spriteObject::~spriteObject()
 
 }
 
-void spriteObject::replaceTexture(string textureDir, Vector2f size) {
+void spriteObject::replaceTexture(std::string textureDir, sf::Vector2f size) {
 	if (!texture.loadFromFile(textureDir)) {
 		return;
 	}
@@ -93,7 +93,7 @@ bool spriteObject::down(int velocity, int borderBottom)
 
 
 // textObject constructor ------------------------------------------------------------------------------
-textObject::textObject(string objectId, string message, Vector2i position, string fontDir, int fontSize, int objectLayer)
+textObject::textObject(std::string objectId, std::string message, sf::Vector2i position, std::string fontDir, int fontSize, short objectLayer)
 {
 	if (!font.loadFromFile(fontDir))
 	{

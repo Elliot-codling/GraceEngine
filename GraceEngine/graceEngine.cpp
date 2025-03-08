@@ -1,7 +1,7 @@
 #include "graceEngine.h"
 // GraceEngine Constructor -----------------------------------------------------------------------------------
-graceEngine::graceEngine(string name, uint16_t const width, uint16_t const height, Color color):
-window(VideoMode({width, height}), name)
+graceEngine::graceEngine(std::string name, uint16_t const width, uint16_t const height, sf::Color color):
+window(sf::VideoMode({width, height}), name)
 {
 	//Constructor should create the render window
 	if (window.isOpen())
@@ -10,8 +10,8 @@ window(VideoMode({width, height}), name)
 	}
 	else
 	{		//If cannot initialise SFML, exit program
-		cout << "Failed to initialise: SFML Window";
-		_getch();
+		std::cout << "Failed to initialise: SFML Window";
+		std::cin.get();
 		exit(EXIT_FAILURE);
 	}
 	backgroundColor = color;
@@ -25,7 +25,11 @@ window(VideoMode({width, height}), name)
 
 graceEngine::~graceEngine()
 {
-	
+	for (gameObject* object: renderQueue)
+	{
+		delete object;
+	}
+	renderQueue.clear();
 }
 
 // GraceEngine main functions ---------------------------------------------------------------------------
@@ -36,21 +40,21 @@ void graceEngine::updateEvents()
 	eventHandler.updateEvents(window);
 }
 
-bool graceEngine::getEvent(Event::EventType eventType)
+bool graceEngine::getEvent(sf::Event::EventType eventType)
 {
 	return eventHandler.getEvent(windowOpen, eventType);
 }
 // ----------------------------------------
 
 //Items can be pushed onto the render queue
-void graceEngine::pushToQueue(spriteObject object)
+void graceEngine::pushToQueue(spriteObject* object)
 {
-	renderQueue.push_back(make_unique<spriteObject>(object));
+	renderQueue.push_back(object);
 }
 
-void graceEngine::pushToQueue(textObject object)
+void graceEngine::pushToQueue(textObject* object)
 {
-	renderQueue.push_back(make_unique<textObject>(object));
+	renderQueue.push_back(object);
 }
 
 
@@ -62,12 +66,12 @@ void graceEngine::popFromQueue(int index)
 
 //Go through the renderQueue and identify the index where the specified object is
 //Remove the object by its index value
-void graceEngine::popFromQueue(spriteObject object)
+void graceEngine::popFromQueue(spriteObject* object)
 {
 	int index;
 	for (int i = 0; i <= renderQueue.size(); i++)
 	{
-		if (renderQueue[i]->getId() == object.getId())
+		if (renderQueue[i]->getId() == object->getId())
 		{
 			index = i;
 			break;
@@ -76,12 +80,12 @@ void graceEngine::popFromQueue(spriteObject object)
 	popFromQueue(index);
 }
 
-void graceEngine::popFromQueue(textObject object)
+void graceEngine::popFromQueue(textObject* object)
 {
 	int index;
 	for (int i = 0; i <= renderQueue.size(); i++)
 	{
-		if (renderQueue[i]->getId() == object.getId())
+		if (renderQueue[i]->getId() == object->getId())
 		{
 			index = i;
 			break;
@@ -90,45 +94,39 @@ void graceEngine::popFromQueue(textObject object)
 	popFromQueue(index);
 }
 
-
-//Reload the object in the vector as it currently is not referenced
-void graceEngine::reloadObject(spriteObject object)
+void graceEngine::sortRenderQueue()
 {
-	popFromQueue(object);
-	pushToQueue(object);
-}
-
-void graceEngine::reloadObject(textObject object)
-{
-	popFromQueue(object);
-	pushToQueue(object);
-}
-
-void graceEngine::printQueue()
-{
-	for (auto& object: renderQueue)
+	//Sorts the renderQueue from the smallest layer number to the largest
+	//Whatever was last pushed to the queue will be on top if all the layer numbers are the same
+	std::vector<gameObject*> tempList;
+	tempList.push_back(renderQueue[0]);
+	int lengthOfQueue;
+	gameObject* object = nullptr;
+	for (int indexOfOjbect = 1; indexOfOjbect < size(renderQueue); indexOfOjbect++)
 	{
-		cout << object->getId() << "\n";
-		
-	}
-}
-
-void graceEngine::orderRenderQueue()
-{
-	bool swapped;
-	do
-	{
-		swapped = false;
-		for (int index = 0; index < renderQueue.size() - 1; index++)
+		object = renderQueue[indexOfOjbect];
+		lengthOfQueue = size(tempList);
+		for (int index = 0; index < lengthOfQueue; index++)
 		{
-			if (renderQueue[index]->getLayer() > renderQueue[index + 1]->getLayer())
+			//For the last item
+			if (index == lengthOfQueue - 1)
 			{
+				tempList.insert(tempList.begin() + index + 1, object);
+				break;
+			}
 
-				swap(renderQueue[index], renderQueue[index + 1]);
-				swapped = true;
+			//Insert only if at the correct index
+			if (object->getLayer() < tempList[index]->getLayer())
+			{
+				tempList.insert(tempList.begin() + index, object);
+				break;
 			}
 		}
-	} while (swapped);
+	}
+	object = nullptr;
+	renderQueue = tempList;
+	delete object;		//Ensure no memory leaks
+	
 }
 
 
@@ -136,9 +134,7 @@ void graceEngine::orderRenderQueue()
 void graceEngine::renderObjects()
 {
 	window.clear(backgroundColor);
-
-	//sort(renderQueue.begin(), renderQueue.end());
-	orderRenderQueue();
+	sortRenderQueue();		//Sort renderQueue
 
 	//Iterate through the display vector and then draw the object to the display
 	for (auto& object: renderQueue)

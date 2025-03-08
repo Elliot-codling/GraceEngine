@@ -4,16 +4,15 @@
 #include "input.h"
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
-using namespace sf;
-using namespace std;
 
 // Main game engine
 //Used to initialise the window of SFML
 class graceEngine
 {
 public:
-	graceEngine(string name, uint16_t width, uint16_t height, Color color = {0, 0, 0});
+	graceEngine(std::string name, uint16_t width, uint16_t height, sf::Color color = {0, 0, 0});
 	~graceEngine();
 
 	void renderObjects();
@@ -26,17 +25,13 @@ public:
 	int getHeight() { return window.getSize().y; }
 
 	//Render and the renderQueue - spriteObject
-	void pushToQueue(spriteObject object);
+	void pushToQueue(spriteObject* object);
 	void popFromQueue(int index);
-	void popFromQueue(spriteObject object);
-	void reloadObject(spriteObject object);
-	//Render and the renderQueue - textObject
-	void pushToQueue(textObject object);
-	void popFromQueue(textObject object);
-	void reloadObject(textObject object);
+	void popFromQueue(spriteObject* object);
 
-	void printQueue();
-	void orderRenderQueue();
+	//Render and the renderQueue - textObject
+	void pushToQueue(textObject* object);
+	void popFromQueue(textObject* object);	
 
 	//Functions passed onto other files
 	void setAngle(spriteObject& object, float angle);
@@ -44,17 +39,18 @@ public:
 	//This is so that the main program can use window.updateEvents()
 	//Instead of creating an object for input.h
 	void updateEvents();
-	bool getEvent(Event::EventType eventType);
+	bool getEvent(sf::Event::EventType eventType);
 	
 private:
 	bool windowOpen;
-	Color backgroundColor;
+	sf::Color backgroundColor;
 
 	//SFML render objects
-	RenderWindow window;
+	sf::RenderWindow window;
 
 	//Render Queue
-	vector<unique_ptr<gameObject>> renderQueue;
+	std::vector<gameObject*> renderQueue;
+	void sortRenderQueue();
 
 	//Used for events;
 	gameEvents eventHandler;
