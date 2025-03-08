@@ -31,10 +31,7 @@ public:
 
 	//Render and the renderQueue - textObject
 	void pushToQueue(textObject* object);
-	void popFromQueue(textObject* object);
-
-	void printQueue();
-	void orderRenderQueue();
+	void popFromQueue(textObject* object);	
 
 	//Functions passed onto other files
 	void setAngle(spriteObject& object, float angle);
@@ -52,8 +49,8 @@ private:
 	sf::RenderWindow window;
 
 	//Render Queue
-	//vector<unique_ptr<gameObject>> renderQueue;
 	std::vector<gameObject*> renderQueue;
+	void sortRenderQueue();
 
 	//Used for events;
 	gameEvents eventHandler;

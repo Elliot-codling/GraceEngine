@@ -94,16 +94,7 @@ void graceEngine::popFromQueue(textObject* object)
 	popFromQueue(index);
 }
 
-void graceEngine::printQueue()
-{
-	for (auto& object: renderQueue)
-	{
-		std::cout << object->getId() << "\n";
-		
-	}
-}
-
-void graceEngine::orderRenderQueue()
+void graceEngine::sortRenderQueue()
 {
 	//Sorts the renderQueue from the smallest layer number to the largest
 	//Whatever was last pushed to the queue will be on top if all the layer numbers are the same
@@ -143,7 +134,7 @@ void graceEngine::orderRenderQueue()
 void graceEngine::renderObjects()
 {
 	window.clear(backgroundColor);
-	orderRenderQueue();		//Sort renderQueue
+	sortRenderQueue();		//Sort renderQueue
 
 	//Iterate through the display vector and then draw the object to the display
 	for (auto& object: renderQueue)
