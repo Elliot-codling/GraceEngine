@@ -5,7 +5,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-
 // Main game engine
 //Used to initialise the window of SFML
 class graceEngine
@@ -14,7 +13,7 @@ public:
 	graceEngine(std::string name, uint16_t width, uint16_t height, sf::Color color = {0, 0, 0});
 	~graceEngine();
 
-	void renderObjects(std::vector<sf::RectangleShape*>& debugQueue);
+	void renderObjects(std::vector<sf::RectangleShape*>* debugQueue = nullptr);
 
 	//Check if the window is running
 	bool isRunning() { return windowOpen; }

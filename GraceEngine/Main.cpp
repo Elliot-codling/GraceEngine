@@ -41,11 +41,7 @@ int main() {
 	window.pushToQueue(scoreboard);
 	Vector2f playerSize = { 60, 68 };
 
-	RectangleShape* rectangle = new RectangleShape({ 0, 0 });
-	rectangle->setFillColor(Color(255, 0, 0));
-
-	vector<RectangleShape*> debugQueue;
-	debugQueue.push_back(rectangle);
+	
 
 	while (window.isRunning()) {
 		window.updateEvents();
@@ -91,16 +87,12 @@ int main() {
 			playerShip->right(10, window.getWidth() - playerShip->getSize().x - 10);
 		}
 		playerShip->setPosition(window.getMousePos());
-		
-		rectangle->setSize(playerShip->getSize());
-		rectangle->setPosition(playerShip->getPosition());
 
-		window.renderObjects(debugQueue);
+		window.renderObjects();
 	}
 
 	//Delete all pointers and the renderQueue
 	window.~graceEngine();
-	delete rectangle;
 	return 0;
 
 }

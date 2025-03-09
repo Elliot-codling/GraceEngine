@@ -27,7 +27,6 @@ graceEngine::~graceEngine()
 {
 	for (gameObject* object: renderQueue)
 	{
-		std::cout << object->getId() << "\n";
 		delete object;
 	}
 	renderQueue.clear();
@@ -135,7 +134,7 @@ void graceEngine::sortRenderQueue()
 
 
 //Render the vector of gameObjects
-void graceEngine::renderObjects(std::vector<sf::RectangleShape*>& debugQueue)
+void graceEngine::renderObjects(std::vector<sf::RectangleShape*>* debugQueue)
 {
 	window.clear(backgroundColor);
 	sortRenderQueue();		//Sort renderQueue
@@ -145,9 +144,9 @@ void graceEngine::renderObjects(std::vector<sf::RectangleShape*>& debugQueue)
 	{
 		object->render(window);
 	}
-	if (std::size(debugQueue) > 0)
+	if (debugQueue != nullptr)
 	{
-		for (auto shape: debugQueue)
+		for (auto shape: *debugQueue)
 		{
 			window.draw(*shape);
 		}

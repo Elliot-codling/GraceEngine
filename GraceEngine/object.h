@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>				//Remember to delete this
 #include <SFML/Graphics.hpp>
 
 
