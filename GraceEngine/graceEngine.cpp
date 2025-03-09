@@ -133,8 +133,9 @@ void graceEngine::sortRenderQueue()
 }
 
 
+
 //Render the vector of gameObjects
-void graceEngine::renderObjects()
+void graceEngine::renderObjects(std::vector<sf::RectangleShape*>& debugQueue)
 {
 	window.clear(backgroundColor);
 	sortRenderQueue();		//Sort renderQueue
@@ -144,5 +145,13 @@ void graceEngine::renderObjects()
 	{
 		object->render(window);
 	}
+	if (std::size(debugQueue) > 0)
+	{
+		for (auto shape: debugQueue)
+		{
+			window.draw(*shape);
+		}
+	}
+
 	window.display();
 }

@@ -31,6 +31,7 @@ int main() {
 	
 	//PlayerShip
 	spriteObject* playerShip = new spriteObject("player", "textures/spaceship.png", { 50, 100 }, { 60, 68 });
+	playerShip->setOrigin({ 30, 34 }, { 30, 34 });
 	window.pushToQueue(playerShip);
 
 	//Scoreboard
@@ -40,7 +41,12 @@ int main() {
 	window.pushToQueue(scoreboard);
 	Vector2f playerSize = { 60, 68 };
 
-	
+	RectangleShape* rectangle = new RectangleShape({ 0, 0 });
+	rectangle->setFillColor(Color(255, 0, 0));
+
+	vector<RectangleShape*> debugQueue;
+	debugQueue.push_back(rectangle);
+
 	while (window.isRunning()) {
 		window.updateEvents();
 		
@@ -63,6 +69,16 @@ int main() {
 				playerSize.y--;
 				playerShip->setSize(playerSize);
 			}
+
+			if (Keyboard::isKeyPressed(Keyboard::Left))
+			{
+				playerShip->incrementAngle(-10.f);
+			}
+
+			if (Keyboard::isKeyPressed(Keyboard::Right))
+			{
+				playerShip->incrementAngle(10.f);
+			}
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::A))
@@ -75,12 +91,16 @@ int main() {
 			playerShip->right(10, window.getWidth() - playerShip->getSize().x - 10);
 		}
 		playerShip->setPosition(window.getMousePos());
+		
+		rectangle->setSize(playerShip->getSize());
+		rectangle->setPosition(playerShip->getPosition());
 
-		window.renderObjects();
+		window.renderObjects(debugQueue);
 	}
 
 	//Delete all pointers and the renderQueue
 	window.~graceEngine();
+	delete rectangle;
 	return 0;
 
 }

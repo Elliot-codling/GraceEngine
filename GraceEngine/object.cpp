@@ -115,14 +115,9 @@ std::string spriteObject::collisionBox(spriteObject* object)
 	{
 		return "";
 	}
-	else
-	{
-		return object->getId();
-	}
-
+	
+	return object->getId();
 }
-
-
 
 
 
