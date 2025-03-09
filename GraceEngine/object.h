@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>				//Remember to delete this
 #include <SFML/Graphics.hpp>
 
 
@@ -20,14 +21,7 @@ public:
 
 private:
 	short layer = 0;
-	std::string id;
-
-	//spriteObject Specific functions
-	virtual void replaceTexture(std::string textureDir, sf::Vector2f size) = 0;
-	virtual void setSize(sf::Vector2f size) = 0;
-
-	//textObject specific functions
-	
+	std::string id;	
 };
 
 // spriteObject class --------------------------------------------------
@@ -40,21 +34,22 @@ public:
 	~spriteObject() override;
 
 	//Child functions ----------------------------
-	void replaceTexture(std::string textureDir, sf::Vector2f size) override;
+	void replaceTexture(std::string textureDir, sf::Vector2f size);
 
 	//Get size and position functions
-	sf::Vector2f getPosition() { return sprite.getPosition(); }
-	sf::Vector2f getSize() { return sf::Vector2f{ texture.getSize().x * sprite.getScale().x, texture.getSize().y * sprite.getScale().y }; }
+	sf::Vector2f getPosition() { return sf::Vector2f{ sprite.getGlobalBounds().left, sprite.getGlobalBounds().top }; }
+	sf::Vector2f getSize() { return sf::Vector2f{sprite.getGlobalBounds().width, sprite.getGlobalBounds().height}; }
+	float getAngle() { return sprite.getRotation(); }
 
 	//Transform functions
 	void setPosition(sf::Vector2i position) { sprite.setPosition(position.x, position.y); }
 	void incrementPosition(sf::Vector2i position) { sprite.setPosition(sprite.getPosition().x + position.x, sprite.getPosition().y + position.y); }
 #
 	//Scale
-	void setSize(sf::Vector2f size) override { sprite.setScale(size.x / texture.getSize().x, size.y / texture.getSize().y); }
+	void setSize(sf::Vector2f size) { sprite.setScale(size.x / texture.getSize().x, size.y / texture.getSize().y); }
 
 	//Rotations
-	void setOrigin(sf::Vector2f origin) { sprite.setOrigin(origin.x / sprite.getScale().x, origin.y / sprite.getScale().y); }
+	void setOrigin(sf::Vector2f origin, sf::Vector2i offSet);
 	void setAngle(float angle) { sprite.setRotation(angle); }
 	void incrementAngle(float angle) { sprite.rotate(angle); }
 
@@ -63,6 +58,9 @@ public:
 	bool right(int velocity, int borderRight);
 	bool up(int velocity, int borderTop);
 	bool down(int velocity, int borderBottom);
+
+	//Collisions
+	std::string collisionBox(spriteObject* object);
 
 	//Overwritten functions -----------------------------------
 	void render(sf::RenderTarget& target) override { target.draw(sprite); }
@@ -107,8 +105,4 @@ public:
 private:
 	sf::Font font;
 	sf::Text text;
-
-	//Not used
-	void replaceTexture(std::string textureDir, sf::Vector2f size) override { return; }
-	void setSize(sf::Vector2f size) override { return; };
 };

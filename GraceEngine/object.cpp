@@ -36,6 +36,7 @@ spriteObject::~spriteObject()
 
 }
 
+//Replace the sprite texture with a new specified directory
 void spriteObject::replaceTexture(std::string textureDir, sf::Vector2f size) {
 	if (!texture.loadFromFile(textureDir)) {
 		return;
@@ -46,6 +47,14 @@ void spriteObject::replaceTexture(std::string textureDir, sf::Vector2f size) {
 	sprite.setTexture(texture);
 	
 }
+
+void spriteObject::setOrigin(sf::Vector2f origin, sf::Vector2i offSet)
+{
+	sprite.setOrigin(origin.x / sprite.getScale().x, origin.y / sprite.getScale().y);
+	incrementPosition({ offSet.x, offSet.y });
+}
+
+
 
 bool spriteObject::left(int velocity, int borderLeft)
 {
@@ -85,6 +94,32 @@ bool spriteObject::down(int velocity, int borderBottom)
 		return false;
 	}
 	return true;
+}
+
+//Return an object ID if the selected sprite has collided with the object
+std::string spriteObject::collisionBox(spriteObject* object)
+{
+	if (!(getPosition().x <= object->getPosition().x + object->getSize().x))
+	{
+		return "";
+	}
+	else if (!(getPosition().x + getSize().x >= object->getPosition().x))
+	{
+		return "";
+	}
+	else if (!(getPosition().y <= object->getPosition().y + object->getSize().y))
+	{
+		return "";
+	}
+	else if (!(getPosition().y + getSize().y >= object->getPosition().y))
+	{
+		return "";
+	}
+	else
+	{
+		return object->getId();
+	}
+
 }
 
 

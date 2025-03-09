@@ -27,6 +27,7 @@ graceEngine::~graceEngine()
 {
 	for (gameObject* object: renderQueue)
 	{
+		std::cout << object->getId() << "\n";
 		delete object;
 	}
 	renderQueue.clear();
@@ -44,6 +45,8 @@ bool graceEngine::getEvent(sf::Event::EventType eventType)
 {
 	return eventHandler.getEvent(windowOpen, eventType);
 }
+
+
 // ----------------------------------------
 
 //Items can be pushed onto the render queue
@@ -123,7 +126,7 @@ void graceEngine::sortRenderQueue()
 			}
 		}
 	}
-	object = nullptr;
+	object = nullptr;		//Object can be set to a null pointer
 	renderQueue = tempList;
 	delete object;		//Ensure no memory leaks
 	

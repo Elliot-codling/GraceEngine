@@ -22,7 +22,7 @@ int main() {
 			randomNum = rotations[randomNum];
 
 			spriteObject* background = new spriteObject("bgStar", texture, { 64 * x, 64 * y }, {64, 64});
-			background->setOrigin({ 32, 32 });
+			background->setOrigin({ 32, 32 }, {32, 32});
 			background->setAngle(randomNum);
 
 			window.pushToQueue(background);
@@ -50,11 +50,6 @@ int main() {
 				window.stopRunning();
 			}
 
-			if (Keyboard::isKeyPressed(Keyboard::F))
-			{
-				window.orderRenderQueue();
-			}
-
 			if (Keyboard::isKeyPressed(Keyboard::Up))
 			{
 				playerSize.x++;
@@ -79,6 +74,7 @@ int main() {
 		{
 			playerShip->right(10, window.getWidth() - playerShip->getSize().x - 10);
 		}
+		playerShip->setPosition(window.getMousePos());
 
 		window.renderObjects();
 	}

@@ -34,13 +34,15 @@ public:
 	void popFromQueue(textObject* object);	
 
 	//Functions passed onto other files
-	void setAngle(spriteObject& object, float angle);
+
 	//Used for when an event is needed
 	//This is so that the main program can use window.updateEvents()
 	//Instead of creating an object for input.h
 	void updateEvents();
 	bool getEvent(sf::Event::EventType eventType);
-	
+
+	sf::Vector2i getMousePos() { return eventHandler.getMousePos(window); }
+
 private:
 	bool windowOpen;
 	sf::Color backgroundColor;
