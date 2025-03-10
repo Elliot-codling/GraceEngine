@@ -1,36 +1,28 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-
-//Base gameObject that will be sent to the renderer
-//This allows both the sprites and the text to be passed into the renderer
-class gameObject
+class sharedData
 {
 public:
-	//Base class that will be sent however the code will never be executed here
-	virtual ~gameObject() {};
-	virtual void render(sf::RenderTarget& target) = 0;
-
-	//Shared functions
 	std::string getId() { return id; }
-	int getLayer() { return layer; }
+	short getLayer() { return layer; }
 
-	void setId(std::string& objectId) { id = std::move(objectId); }
-	void setLayer(short& objectLayer) { layer = objectLayer; }
+	void setId(std::string objectID) { id = objectID; }
+	void setLayer(short objectLayer) { layer = objectLayer; }
 
 private:
-	short layer = 0;
-	std::string id;	
+	short layer;
+	std::string id;
 };
 
 // spriteObject class --------------------------------------------------
-class spriteObject : public gameObject
+class spriteObject: public sharedData
 {
 public:
 	//Constructor
 	spriteObject(std::string objectId, std::string textureDir, sf::Vector2i position, sf::Vector2f size, short objectLayer = 0);
 	spriteObject(std::string objectId, sf::Texture& textureFile, sf::Vector2i position, sf::Vector2f size, short objectLayer = 0);
-	~spriteObject() override;
+	~spriteObject();
 
 	//Child functions ----------------------------
 	void replaceTexture(std::string textureDir, sf::Vector2f size);
@@ -62,7 +54,7 @@ public:
 	std::string collisionBox(spriteObject* object);
 
 	//Overwritten functions -----------------------------------
-	void render(sf::RenderTarget& target) override { target.draw(sprite); }
+	void render(sf::RenderTarget& target) { target.draw(sprite); }
 
 private:
 	sf::Texture texture;
@@ -72,12 +64,12 @@ private:
 
 
 // textObject class -----------------------------------------------------------------------
-class textObject : public gameObject
+class textObject: public sharedData
 {
 public:
 	//Constructor
 	textObject(std::string objectId, std::string message, sf::Vector2i position, std::string fontDir, int fontSize, short objectLayer = 0);
-	~textObject() override;
+	~textObject();
 
 	//Get functions
 	sf::Vector2f getPosition() { return text.getPosition(); }
@@ -99,7 +91,7 @@ public:
 	void updateString(std::string newMessage) { text.setString(newMessage); }
 
 	//Overwritten functions ----------------------------------------
-	void render(sf::RenderTarget& target) override { target.draw(text); }
+	void render(sf::RenderTarget& target) { target.draw(text); }
 
 private:
 	sf::Font font;

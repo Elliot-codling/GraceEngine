@@ -24,12 +24,11 @@ public:
 
 	//Render and the renderQueue - spriteObject
 	void pushToQueue(spriteObject* object);
-	void popFromQueue(int index);
 	void popFromQueue(spriteObject* object);
 
 	//Render and the renderQueue - textObject
 	void pushToQueue(textObject* object);
-	void popFromQueue(textObject* object);	
+	void popFromQueue(textObject* object);
 
 	//Functions passed onto other files
 
@@ -48,8 +47,9 @@ private:
 	//SFML render objects
 	sf::RenderWindow window;
 
-	//Render Queue
-	std::vector<gameObject*> renderQueue;
+	//Render Queues
+	std::vector<spriteObject*> renderQueueSprite;
+	std::vector<textObject*> renderQueueText;
 	void sortRenderQueue();
 
 	//Used for events;

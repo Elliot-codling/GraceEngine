@@ -25,11 +25,17 @@ window(sf::VideoMode({width, height}), name)
 
 graceEngine::~graceEngine()
 {
-	for (gameObject* object: renderQueue)
+	for (spriteObject* object: renderQueueSprite)
 	{
 		delete object;
 	}
-	renderQueue.clear();
+	renderQueueSprite.clear();
+
+	for (textObject* object: renderQueueText)
+	{
+		delete object;
+	}
+	renderQueueText.clear();
 }
 
 // GraceEngine main functions ---------------------------------------------------------------------------
@@ -51,62 +57,56 @@ bool graceEngine::getEvent(sf::Event::EventType eventType)
 //Items can be pushed onto the render queue
 void graceEngine::pushToQueue(spriteObject* object)
 {
-	renderQueue.push_back(object);
+	renderQueueSprite.push_back(object);
 }
 
 void graceEngine::pushToQueue(textObject* object)
 {
-	renderQueue.push_back(object);
+	renderQueueText.push_back(object);
 }
 
-
-//Remove an item from the queue by its index number
-void graceEngine::popFromQueue(int index)
-{
-	renderQueue.erase(renderQueue.begin() + index);
-}
 
 //Go through the renderQueue and identify the index where the specified object is
 //Remove the object by its index value
 void graceEngine::popFromQueue(spriteObject* object)
 {
 	int index;
-	for (int i = 0; i <= renderQueue.size(); i++)
+	for (int i = 0; i <= renderQueueSprite.size(); i++)
 	{
-		if (renderQueue[i]->getId() == object->getId())
+		if (renderQueueSprite[i]->getId() == object->getId())
 		{
 			index = i;
 			break;
 		}
 	}
-	popFromQueue(index);
+	renderQueueSprite.erase(renderQueueSprite.begin() + index);
 }
 
 void graceEngine::popFromQueue(textObject* object)
 {
 	int index;
-	for (int i = 0; i <= renderQueue.size(); i++)
+	for (int i = 0; i <= renderQueueText.size(); i++)
 	{
-		if (renderQueue[i]->getId() == object->getId())
+		if (renderQueueText[i]->getId() == object->getId())
 		{
 			index = i;
 			break;
 		}
 	}
-	popFromQueue(index);
+	renderQueueText.erase(renderQueueText.begin() + index);
 }
 
 void graceEngine::sortRenderQueue()
 {
 	//Sorts the renderQueue from the smallest layer number to the largest
 	//Whatever was last pushed to the queue will be on top if all the layer numbers are the same
-	std::vector<gameObject*> tempList;
-	tempList.push_back(renderQueue[0]);
+	std::vector<spriteObject*> tempList;
+	tempList.push_back(renderQueueSprite[0]);
 	int lengthOfQueue;
-	gameObject* object = nullptr;
-	for (int indexOfOjbect = 1; indexOfOjbect < size(renderQueue); indexOfOjbect++)
+	spriteObject* object = nullptr;
+	for (int indexOfOjbect = 1; indexOfOjbect < size(renderQueueSprite); indexOfOjbect++)
 	{
-		object = renderQueue[indexOfOjbect];
+		object = renderQueueSprite[indexOfOjbect];
 		lengthOfQueue = size(tempList);
 		for (int index = 0; index < lengthOfQueue; index++)
 		{
@@ -126,7 +126,7 @@ void graceEngine::sortRenderQueue()
 		}
 	}
 	object = nullptr;		//Object can be set to a null pointer
-	renderQueue = tempList;
+	renderQueueSprite = tempList;
 	delete object;		//Ensure no memory leaks
 	
 }
@@ -140,10 +140,16 @@ void graceEngine::renderObjects(std::vector<sf::RectangleShape*>* debugQueue)
 	sortRenderQueue();		//Sort renderQueue
 
 	//Iterate through the display vector and then draw the object to the display
-	for (auto& object: renderQueue)
+	for (auto& object: renderQueueSprite)
 	{
 		object->render(window);
 	}
+
+	for (auto& object: renderQueueText)
+	{
+		object->render(window);
+	}
+
 	if (debugQueue != nullptr)
 	{
 		for (auto shape: *debugQueue)

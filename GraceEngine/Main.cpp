@@ -5,6 +5,7 @@
 using namespace sf;
 using namespace std;
 
+
 int main() {
 	graceEngine window("SFML App", 480, 600);
 
@@ -41,8 +42,6 @@ int main() {
 	window.pushToQueue(scoreboard);
 	Vector2f playerSize = { 60, 68 };
 
-	
-
 	while (window.isRunning()) {
 		window.updateEvents();
 		
@@ -74,6 +73,11 @@ int main() {
 			if (Keyboard::isKeyPressed(Keyboard::Right))
 			{
 				playerShip->incrementAngle(10.f);
+			}
+
+			if (Keyboard::isKeyPressed(Keyboard::Space))
+			{
+
 			}
 		}
 
