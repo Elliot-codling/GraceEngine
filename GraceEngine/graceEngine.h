@@ -25,10 +25,12 @@ public:
 	//Render and the renderQueue - spriteObject
 	void pushToQueue(spriteObject* object);
 	void popFromQueue(spriteObject* object);
+	std::vector<spriteObject*> getSpriteQueue() { return renderQueueSprite; }
 
 	//Render and the renderQueue - textObject
 	void pushToQueue(textObject* object);
 	void popFromQueue(textObject* object);
+	std::vector<textObject*> getTextQueue() { return renderQueueText; }
 
 	//Functions passed onto other files
 
@@ -38,7 +40,7 @@ public:
 	void updateEvents();
 	bool getEvent(sf::Event::EventType eventType);
 
-	sf::Vector2i getMousePos() { return eventHandler.getMousePos(window); }
+	sf::Vector2f getMousePos() { return eventHandler.getMousePos(window); }
 
 private:
 	bool windowOpen;

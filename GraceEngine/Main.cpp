@@ -2,8 +2,23 @@
 #include <iostream>
 #include <ctime>
 
+# define M_PI           3.14159265358979323846  //Pi
+
 using namespace sf;
 using namespace std;
+
+
+void moveBullets(graceEngine& target)
+{
+	auto renderQueue = target.getSpriteQueue();
+	for (auto& object: renderQueue)
+	{
+		if (object->getId() == "bullet")
+		{
+			object->incrementPosition(object->getVelocity());
+		}
+	}
+}
 
 
 int main() {
@@ -42,6 +57,8 @@ int main() {
 	window.pushToQueue(scoreboard);
 	Vector2f playerSize = { 60, 68 };
 
+	
+
 	while (window.isRunning()) {
 		window.updateEvents();
 		
@@ -77,7 +94,13 @@ int main() {
 
 			if (Keyboard::isKeyPressed(Keyboard::Space))
 			{
+				Vector2i position = { int(playerShip->getPosition().x) + 30 - 10, int(playerShip->getPosition().y) + 34 - 10 };
+				spriteObject* bulletObject = new spriteObject("bullet", "textures/red.png", position, { 20, 20 }, 1);
+				float radians = playerShip->getAngle() * M_PI / 180.f;
 
+
+				bulletObject->setVelocity({ float(sin(radians)), -float(cos(radians))});
+				window.pushToQueue(bulletObject);
 			}
 		}
 
@@ -91,6 +114,8 @@ int main() {
 			playerShip->right(10, window.getWidth() - playerShip->getSize().x - 10);
 		}
 		playerShip->setPosition(window.getMousePos());
+
+		moveBullets(window);
 
 		window.renderObjects();
 	}

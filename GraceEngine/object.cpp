@@ -48,7 +48,7 @@ void spriteObject::replaceTexture(std::string textureDir, sf::Vector2f size) {
 	
 }
 
-void spriteObject::setOrigin(sf::Vector2f origin, sf::Vector2i offSet)
+void spriteObject::setOrigin(sf::Vector2f origin, sf::Vector2f offSet)
 {
 	sprite.setOrigin(origin.x / sprite.getScale().x, origin.y / sprite.getScale().y);
 	incrementPosition({ offSet.x, offSet.y });
@@ -56,7 +56,7 @@ void spriteObject::setOrigin(sf::Vector2f origin, sf::Vector2i offSet)
 
 
 
-bool spriteObject::left(int velocity, int borderLeft)
+bool spriteObject::left(float velocity, int borderLeft)
 {
 	if (getPosition().x > borderLeft)
 	{
@@ -66,7 +66,7 @@ bool spriteObject::left(int velocity, int borderLeft)
 	return true;
 }
 
-bool spriteObject::right(int velocity, int borderRight)
+bool spriteObject::right(float velocity, int borderRight)
 {
 	if (getPosition().x < borderRight)
 	{
@@ -76,7 +76,7 @@ bool spriteObject::right(int velocity, int borderRight)
 	return true;
 }
 
-bool spriteObject::up(int velocity, int borderTop)
+bool spriteObject::up(float velocity, int borderTop)
 {
 	if (getPosition().y > borderTop)
 	{
@@ -86,7 +86,7 @@ bool spriteObject::up(int velocity, int borderTop)
 	return true;
 }
 
-bool spriteObject::down(int velocity, int borderBottom)
+bool spriteObject::down(float velocity, int borderBottom)
 {
 	if (getPosition().y < borderBottom)
 	{

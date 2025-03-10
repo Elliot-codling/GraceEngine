@@ -6,13 +6,16 @@ class sharedData
 public:
 	std::string getId() { return id; }
 	short getLayer() { return layer; }
+	sf::Vector2f getVelocity() { return velocity; }
 
 	void setId(std::string objectID) { id = objectID; }
 	void setLayer(short objectLayer) { layer = objectLayer; }
+	void setVelocity(sf::Vector2f objectVelocity) { velocity = objectVelocity; }
 
 private:
 	short layer;
 	std::string id;
+	sf::Vector2f velocity;
 };
 
 // spriteObject class --------------------------------------------------
@@ -33,22 +36,22 @@ public:
 	float getAngle() { return sprite.getRotation(); }
 
 	//Transform functions
-	void setPosition(sf::Vector2i position) { sprite.setPosition(position.x, position.y); }
-	void incrementPosition(sf::Vector2i position) { sprite.setPosition(sprite.getPosition().x + position.x, sprite.getPosition().y + position.y); }
+	void setPosition(sf::Vector2f position) { sprite.setPosition(position.x, position.y); }
+	void incrementPosition(sf::Vector2f position) { sprite.setPosition(sprite.getPosition().x + position.x, sprite.getPosition().y + position.y); }
 #
 	//Scale
 	void setSize(sf::Vector2f size) { sprite.setScale(size.x / texture.getSize().x, size.y / texture.getSize().y); }
 
 	//Rotations
-	void setOrigin(sf::Vector2f origin, sf::Vector2i offSet);
+	void setOrigin(sf::Vector2f origin, sf::Vector2f offSet);
 	void setAngle(float angle) { sprite.setRotation(angle); }
 	void incrementAngle(float angle) { sprite.rotate(angle); }
 
 	//Transform  but with borders
-	bool left(int velocity, int borderLeft);
-	bool right(int velocity, int borderRight);
-	bool up(int velocity, int borderTop);
-	bool down(int velocity, int borderBottom);
+	bool left(float velocity, int borderLeft);
+	bool right(float velocity, int borderRight);
+	bool up(float velocity, int borderTop);
+	bool down(float velocity, int borderBottom);
 
 	//Collisions
 	std::string collisionBox(spriteObject* object);
