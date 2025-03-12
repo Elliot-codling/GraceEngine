@@ -16,6 +16,10 @@ void moveBullets(graceEngine& target)
 		if (object->getId() == "bullet")
 		{
 			object->incrementPosition(object->getVelocity());
+			if (target.getRelativePosition(object).x >= target.getWidth() || target.getRelativePosition(object).x + object->getSize().x <= 0)
+			{
+				target.popFromQueue(object);
+			}
 		}
 	}
 }
@@ -46,7 +50,7 @@ int main() {
 	}
 	
 	//PlayerShip
-	spriteObject* playerShip = new spriteObject("player", "textures/spaceship.png", { 50, 100 }, { 60, 68 });
+	spriteObject* playerShip = new spriteObject("player", "textures/spaceship.png", { (window.getWidth() / 2) - 30, (window.getHeight() / 2) - 34 }, { 60, 68 });
 	playerShip->setOrigin({ 30, 34 }, { 30, 34 });
 	window.pushToQueue(playerShip);
 
@@ -95,25 +99,27 @@ int main() {
 			if (Keyboard::isKeyPressed(Keyboard::Space))
 			{
 				Vector2i position = { int(playerShip->getPosition().x) + 30 - 10, int(playerShip->getPosition().y) + 34 - 10 };
-				spriteObject* bulletObject = new spriteObject("bullet", "textures/red.png", position, { 20, 20 }, 1);
+				spriteObject* bulletObject = new spriteObject("bullet", "textures/bullet.png", position, { 40, 13 }, 1);
 				float radians = playerShip->getAngle() * M_PI / 180.f;
 
 
 				bulletObject->setVelocity({ float(sin(radians)), -float(cos(radians))});
+				bulletObject->setAngle(playerShip->getAngle() - 90.f);
 				window.pushToQueue(bulletObject);
 			}
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::A))
 		{
-			playerShip->left(10, 10);
+			window.incrementCamera({ -1.f, 0.f });
+			//playerShip->incrementPosition({ -1.f, 0.f });
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::D))
 		{
-			playerShip->right(10, window.getWidth() - playerShip->getSize().x - 10);
+			window.incrementCamera({ 1.f, 0.f });
+			//playerShip->incrementPosition({ 1.f, 0.f });
 		}
-		playerShip->setPosition(window.getMousePos());
 
 		moveBullets(window);
 

@@ -19,7 +19,9 @@ window(sf::VideoMode({width, height}), name)
 	//Experimental changes to be made
 	window.setKeyRepeatEnabled(false);
 	window.setFramerateLimit(60);
-	
+
+	camera = new sf::View(sf::FloatRect(0.f, 0.f, width, height));
+	window.setView(*camera);
 }
 
 

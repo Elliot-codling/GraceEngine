@@ -22,6 +22,11 @@ public:
 	int getWidth() { return window.getSize().x; }
 	int getHeight() { return window.getSize().y; }
 
+	//Relative position of object to window
+	sf::Vector2i getRelativePosition(spriteObject* object) { return window.mapCoordsToPixel(object->getPosition()); }
+	//Set world position to window position
+	void setRelativePosition(spriteObject* object, sf::Vector2f position) { object->setPosition(window.mapPixelToCoords({ int(position.x), int(position.y) })); }
+
 	//Render and the renderQueue - spriteObject
 	void pushToQueue(spriteObject* object);
 	void popFromQueue(spriteObject* object);
@@ -31,6 +36,14 @@ public:
 	void pushToQueue(textObject* object);
 	void popFromQueue(textObject* object);
 	std::vector<textObject*> getTextQueue() { return renderQueueText; }
+
+	//Camera control
+	void incrementCamera(sf::Vector2f position)
+	{
+		camera->move(position);
+		window.setView(*camera);
+	}
+
 
 	//Functions passed onto other files
 
@@ -48,6 +61,9 @@ private:
 
 	//SFML render objects
 	sf::RenderWindow window;
+
+	//Camera
+	sf::View* camera;
 
 	//Render Queues
 	std::vector<spriteObject*> renderQueueSprite;

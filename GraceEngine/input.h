@@ -13,11 +13,7 @@ public:
 	void updateEvents(sf::RenderWindow& target);
 	bool getEvent(bool& windowOpen, sf::Event::EventType eventType);
 
-	sf::Vector2f getMousePos(sf::RenderWindow& target)
-	{
-		sf::Vector2f position = { float(sf::Mouse::getPosition(target).x) , float(sf::Mouse::getPosition(target).y) };
-		return position;
-	}
+	sf::Vector2f getMousePos(sf::RenderWindow& target);
 
 private:
 	sf::Event eventQueue;
