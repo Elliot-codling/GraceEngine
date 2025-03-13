@@ -56,41 +56,37 @@ void spriteObject::setOrigin(sf::Vector2f origin, sf::Vector2f offSet)
 
 
 
-bool spriteObject::left(float velocity, int borderLeft)
+bool spriteObject::leftBorder(sf::Vector2i relativePosition, int borderLeft)
 {
-	if (getPosition().x > borderLeft)
+	if (relativePosition.x > borderLeft)
 	{
-		incrementPosition({  -velocity, 0 });
 		return false;
 	}
 	return true;
 }
 
-bool spriteObject::right(float velocity, int borderRight)
+bool spriteObject::rightBorder(sf::Vector2i relativePosition, int borderRight)
 {
-	if (getPosition().x < borderRight)
+	if (relativePosition.x < borderRight)
 	{
-		incrementPosition({ velocity, 0 });
 		return false;
 	}
 	return true;
 }
 
-bool spriteObject::up(float velocity, int borderTop)
+bool spriteObject::topBorder(sf::Vector2i relativePosition, int borderTop)
 {
-	if (getPosition().y > borderTop)
+	if (relativePosition.y > borderTop)
 	{
-		incrementPosition({0, -velocity });
 		return false;
 	}
 	return true;
 }
 
-bool spriteObject::down(float velocity, int borderBottom)
+bool spriteObject::bottomBorder(sf::Vector2i relativePosition, int borderBottom)
 {
-	if (getPosition().y < borderBottom)
+	if (relativePosition.y < borderBottom)
 	{
-		incrementPosition({ 0, velocity});
 		return false;
 	}
 	return true;

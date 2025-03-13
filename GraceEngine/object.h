@@ -48,10 +48,10 @@ public:
 	void incrementAngle(float angle) { sprite.rotate(angle); }
 
 	//Transform  but with borders
-	bool left(float velocity, int borderLeft);
-	bool right(float velocity, int borderRight);
-	bool up(float velocity, int borderTop);
-	bool down(float velocity, int borderBottom);
+	bool leftBorder(sf::Vector2i relativePosition, int borderLeft);
+	bool rightBorder(sf::Vector2i relativePosition, int borderRight);
+	bool topBorder(sf::Vector2i relativePosition, int borderTop);
+	bool bottomBorder(sf::Vector2i relativePosition, int borderBottom);
 
 	//Collisions
 	std::string collisionBox(spriteObject* object);
@@ -79,8 +79,8 @@ public:
 	sf::Vector2f getSize() { return sf::Vector2f(text.getLocalBounds().width, text.getLocalBounds().height); }
 
 	//Transform
-	void setPosition(sf::Vector2i position) { text.setPosition(position.x, position.y); }
-	void incrementPosition(sf::Vector2i position) { text.setPosition(text.getPosition().x + position.x, text.getPosition().y + position.y); }
+	void setPosition(sf::Vector2f position) { text.setPosition(position.x, position.y); }
+	void incrementPosition(sf::Vector2f position) { text.setPosition(text.getPosition().x + position.x, text.getPosition().y + position.y); }
 
 	//Scale
 	void setFontSize(int fontSize) { text.setCharacterSize(fontSize); }

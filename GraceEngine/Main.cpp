@@ -25,10 +25,38 @@ void moveBullets(graceEngine& target)
 }
 
 
+void playerMovement(spriteObject* player, graceEngine& window)
+{
+	
+	if (!player->leftBorder(window.getRelativePosition(player),0) && Keyboard::isKeyPressed(Keyboard::A))
+	{
+		player->incrementPosition({-player->getVelocity().x, 0});
+	}
+	
+
+	if (!player->rightBorder(window.getRelativePosition(player), window.getWidth() - player->getSize().x) && Keyboard::isKeyPressed(Keyboard::D))
+	{
+		player->incrementPosition({ player->getVelocity().x, 0 });
+	}
+
+	if (!player->topBorder(window.getRelativePosition(player), 0) && Keyboard::isKeyPressed(Keyboard::W))
+	{
+		player->incrementPosition({ 0, -player->getVelocity().y });
+	}
+
+	if (!player->bottomBorder(window.getRelativePosition(player), window.getHeight() - player->getSize().y) && Keyboard::isKeyPressed(Keyboard::S))
+	{
+		player->incrementPosition({ 0, player->getVelocity().y });
+	}
+	
+}
+
+
 int main() {
-	graceEngine window("SFML App", 480, 600);
+	graceEngine window("SFML App", 480, 600, {0, 0, 192});
 
 	//Make sure the background textures are not overwritten
+	/*
 	Texture texture;
 	texture.loadFromFile("textures/background-stars.png");
 	srand(time(NULL));
@@ -48,18 +76,26 @@ int main() {
 			window.pushToQueue(background);
 		}
 	}
+	*/
+
+	spriteObject* background = new spriteObject("bg", "textures/ground.png", { 0, 0 }, { 3648, 3200 }, 10);
+	window.pushToQueue(background);
 	
 	//PlayerShip
-	spriteObject* playerShip = new spriteObject("player", "textures/spaceship.png", { (window.getWidth() / 2) - 30, (window.getHeight() / 2) - 34 }, { 60, 68 });
+	spriteObject* playerShip = new spriteObject("player", "textures/spaceship.png", { (window.getWidth() / 2) - 30, (window.getHeight() / 2) - 34 }, { 60, 68 }, 5);
 	playerShip->setOrigin({ 30, 34 }, { 30, 34 });
+	playerShip->setVelocity({ 10, 10 });
 	window.pushToQueue(playerShip);
 
 	//Scoreboard
 	int score = 0;
 	textObject* scoreboard = new textObject("score", "Score: " + to_string(score), { 50, 10 }, "font/Roboto.ttf", 30);
 	scoreboard->setOrigin({ scoreboard->getSize().x / 2, scoreboard->getSize().y / 2 });
+	window.setRelativePosition(scoreboard, { 60, 10 });
 	window.pushToQueue(scoreboard);
-	Vector2f playerSize = { 60, 68 };
+	
+	float zoom = 1.f;
+	Vector2f cameraSize = { 480, 600 };
 
 	
 
@@ -70,30 +106,6 @@ int main() {
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
 				window.stopRunning();
-			}
-
-			if (Keyboard::isKeyPressed(Keyboard::Up))
-			{
-				playerSize.x++;
-				playerSize.y++;
-				playerShip->setSize(playerSize);
-			}
-
-			if (Keyboard::isKeyPressed(Keyboard::Down))
-			{
-				playerSize.x--;
-				playerSize.y--;
-				playerShip->setSize(playerSize);
-			}
-
-			if (Keyboard::isKeyPressed(Keyboard::Left))
-			{
-				playerShip->incrementAngle(-10.f);
-			}
-
-			if (Keyboard::isKeyPressed(Keyboard::Right))
-			{
-				playerShip->incrementAngle(10.f);
 			}
 
 			if (Keyboard::isKeyPressed(Keyboard::Space))
@@ -107,27 +119,62 @@ int main() {
 				bulletObject->setAngle(playerShip->getAngle() - 90.f);
 				window.pushToQueue(bulletObject);
 			}
+
+			if (Keyboard::isKeyPressed(Keyboard::F))
+			{
+				window.printQueue();
+			}
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::A))
+		
+
+		if (Keyboard::isKeyPressed(Keyboard::Up))
 		{
-			window.incrementCamera({ -1.f, 0.f });
-			//playerShip->incrementPosition({ -1.f, 0.f });
+			window.incrementCamera({ 0, -10 });
+			window.setRelativePosition(scoreboard, { 60, 10 });
+			if (playerShip->bottomBorder(window.getRelativePosition(playerShip), window.getHeight() - playerShip->getSize().y))
+			{
+				playerShip->incrementPosition({ 0, -10 });
+			}
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::D))
+		if (Keyboard::isKeyPressed(Keyboard::Down))
 		{
-			window.incrementCamera({ 1.f, 0.f });
-			//playerShip->incrementPosition({ 1.f, 0.f });
+			window.incrementCamera({ 0, 10 });
+			window.setRelativePosition(scoreboard, { 60, 10 });
+			if (playerShip->topBorder(window.getRelativePosition(playerShip), 0))
+			{
+				playerShip->incrementPosition({ 0, 10 });
+			}
 		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Left))
+		{
+			window.incrementCamera({ -10, 0 });
+			window.setRelativePosition(scoreboard, { 60, 10 });
+			if (playerShip->rightBorder(window.getRelativePosition(playerShip), window.getWidth() - playerShip->getSize().x))
+			{
+				playerShip->incrementPosition({ -10, 0 });
+			}
+			
+		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Right))
+		{
+			window.incrementCamera({ 10, 0 });
+			window.setRelativePosition(scoreboard, { 60, 10 });
+			if (playerShip->leftBorder(window.getRelativePosition(playerShip), 0))
+			{
+				playerShip->incrementPosition({ 10, 0 });
+			}
+		}
+
+		playerMovement(playerShip, window);
 
 		moveBullets(window);
 
 		window.renderObjects();
 	}
-
-	//Delete all pointers and the renderQueue
-	window.~graceEngine();
 	return 0;
 
 }

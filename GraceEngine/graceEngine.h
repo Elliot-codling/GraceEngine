@@ -14,6 +14,7 @@ public:
 	~graceEngine();
 
 	void renderObjects(std::vector<sf::RectangleShape*>* debugQueue = nullptr);
+	void clearLayer(int layerNumber);
 
 	//Check if the window is running
 	bool isRunning() { return windowOpen; }
@@ -22,10 +23,17 @@ public:
 	int getWidth() { return window.getSize().x; }
 	int getHeight() { return window.getSize().y; }
 
+	//Camera movement and window relativity
+	void incrementCamera(sf::Vector2f position);
+	void setCameraSize(sf::Vector2f cameraSize);
+
 	//Relative position of object to window
 	sf::Vector2i getRelativePosition(spriteObject* object) { return window.mapCoordsToPixel(object->getPosition()); }
+	sf::Vector2i getRelativePosition(textObject* object) { return window.mapCoordsToPixel(object->getPosition()); }
 	//Set world position to window position
 	void setRelativePosition(spriteObject* object, sf::Vector2f position) { object->setPosition(window.mapPixelToCoords({ int(position.x), int(position.y) })); }
+	void setRelativePosition(textObject* object, sf::Vector2f position) { object->setPosition(window.mapPixelToCoords({ int(position.x), int(position.y) })); }
+
 
 	//Render and the renderQueue - spriteObject
 	void pushToQueue(spriteObject* object);
@@ -37,23 +45,12 @@ public:
 	void popFromQueue(textObject* object);
 	std::vector<textObject*> getTextQueue() { return renderQueueText; }
 
-	//Camera control
-	void incrementCamera(sf::Vector2f position)
-	{
-		camera->move(position);
-		window.setView(*camera);
-	}
-
-
-	//Functions passed onto other files
-
-	//Used for when an event is needed
-	//This is so that the main program can use window.updateEvents()
-	//Instead of creating an object for input.h
+	// Functions passed onto other files ---------------------------------------
+	// Prevents the game.cpp file from having to create an eventHandler
 	void updateEvents();
 	bool getEvent(sf::Event::EventType eventType);
 
-	sf::Vector2f getMousePos() { return eventHandler.getMousePos(window); }
+	sf::Vector2f getMousePos();
 
 private:
 	bool windowOpen;

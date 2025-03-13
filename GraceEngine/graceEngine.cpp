@@ -21,6 +21,7 @@ window(sf::VideoMode({width, height}), name)
 	window.setFramerateLimit(60);
 
 	camera = new sf::View(sf::FloatRect(0.f, 0.f, width, height));
+	camera->setCenter({ 240, 300 });
 	window.setView(*camera);
 }
 
@@ -38,6 +39,8 @@ graceEngine::~graceEngine()
 		delete object;
 	}
 	renderQueueText.clear();
+
+	delete camera;
 }
 
 // GraceEngine main functions ---------------------------------------------------------------------------
@@ -53,8 +56,28 @@ bool graceEngine::getEvent(sf::Event::EventType eventType)
 	return eventHandler.getEvent(windowOpen, eventType);
 }
 
+sf::Vector2f graceEngine::getMousePos()
+{
+	return eventHandler.getMousePos(window);
+}
 
-// ----------------------------------------
+//Camera movement ---------------------------------------------
+
+void graceEngine::incrementCamera(sf::Vector2f position)
+{
+	camera->move(position);
+	window.setView(*camera);
+}
+
+
+void graceEngine::setCameraSize(sf::Vector2f cameraSize)
+{
+	camera->setSize(cameraSize);
+	window.setView(*camera);
+}
+
+
+// Render and Queue ----------------------------------------
 
 //Items can be pushed onto the render queue
 void graceEngine::pushToQueue(spriteObject* object)
@@ -112,25 +135,48 @@ void graceEngine::sortRenderQueue()
 		lengthOfQueue = size(tempList);
 		for (int index = 0; index < lengthOfQueue; index++)
 		{
-			//For the last item
-			if (index == lengthOfQueue - 1)
-			{
-				tempList.insert(tempList.begin() + index + 1, object);
-				break;
-			}
-
 			//Insert only if at the correct index
 			if (object->getLayer() < tempList[index]->getLayer())
 			{
 				tempList.insert(tempList.begin() + index, object);
 				break;
 			}
+
+			//For the last item
+			if (index == lengthOfQueue - 1)
+			{
+				tempList.insert(tempList.begin() + index + 1, object);
+				break;
+			}
 		}
 	}
+	
 	object = nullptr;		//Object can be set to a null pointer
 	renderQueueSprite = tempList;
 	delete object;		//Ensure no memory leaks
 	
+}
+
+
+
+void graceEngine::clearLayer(int layerNumber)
+{
+	//Deletes all objects in a given layer
+	for (auto& object: renderQueueSprite)
+	{
+		if (object->getLayer() == layerNumber)
+		{
+			popFromQueue(object);
+		}
+	}
+
+	for (auto& object : renderQueueText)
+	{
+		if (object->getLayer() == layerNumber)
+		{
+			popFromQueue(object);
+		}
+	}
 }
 
 
