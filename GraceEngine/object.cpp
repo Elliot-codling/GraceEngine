@@ -51,7 +51,7 @@ void spriteObject::replaceTexture(std::string textureDir, sf::Vector2f size) {
 void spriteObject::setOrigin(sf::Vector2f origin, sf::Vector2f offSet)
 {
 	sprite.setOrigin(origin.x / sprite.getScale().x, origin.y / sprite.getScale().y);
-	incrementPosition({ offSet.x, offSet.y });
+	incrementPosition(offSet);
 }
 
 
@@ -119,7 +119,7 @@ std::string spriteObject::collisionBox(spriteObject* object)
 
 
 // textObject constructor ------------------------------------------------------------------------------
-textObject::textObject(std::string objectId, std::string message, sf::Vector2i position, std::string fontDir, int fontSize, short objectLayer)
+textObject::textObject(std::string objectId, std::string message, sf::Vector2f position, std::string fontDir, int fontSize, short objectLayer)
 {
 	if (!font.loadFromFile(fontDir))
 	{
@@ -130,7 +130,7 @@ textObject::textObject(std::string objectId, std::string message, sf::Vector2i p
 	text.setCharacterSize(fontSize);
 	text.setString(message);
 
-	text.setPosition({float(position.x), float(position.y)});
+	setPosition(position);
 	setId(objectId);
 	setLayer(objectLayer);
 }
@@ -138,3 +138,20 @@ textObject::textObject(std::string objectId, std::string message, sf::Vector2i p
 textObject::~textObject()
 {
 }
+
+void textObject::setOrigin(sf::Vector2f origin, sf::Vector2f offSet)
+{
+	text.setOrigin(origin.x, origin.y);
+	incrementPosition(offSet);
+}
+
+
+void textObject::setPosition(sf::Vector2f position)
+{
+	sf::Vector2f offSet;
+	offSet.x = {text.getGlobalBounds().left - text.getPosition().x};
+	offSet.y = { text.getGlobalBounds().top - text.getPosition().y };
+
+	text.setPosition({ position.x - offSet.x, position.y - offSet.y });
+}
+

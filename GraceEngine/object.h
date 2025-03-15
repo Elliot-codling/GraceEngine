@@ -71,22 +71,22 @@ class textObject: public sharedData
 {
 public:
 	//Constructor
-	textObject(std::string objectId, std::string message, sf::Vector2i position, std::string fontDir, int fontSize, short objectLayer = 0);
+	textObject(std::string objectId, std::string message, sf::Vector2f position, std::string fontDir, int fontSize, short objectLayer = 0);
 	~textObject();
 
 	//Get functions
-	sf::Vector2f getPosition() { return text.getPosition(); }
+	sf::Vector2f getPosition() { return { text.getGlobalBounds().left, text.getGlobalBounds().top }; }
 	sf::Vector2f getSize() { return sf::Vector2f(text.getLocalBounds().width, text.getLocalBounds().height); }
 
 	//Transform
-	void setPosition(sf::Vector2f position) { text.setPosition(position.x, position.y); }
+	void setPosition(sf::Vector2f position);
 	void incrementPosition(sf::Vector2f position) { text.setPosition(text.getPosition().x + position.x, text.getPosition().y + position.y); }
 
 	//Scale
 	void setFontSize(int fontSize) { text.setCharacterSize(fontSize); }
 
 	//Rotations
-	void setOrigin(sf::Vector2f origin) { text.setOrigin(origin.x, origin.y); }
+	void setOrigin(sf::Vector2f origin, sf::Vector2f offSet);
 	void setAngle(int angle) { text.setRotation(angle); }
 	void incrementAngle(int angle) { text.rotate(angle); }
 

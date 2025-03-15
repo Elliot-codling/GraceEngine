@@ -78,7 +78,7 @@ int main() {
 	}
 	*/
 
-	spriteObject* background = new spriteObject("bg", "textures/ground.png", { 0, 0 }, { 3648, 3200 }, 10);
+	spriteObject* background = new spriteObject("bg", "textures/ground.png", { 0, 0 }, { 3648, 3200 });
 	window.pushToQueue(background);
 	
 	//PlayerShip
@@ -89,14 +89,13 @@ int main() {
 
 	//Scoreboard
 	int score = 0;
-	textObject* scoreboard = new textObject("score", "Score: " + to_string(score), { 50, 10 }, "font/Roboto.ttf", 30);
-	scoreboard->setOrigin({ scoreboard->getSize().x / 2, scoreboard->getSize().y / 2 });
-	window.setRelativePosition(scoreboard, { 60, 10 });
+	textObject* scoreboard = new textObject("score", "Score: " + to_string(score), { 0, 0 }, "font/Roboto.ttf", 30);
+	scoreboard->setOrigin({ scoreboard->getSize().x / 2, scoreboard->getSize().y / 2 }, { scoreboard->getSize().x / 2, scoreboard->getSize().y / 2 });
 	window.pushToQueue(scoreboard);
 	
-	float zoom = 1.f;
+	float zoom;
 	Vector2f cameraSize = { 480, 600 };
-
+	float guiSize = 30;
 	
 
 	while (window.isRunning()) {
@@ -119,19 +118,37 @@ int main() {
 				bulletObject->setAngle(playerShip->getAngle() - 90.f);
 				window.pushToQueue(bulletObject);
 			}
-
-			if (Keyboard::isKeyPressed(Keyboard::F))
-			{
-				window.printQueue();
-			}
 		}
 
-		
+		if (Keyboard::isKeyPressed(Keyboard::E))
+		{
+			zoom = 1.1f;
+			cameraSize.x *= zoom;
+			cameraSize.y *= zoom;			
+
+			window.setCameraSize(cameraSize);
+			scoreboard->setFontSize((cameraSize.x / window.getWidth() * guiSize));
+			window.setRelativePosition(scoreboard, { 0, 0 });
+		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Q))
+		{
+			zoom = 0.9f;
+			if (cameraSize.x > 480)
+			{
+				cameraSize.x *= zoom;
+				cameraSize.y *= zoom;
+			}
+
+			window.setCameraSize(cameraSize);
+			scoreboard->setFontSize((cameraSize.x / window.getWidth()) * guiSize);
+			window.setRelativePosition(scoreboard, { 0, 0 });
+		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Up))
 		{
 			window.incrementCamera({ 0, -10 });
-			window.setRelativePosition(scoreboard, { 60, 10 });
+			window.setRelativePosition(scoreboard, { 0, 0 });
 			if (playerShip->bottomBorder(window.getRelativePosition(playerShip), window.getHeight() - playerShip->getSize().y))
 			{
 				playerShip->incrementPosition({ 0, -10 });
@@ -141,7 +158,7 @@ int main() {
 		if (Keyboard::isKeyPressed(Keyboard::Down))
 		{
 			window.incrementCamera({ 0, 10 });
-			window.setRelativePosition(scoreboard, { 60, 10 });
+			window.setRelativePosition(scoreboard, { 0, 0 });
 			if (playerShip->topBorder(window.getRelativePosition(playerShip), 0))
 			{
 				playerShip->incrementPosition({ 0, 10 });
@@ -151,7 +168,7 @@ int main() {
 		if (Keyboard::isKeyPressed(Keyboard::Left))
 		{
 			window.incrementCamera({ -10, 0 });
-			window.setRelativePosition(scoreboard, { 60, 10 });
+			window.setRelativePosition(scoreboard, { 0, 0 });
 			if (playerShip->rightBorder(window.getRelativePosition(playerShip), window.getWidth() - playerShip->getSize().x))
 			{
 				playerShip->incrementPosition({ -10, 0 });
@@ -162,7 +179,7 @@ int main() {
 		if (Keyboard::isKeyPressed(Keyboard::Right))
 		{
 			window.incrementCamera({ 10, 0 });
-			window.setRelativePosition(scoreboard, { 60, 10 });
+			window.setRelativePosition(scoreboard, { 0, 0 });
 			if (playerShip->leftBorder(window.getRelativePosition(playerShip), 0))
 			{
 				playerShip->incrementPosition({ 10, 0 });
