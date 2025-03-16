@@ -20,6 +20,10 @@ void moveBullets(graceEngine& target)
 			{
 				target.popFromQueue(object);
 			}
+			if (target.getRelativePosition(object).y >= target.getHeight() || target.getRelativePosition(object).y + object->getSize().y <= 0)
+			{
+				target.popFromQueue(object);
+			}
 		}
 	}
 }
@@ -56,7 +60,7 @@ int main() {
 	graceEngine window("SFML App", 480, 600, {0, 0, 192});
 
 	//Make sure the background textures are not overwritten
-	/*
+	
 	Texture texture;
 	texture.loadFromFile("textures/background-stars.png");
 	srand(time(NULL));
@@ -76,10 +80,8 @@ int main() {
 			window.pushToQueue(background);
 		}
 	}
-	*/
+	
 
-	spriteObject* background = new spriteObject("bg", "textures/ground.png", { 0, 0 }, { 3648, 3200 });
-	window.pushToQueue(background);
 	
 	//PlayerShip
 	spriteObject* playerShip = new spriteObject("player", "textures/spaceship.png", { (window.getWidth() / 2) - 30, (window.getHeight() / 2) - 34 }, { 60, 68 }, 5);
