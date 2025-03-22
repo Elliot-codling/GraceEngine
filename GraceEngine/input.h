@@ -12,6 +12,9 @@ public:
 	//Used for when an event is needed
 	void updateEvents(sf::RenderWindow& target);
 	bool getEvent(bool& windowOpen, sf::Event::EventType eventType);
+
+	sf::Vector2f getMousePos(sf::RenderWindow& target);
+
 private:
 	sf::Event eventQueue;
 	std::vector<sf::Event::EventType> currentEvents;

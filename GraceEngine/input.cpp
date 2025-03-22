@@ -33,3 +33,10 @@ bool gameEvents::getEvent(bool& windowOpen, sf::Event::EventType eventType)
 	}
 	return false;
 }
+
+
+sf::Vector2f gameEvents::getMousePos(sf::RenderWindow& target)
+{
+	sf::Vector2f position = { float(sf::Mouse::getPosition(target).x) , float(sf::Mouse::getPosition(target).y) };
+	return position;
+}

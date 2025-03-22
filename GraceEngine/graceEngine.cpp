@@ -19,17 +19,28 @@ window(sf::VideoMode({width, height}), name)
 	//Experimental changes to be made
 	window.setKeyRepeatEnabled(false);
 	window.setFramerateLimit(60);
-	
+
+	camera = new sf::View(sf::FloatRect(0.f, 0.f, width, height));
+	camera->setCenter({ 240, 300 });
+	window.setView(*camera);
 }
 
 
 graceEngine::~graceEngine()
 {
-	for (gameObject* object: renderQueue)
+	for (spriteObject* object: renderQueueSprite)
 	{
 		delete object;
 	}
-	renderQueue.clear();
+	renderQueueSprite.clear();
+
+	for (textObject* object: renderQueueText)
+	{
+		delete object;
+	}
+	renderQueueText.clear();
+
+	delete camera;
 }
 
 // GraceEngine main functions ---------------------------------------------------------------------------
@@ -44,102 +55,156 @@ bool graceEngine::getEvent(sf::Event::EventType eventType)
 {
 	return eventHandler.getEvent(windowOpen, eventType);
 }
-// ----------------------------------------
+
+sf::Vector2f graceEngine::getMousePos()
+{
+	return eventHandler.getMousePos(window);
+}
+
+//Camera movement ---------------------------------------------
+
+void graceEngine::incrementCamera(sf::Vector2f position)
+{
+	camera->move(position);
+	window.setView(*camera);
+}
+
+
+void graceEngine::setCameraSize(sf::Vector2f cameraSize)
+{
+	camera->setSize(cameraSize);
+	window.setView(*camera);
+}
+
+
+// Render and Queue ----------------------------------------
 
 //Items can be pushed onto the render queue
 void graceEngine::pushToQueue(spriteObject* object)
 {
-	renderQueue.push_back(object);
+	renderQueueSprite.push_back(object);
 }
 
 void graceEngine::pushToQueue(textObject* object)
 {
-	renderQueue.push_back(object);
+	renderQueueText.push_back(object);
 }
 
-
-//Remove an item from the queue by its index number
-void graceEngine::popFromQueue(int index)
-{
-	renderQueue.erase(renderQueue.begin() + index);
-}
 
 //Go through the renderQueue and identify the index where the specified object is
 //Remove the object by its index value
 void graceEngine::popFromQueue(spriteObject* object)
 {
 	int index;
-	for (int i = 0; i <= renderQueue.size(); i++)
+	for (int i = 0; i <= renderQueueSprite.size(); i++)
 	{
-		if (renderQueue[i]->getId() == object->getId())
+		if (renderQueueSprite[i]->getId() == object->getId())
 		{
 			index = i;
 			break;
 		}
 	}
-	popFromQueue(index);
+	renderQueueSprite.erase(renderQueueSprite.begin() + index);
 }
 
 void graceEngine::popFromQueue(textObject* object)
 {
 	int index;
-	for (int i = 0; i <= renderQueue.size(); i++)
+	for (int i = 0; i <= renderQueueText.size(); i++)
 	{
-		if (renderQueue[i]->getId() == object->getId())
+		if (renderQueueText[i]->getId() == object->getId())
 		{
 			index = i;
 			break;
 		}
 	}
-	popFromQueue(index);
+	renderQueueText.erase(renderQueueText.begin() + index);
 }
 
 void graceEngine::sortRenderQueue()
 {
 	//Sorts the renderQueue from the smallest layer number to the largest
 	//Whatever was last pushed to the queue will be on top if all the layer numbers are the same
-	std::vector<gameObject*> tempList;
-	tempList.push_back(renderQueue[0]);
+	std::vector<spriteObject*> tempList;
+	tempList.push_back(renderQueueSprite[0]);
 	int lengthOfQueue;
-	gameObject* object = nullptr;
-	for (int indexOfOjbect = 1; indexOfOjbect < size(renderQueue); indexOfOjbect++)
+	spriteObject* object = nullptr;
+	for (int indexOfOjbect = 1; indexOfOjbect < size(renderQueueSprite); indexOfOjbect++)
 	{
-		object = renderQueue[indexOfOjbect];
+		object = renderQueueSprite[indexOfOjbect];
 		lengthOfQueue = size(tempList);
 		for (int index = 0; index < lengthOfQueue; index++)
 		{
-			//For the last item
-			if (index == lengthOfQueue - 1)
-			{
-				tempList.insert(tempList.begin() + index + 1, object);
-				break;
-			}
-
 			//Insert only if at the correct index
 			if (object->getLayer() < tempList[index]->getLayer())
 			{
 				tempList.insert(tempList.begin() + index, object);
 				break;
 			}
+
+			//For the last item
+			if (index == lengthOfQueue - 1)
+			{
+				tempList.insert(tempList.begin() + index + 1, object);
+				break;
+			}
 		}
 	}
-	object = nullptr;
-	renderQueue = tempList;
+	
+	object = nullptr;		//Object can be set to a null pointer
+	renderQueueSprite = tempList;
 	delete object;		//Ensure no memory leaks
 	
 }
 
 
+
+void graceEngine::clearLayer(int layerNumber)
+{
+	//Deletes all objects in a given layer
+	for (auto& object: renderQueueSprite)
+	{
+		if (object->getLayer() == layerNumber)
+		{
+			popFromQueue(object);
+		}
+	}
+
+	for (auto& object : renderQueueText)
+	{
+		if (object->getLayer() == layerNumber)
+		{
+			popFromQueue(object);
+		}
+	}
+}
+
+
+
 //Render the vector of gameObjects
-void graceEngine::renderObjects()
+void graceEngine::renderObjects(std::vector<sf::RectangleShape*>* debugQueue)
 {
 	window.clear(backgroundColor);
 	sortRenderQueue();		//Sort renderQueue
 
 	//Iterate through the display vector and then draw the object to the display
-	for (auto& object: renderQueue)
+	for (auto& object: renderQueueSprite)
 	{
 		object->render(window);
 	}
+
+	for (auto& object: renderQueueText)
+	{
+		object->render(window);
+	}
+
+	if (debugQueue != nullptr)
+	{
+		for (auto shape: *debugQueue)
+		{
+			window.draw(*shape);
+		}
+	}
+
 	window.display();
 }

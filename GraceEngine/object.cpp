@@ -36,6 +36,7 @@ spriteObject::~spriteObject()
 
 }
 
+//Replace the sprite texture with a new specified directory
 void spriteObject::replaceTexture(std::string textureDir, sf::Vector2f size) {
 	if (!texture.loadFromFile(textureDir)) {
 		return;
@@ -47,53 +48,78 @@ void spriteObject::replaceTexture(std::string textureDir, sf::Vector2f size) {
 	
 }
 
-bool spriteObject::left(int velocity, int borderLeft)
+void spriteObject::setOrigin(sf::Vector2f origin, sf::Vector2f offSet)
 {
-	if (getPosition().x > borderLeft)
+	sprite.setOrigin(origin.x / sprite.getScale().x, origin.y / sprite.getScale().y);
+	incrementPosition(offSet);
+}
+
+
+
+bool spriteObject::leftBorder(sf::Vector2i relativePosition, int borderLeft)
+{
+	if (relativePosition.x > borderLeft)
 	{
-		incrementPosition({  -velocity, 0 });
 		return false;
 	}
 	return true;
 }
 
-bool spriteObject::right(int velocity, int borderRight)
+bool spriteObject::rightBorder(sf::Vector2i relativePosition, int borderRight)
 {
-	if (getPosition().x < borderRight)
+	if (relativePosition.x < borderRight)
 	{
-		incrementPosition({ velocity, 0 });
 		return false;
 	}
 	return true;
 }
 
-bool spriteObject::up(int velocity, int borderTop)
+bool spriteObject::topBorder(sf::Vector2i relativePosition, int borderTop)
 {
-	if (getPosition().y > borderTop)
+	if (relativePosition.y > borderTop)
 	{
-		incrementPosition({0, -velocity });
 		return false;
 	}
 	return true;
 }
 
-bool spriteObject::down(int velocity, int borderBottom)
+bool spriteObject::bottomBorder(sf::Vector2i relativePosition, int borderBottom)
 {
-	if (getPosition().y < borderBottom)
+	if (relativePosition.y < borderBottom)
 	{
-		incrementPosition({ 0, velocity});
 		return false;
 	}
 	return true;
 }
 
-
+//Return an object ID if the selected sprite has collided with the object
+std::string spriteObject::collisionBox(spriteObject* object)
+{
+	if (!(getPosition().x <= object->getPosition().x + object->getSize().x))
+	{
+		return "";
+	}
+	else if (!(getPosition().x + getSize().x >= object->getPosition().x))
+	{
+		return "";
+	}
+	else if (!(getPosition().y <= object->getPosition().y + object->getSize().y))
+	{
+		return "";
+	}
+	else if (!(getPosition().y + getSize().y >= object->getPosition().y))
+	{
+		return "";
+	}
+	
+	return object->getId();
+}
 
 
 
 
 // textObject constructor ------------------------------------------------------------------------------
-textObject::textObject(std::string objectId, std::string message, sf::Vector2i position, std::string fontDir, int fontSize, short objectLayer)
+textObject::textObject(std::string objectId, std::string message, sf::Vector2f position, std::string fontDir, int fontSize, short objectLayer)
 {
 	if (!font.loadFromFile(fontDir))
 	{
@@ -104,7 +130,7 @@ textObject::textObject(std::string objectId, std::string message, sf::Vector2i p
 	text.setCharacterSize(fontSize);
 	text.setString(message);
 
-	text.setPosition({float(position.x), float(position.y)});
+	setPosition(position);
 	setId(objectId);
 	setLayer(objectLayer);
 }
@@ -112,3 +138,20 @@ textObject::textObject(std::string objectId, std::string message, sf::Vector2i p
 textObject::~textObject()
 {
 }
+
+void textObject::setOrigin(sf::Vector2f origin, sf::Vector2f offSet)
+{
+	text.setOrigin(origin.x, origin.y);
+	incrementPosition(offSet);
+}
+
+
+void textObject::setPosition(sf::Vector2f position)
+{
+	sf::Vector2f offSet;
+	offSet.x = {text.getGlobalBounds().left - text.getPosition().x};
+	offSet.y = { text.getGlobalBounds().top - text.getPosition().y };
+
+	text.setPosition({ position.x - offSet.x, position.y - offSet.y });
+}
+
