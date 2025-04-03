@@ -218,7 +218,7 @@ int main() {
 
 	spriteObject* wire = new spriteObject("wire", textureWire, { 0, 0 }, { 1920, 1080 }, 1);
 	window.pushToQueue(wire);
-	//Change to preview
+	
 	
 	//PlayerShip
 	spriteObject* playerShip = new spriteObject("player", "textures/spaceship.png", { (window.getWidth() / 2.f) - 30, (window.getHeight() / 2.f) - 34 }, { 60, 68 }, 2);
