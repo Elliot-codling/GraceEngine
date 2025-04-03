@@ -21,7 +21,7 @@ window(sf::VideoMode({width, height}), name)
 	window.setFramerateLimit(60);
 
 	camera = new sf::View(sf::FloatRect(0.f, 0.f, width, height));
-	camera->setCenter({ 240, 300 });
+	camera->setCenter({ std::round(width / 2.f), std::round(height / 2.f) });
 	window.setView(*camera);
 }
 
@@ -182,7 +182,27 @@ void graceEngine::clearLayer(int layerNumber)
 
 
 //Render the vector of gameObjects
-void graceEngine::renderObjects(std::vector<sf::RectangleShape*>* debugQueue)
+void graceEngine::renderObjects()
+{
+	window.clear(backgroundColor);
+	sortRenderQueue();		//Sort renderQueue
+
+	//Iterate through the display vector and then draw the object to the display
+	for (auto& object : renderQueueSprite)
+	{
+		object->render(window);
+	}
+
+	for (auto& object : renderQueueText)
+	{
+		object->render(window);
+	}
+
+	window.display();
+}
+
+//DEBUG RENDERER
+void graceEngine::renderObjects(std::vector<debugShape*>* debugQueue)
 {
 	window.clear(backgroundColor);
 	sortRenderQueue();		//Sort renderQueue
@@ -198,13 +218,27 @@ void graceEngine::renderObjects(std::vector<sf::RectangleShape*>* debugQueue)
 		object->render(window);
 	}
 
-	if (debugQueue != nullptr)
+	for (auto shape : *debugQueue)
 	{
-		for (auto shape: *debugQueue)
-		{
-			window.draw(*shape);
-		}
+		window.draw(shape->getShape());
 	}
 
 	window.display();
 }
+
+
+
+
+debugShape::debugShape(spriteObject* object)
+{
+	rectangle->setSize(object->getSize());
+	rectangle->setPosition(object->getPosition());
+	rectangle->setFillColor(sf::Color::Yellow);
+}
+
+
+debugShape::~debugShape()
+{
+	delete rectangle;
+}
+

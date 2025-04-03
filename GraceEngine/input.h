@@ -3,7 +3,6 @@
 
 class gameEvents
 {
-
 public:
 	//Nothing needed for the constructor
 	gameEvents();
