@@ -5,6 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+class debugShape;
 // Main game engine
 //Used to initialise the window of SFML
 class graceEngine
@@ -13,7 +14,8 @@ public:
 	graceEngine(std::string name, uint16_t width, uint16_t height, sf::Color color = {0, 0, 0});
 	~graceEngine();
 
-	void renderObjects(std::vector<sf::RectangleShape*>* debugQueue = nullptr);
+	void renderObjects();
+	void renderObjects(std::vector<debugShape*>* debugQueue);
 	void clearLayer(int layerNumber);
 
 	//Check if the window is running
@@ -25,13 +27,15 @@ public:
 
 	//Camera movement and window relativity
 	void incrementCamera(sf::Vector2f position);
+	sf::Vector2f getCameraPos() { return camera->getCenter(); }
 	void setCameraSize(sf::Vector2f cameraSize);
 
 	//Relative position of object to window
 	sf::Vector2i getRelativePosition(spriteObject* object) { return window.mapCoordsToPixel(object->getPosition()); }
 	sf::Vector2i getRelativePosition(textObject* object) { return window.mapCoordsToPixel(object->getPosition()); }
+	
 	//Set world position to window position
-	void setRelativePosition(spriteObject* object, sf::Vector2f position) { object->setPosition(window.mapPixelToCoords({ int(position.x), int(position.y) })); }
+	void setRelativePosition(spriteObject* object, sf::Vector2f position) { object->setPosition(window.mapPixelToCoords({ static_cast<int>(position.x), static_cast<int>(position.y) })); }
 	void setRelativePosition(textObject* object, sf::Vector2f position) { object->setPosition(window.mapPixelToCoords({ int(position.x), int(position.y) })); }
 
 
@@ -65,8 +69,39 @@ private:
 	//Render Queues
 	std::vector<spriteObject*> renderQueueSprite;
 	std::vector<textObject*> renderQueueText;
+	
+	
 	void sortRenderQueue();
 
 	//Used for events;
 	gameEvents eventHandler;
+};
+
+
+class debugShape
+{
+public:
+	debugShape(spriteObject* object);
+	~debugShape();
+
+	void setShapePosition(sf::Vector2f position) { rectangle->setPosition(position); }
+	sf::RectangleShape getShape() { return *rectangle; }
+
+
+private:
+	sf::RectangleShape* rectangle = new sf::RectangleShape;
+
+};
+
+
+class debugHandler
+{
+public:
+	debugHandler() = default;
+	~debugHandler() = default;
+	void pushToDebugQueue(debugShape &shape) { debugQueue.push_back(&shape); }
+	std::vector<debugShape*>* getDebugQueue() { return &debugQueue; }
+
+private:
+	std::vector<debugShape*> debugQueue;
 };
