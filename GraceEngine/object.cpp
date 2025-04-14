@@ -154,14 +154,27 @@ std::string spriteObject::collisionBox(spriteObject* object)
 // textObject constructor ------------------------------------------------------------------------------
 textObject::textObject(std::string objectId, std::string message, sf::Vector2f position, std::string fontDir, int fontSize, short objectLayer)
 {
-	if (!m_font.loadFromFile(fontDir))
+	if (!m_font->loadFromFile(fontDir))
 	{
 		return;
 	}
 
-	m_text.setFont(m_font);
-	m_text.setCharacterSize(fontSize);
-	m_text.setString(message);
+	m_text->setFont(*m_font);
+	m_text->setCharacterSize(fontSize);
+	m_text->setString(message);
+
+	setPosition(position);
+	setId(objectId);
+	setLayer(objectLayer);
+}
+
+textObject::textObject(std::string objectId, std::string message, sf::Vector2f position, sf::Font& fontFile, int fontSize, short objectLayer)
+{
+	*m_font = fontFile;
+
+	m_text->setFont(*m_font);
+	m_text->setCharacterSize(fontSize);
+	m_text->setString(message);
 
 	setPosition(position);
 	setId(objectId);
@@ -174,16 +187,16 @@ textObject::~textObject()
 
 void textObject::setOrigin(sf::Vector2f origin)
 {
-	m_text.setOrigin(origin.x, origin.y);
+	m_text->setOrigin(origin.x, origin.y);
 }
 
 
 void textObject::setPosition(sf::Vector2f position)
 {
 	sf::Vector2f offSet;
-	offSet.x = { m_text.getGlobalBounds().left - m_text.getPosition().x};
-	offSet.y = { m_text.getGlobalBounds().top - m_text.getPosition().y };
+	offSet.x = { m_text->getGlobalBounds().left - m_text->getPosition().x};
+	offSet.y = { m_text->getGlobalBounds().top - m_text->getPosition().y };
 
-	m_text.setPosition({ position.x - offSet.x, position.y - offSet.y });
+	m_text->setPosition({ position.x - offSet.x, position.y - offSet.y });
 }
 

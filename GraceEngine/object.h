@@ -79,31 +79,32 @@ class textObject: public sharedData
 public:
 	//Constructor
 	textObject(std::string objectId, std::string message, sf::Vector2f position, std::string fontDir, int fontSize, short objectLayer = 0);
+	textObject(std::string objectId, std::string message, sf::Vector2f position, sf::Font& fontFile, int fontSize, short objectLayer = 0);
 	~textObject();
 
 	//Get functions
-	sf::Vector2f getPosition() { return { m_text.getGlobalBounds().left, m_text.getGlobalBounds().top }; }
-	sf::Vector2f getSize() { return { m_text.getLocalBounds().width, m_text.getLocalBounds().height }; }
+	sf::Vector2f getPosition() { return { m_text->getGlobalBounds().left, m_text->getGlobalBounds().top }; }
+	sf::Vector2f getSize() { return { m_text->getLocalBounds().width, m_text->getLocalBounds().height }; }
 
 	//Transform
 	void setPosition(sf::Vector2f position);
-	void incrementPosition(sf::Vector2f position) { m_text.setPosition(m_text.getPosition().x + position.x, m_text.getPosition().y + position.y); }
+	void incrementPosition(sf::Vector2f position) { m_text->setPosition(m_text->getPosition().x + position.x, m_text->getPosition().y + position.y); }
 
 	//Scale
-	void setFontSize(int fontSize) { m_text.setCharacterSize(fontSize); }
+	void setFontSize(int fontSize) { m_text->setCharacterSize(fontSize); }
 
 	//Rotations
 	void setOrigin(sf::Vector2f origin);
-	void setAngle(float angle) { m_text.setRotation(angle); }
-	void incrementAngle(float angle) { m_text.rotate(angle); }
+	void setAngle(float angle) { m_text->setRotation(angle); }
+	void incrementAngle(float angle) { m_text->rotate(angle); }
 
 	//Update the message of the text
-	void updateString(std::string newMessage) { m_text.setString(newMessage); }
+	void updateString(std::string newMessage) { m_text->setString(newMessage); }
 
 	//Overwritten functions ----------------------------------------
-	void render(sf::RenderTarget& target) { target.draw(m_text); }
+	void render(sf::RenderTarget& target) { target.draw(*m_text); }
 
 private:
-	sf::Font m_font;
-	sf::Text m_text;
+	sf::Font* m_font = new sf::Font;
+	sf::Text* m_text = new sf::Text;
 };
