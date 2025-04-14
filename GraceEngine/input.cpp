@@ -10,17 +10,17 @@ gameEvents::~gameEvents() {
 
 void gameEvents::updateEvents(sf::RenderWindow& target)
 {
-	currentEvents.clear();
-	while (target.pollEvent(eventQueue))
+	m_currentEvents.clear();
+	while (target.pollEvent(m_eventQueue))
 	{
-		currentEvents.push_back(eventQueue.type);
+		m_currentEvents.push_back(m_eventQueue.type);
 	}
 }
 
 
 bool gameEvents::getEvent(bool& windowOpen, sf::Event::EventType eventType)
 {
-	for (auto& event : currentEvents)
+	for (auto& event : m_currentEvents)
 	{
 		if (event == sf::Event::Closed)
 		{

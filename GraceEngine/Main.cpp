@@ -1,10 +1,9 @@
 #include "graceEngine.h"
 #include <iostream>
 #include <ctime>
-#include <memory>
 
 
-# define M_PI           3.14159265358979323846  //Pi
+# define PI           3.14159265358979323846  //Pi
 
 using namespace sf;
 using namespace std;
@@ -252,7 +251,7 @@ int main() {
 			{
 				Vector2f position = { playerShip->getPosition().x + 30 - 10, playerShip->getPosition().y + 34 - 10 };
 				spriteObject* bulletObject = new spriteObject("bullet", "textures/bullet.png", position, { 40, 13 }, 1);
-				float radians = playerShip->getAngle() * M_PI / 180.f;
+				float radians = playerShip->getAngle() * PI / 180.f;
 
 
 				bulletObject->setVelocity({ float(sin(radians)), -float(cos(radians))});

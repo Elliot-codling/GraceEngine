@@ -15,7 +15,7 @@ public:
 	sf::Vector2f getMousePos(sf::RenderWindow& target);
 
 private:
-	sf::Event eventQueue;
-	std::vector<sf::Event::EventType> currentEvents;
+	sf::Event m_eventQueue;
+	std::vector<sf::Event::EventType> m_currentEvents;
 };
 
