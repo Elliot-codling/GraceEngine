@@ -1,0 +1,8 @@
+C:/Users/Ellio/Documents/Github/GraceEngine/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Ellio/Documents/Github/GraceEngine/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Ellio/Documents/Github/GraceEngine/cmake-build-debug/GameTesting/CMakeFiles/GameTesting.dir
+C:/Users/Ellio/Documents/Github/GraceEngine/cmake-build-debug/GameTesting/CMakeFiles/edit_cache.dir
+C:/Users/Ellio/Documents/Github/GraceEngine/cmake-build-debug/GameTesting/CMakeFiles/rebuild_cache.dir
+C:/Users/Ellio/Documents/Github/GraceEngine/cmake-build-debug/GraceEngine/CMakeFiles/GraceEngine.dir
+C:/Users/Ellio/Documents/Github/GraceEngine/cmake-build-debug/GraceEngine/CMakeFiles/edit_cache.dir
+C:/Users/Ellio/Documents/Github/GraceEngine/cmake-build-debug/GraceEngine/CMakeFiles/rebuild_cache.dir
