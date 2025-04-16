@@ -6,6 +6,7 @@
 # define PI           3.14159265358979323846  //Pi
 
 //I am making a change and this should ignore .idea and build files
+//I hope .idea gets included
 using namespace sf;
 using namespace std;
 
