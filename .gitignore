@@ -1,5 +1,6 @@
 .idea/*.xml
 .idea/*.iml
+.idea/*.gitignore
 !.idea/workspace.xml
 
 
