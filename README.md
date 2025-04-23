@@ -24,7 +24,8 @@ We are in the works of supporting VS 2022 along with a guide to setup the projec
 3. In the root directory, right click on the CMakeLists.txt and press "Load CMake Project". This will create two folders called "cmake-build-debug" and "cmake-build-release".
 4. Click the run button. Ensure the configuration says "GameTesting".
 > [!NOTE]
-> If you have any issues with setting this up please report the problem on the issue tab on the official Github page.
+> - If you have any issues with setting this up please report the problem on the issue tab on the official Github page.
+> - More information on how to create your own project will be included in the documentation.
 
 ### For other IDE
 
