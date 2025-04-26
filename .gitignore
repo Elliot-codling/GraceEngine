@@ -1,7 +1,12 @@
+#For CLion
 .idea/*.xml
 .idea/*.iml
 .idea/*.gitignore
 !.idea/workspace.xml
-
-
+#Clion-build
 cmake-build-*/
+
+#VS2022
+.vs/
+out/
+x64/
