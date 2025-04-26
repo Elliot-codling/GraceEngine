@@ -1,8 +1,5 @@
 #For CLion
-.idea/*.xml
-.idea/*.iml
-.idea/*.gitignore
-!.idea/workspace.xml
+.idea/
 #Clion-build
 cmake-build-*/
 
