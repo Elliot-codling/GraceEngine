@@ -15,6 +15,8 @@ Vector2f cameraSize = { 1920, 1080 };
 Vector2f wirePos = { 0, 0 };
 float guiSize = 30;
 
+//This is an update in the code
+
 void moveBullets(graceEngine& target)
 {
 	auto renderQueue = target.getSpriteQueue();
