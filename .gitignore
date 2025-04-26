@@ -10,3 +10,4 @@ cmake-build-*/
 .vs/
 out/
 x64/
+CMakeSettings.json
