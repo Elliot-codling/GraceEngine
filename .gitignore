@@ -5,6 +5,7 @@
 !.gitignore
 !README.md
 !LICENSE.txt
+!CMakeLists.txt
 
 #And the following folders
 !GameTesting/
