@@ -37,7 +37,7 @@ Ensure you have MinGW64 as your compiler. If you do not have it installed please
 1. Download MinGW via [MSYS2](https://www.msys2.org/).
 2. Install MSYS2 ensuring to tick run MSYS2 once completed, do not type in any commands into the terminal just yet.
 3. Once you've hit the terminal, type the command: `pacman -S mingw-w64-x86_64-gcc`. Type `y` to proceed with the installation.
-4. OPTIONAL: To ensure you have GCC installed correctly, open "MSYS2 MINGGW64" and type the command `gcc --version` and `g++ --version`.
+4. OPTIONAL: To ensure you have GCC installed correctly, open "MSYS2 MINGW64" and type the command `gcc --version` and `g++ --version`.
 > [!NOTE]
 > - If you have any issues with setting this up please report the problem on the issue tab on the official Github page.
 > - More information on how to create your own project will be included in the documentation.
