@@ -18,8 +18,8 @@ We have future plans to allow this to be used on different operating systems and
 
 Our recommended fully supported IDE is [Clion](https://www.jetbrains.com/clion/) by Jetbrains.
 We do support other IDEs such as:
-[VS2022](https://visualstudio.microsoft.com/vs/) by Microsoft.
-[VScode](https://code.visualstudio.com/) by Microsoft.
+- [VS2022](https://visualstudio.microsoft.com/vs/) by Microsoft.
+- [VScode](https://code.visualstudio.com/) by Microsoft.
 
 ## How to get started
 
