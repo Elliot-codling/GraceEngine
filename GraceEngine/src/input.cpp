@@ -12,7 +12,7 @@ void gameEvents::updateEvents(sf::RenderWindow& target)
 
 //Check through the current event list and check if any match the requested event type
 //Close the window if the close button has been pressed
-bool gameEvents::getEvent(bool& windowOpen, sf::Event::EventType eventType)
+bool gameEvents::getEvent(bool& windowOpen, sf::Event::EventType eventType) const
 {
     for (auto& event : m_currentEvents)
     {
@@ -31,6 +31,6 @@ bool gameEvents::getEvent(bool& windowOpen, sf::Event::EventType eventType)
 //Get current mouse position relative to window
 sf::Vector2f gameEvents::getMousePos(sf::RenderWindow& target)
 {
-    sf::Vector2f position = { (float)sf::Mouse::getPosition(target).x , (float)sf::Mouse::getPosition(target).y };
+    sf::Vector2f position = { static_cast<float>(sf::Mouse::getPosition(target).x) , static_cast<float>(sf::Mouse::getPosition(target).y) };
     return position;
 }

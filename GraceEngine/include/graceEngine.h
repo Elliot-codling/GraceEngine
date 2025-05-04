@@ -1,7 +1,6 @@
 #pragma once
 //Include all required external dependencies
 #include <SFML/graphics.hpp>
-#include <iostream>
 
 //Import the other files that will be used to create the engine
 #include "object.h"
@@ -14,32 +13,32 @@ class debugShape;
 class graceEngine
 {
 public:
-	graceEngine(std::string name, int width, int height, sf::Color color = {0, 0, 0});
+	graceEngine(const std::string &name, int width, int height, sf::Color color = {0, 0, 0});
 	~graceEngine();
 
 	void renderObjects();
-	void renderObjects(std::vector<debugShape*>* debugQueue);
+	void renderObjects(const std::vector<debugShape*>* debugQueue);
 	void clearLayer(int layerNumber);
 
 	//Check if the window is running
-	bool isRunning() { return m_windowOpen; }
+	bool isRunning() const { return m_windowOpen; }
 	void stopRunning() { m_windowOpen = false; }
 
-	int getWidth() { return m_window.getSize().x; }
-	int getHeight() { return m_window.getSize().y; }
+	int getWidth() const { return static_cast<int>(m_window.getSize().x); }
+	int getHeight() const { return static_cast<int>(m_window.getSize().y); }
 
 	//Camera movement and window relativity
 	void incrementCamera(sf::Vector2f position);
-	sf::Vector2f getCameraPos() { return m_camera->getCenter(); }
+	sf::Vector2f getCameraPos() const { return m_camera->getCenter(); }
 	void setCameraSize(sf::Vector2f cameraSize);
 
 	//Relative position of object to window
-	sf::Vector2i getRelativePosition(spriteObject* object) { return m_window.mapCoordsToPixel(object->getPosition()); }
-	sf::Vector2i getRelativePosition(textObject* object) { return m_window.mapCoordsToPixel(object->getPosition()); }
+	sf::Vector2i getRelativePosition(const spriteObject* object) const { return m_window.mapCoordsToPixel(object->getPosition()); }
+	sf::Vector2i getRelativePosition(const textObject* object) const { return m_window.mapCoordsToPixel(object->getPosition()); }
 
 	//Set world position to window position
-	void setRelativePosition(spriteObject* object, sf::Vector2f position) { object->setPosition(m_window.mapPixelToCoords({ static_cast<int>(position.x), static_cast<int>(position.y) })); }
-	void setRelativePosition(textObject* object, sf::Vector2f position) { object->setPosition(m_window.mapPixelToCoords({ int(position.x), int(position.y) })); }
+	void setRelativePosition(const spriteObject* object, sf::Vector2f position) const { object->setPosition(m_window.mapPixelToCoords({ static_cast<int>(position.x), static_cast<int>(position.y) })); }
+	void setRelativePosition(textObject* object, sf::Vector2f position) const { object->setPosition(m_window.mapPixelToCoords({ static_cast<int>(position.x), static_cast<int>(position.y) })); }
 
 
 	//Render and the renderQueue - spriteObject
@@ -83,11 +82,11 @@ private:
 class debugShape
 {
 public:
-	debugShape(spriteObject* object);
+	debugShape(const spriteObject* object);
 	~debugShape();
 
-	void setShapePosition(sf::Vector2f position) { rectangle->setPosition(position); }
-	sf::RectangleShape getShape() { return *rectangle; }
+	void setShapePosition(sf::Vector2f position) const { rectangle->setPosition(position); }
+	sf::RectangleShape getShape() const { return *rectangle; }
 
 
 private:
