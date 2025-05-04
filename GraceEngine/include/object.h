@@ -2,20 +2,25 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+//Sprite and Text objects will share some functions
+//This class will be inherited between them
 class sharedData
 {
 public:
+	//Get functions
 	std::string getId() { return m_id; }
 	short getLayer() { return m_layer; }
 	sf::Vector2f getVelocity() { return m_velocity; }
 	sf::Vector2f getOffset() { return m_offset; }
 
+	//Set functions
 	void setId(std::string objectID) { m_id = objectID; }
 	void setLayer(short objectLayer) { m_layer = objectLayer; }
 	void setVelocity(sf::Vector2f objectVelocity) { m_velocity = objectVelocity; }
 	virtual void setOffset(sf::Vector2f objectOffset) { m_offset = objectOffset; }
 
 private:
+	//Inherited variables
 	short m_layer;
 	std::string m_id;
 	sf::Vector2f m_velocity;
@@ -32,7 +37,6 @@ public:
 	spriteObject(std::string objectId, sf::Texture& textureFile, sf::Vector2f position, sf::Vector2f size, short objectLayer = 0);
 	~spriteObject();
 
-	//Child functions ----------------------------
 	void replaceTexture(std::string textureDir, sf::Vector2f size);
 
 	//Get size and position functions
@@ -54,7 +58,7 @@ public:
 	void setAngle(float angle) { m_sprite->setRotation(angle); }
 	void incrementAngle(float angle) { m_sprite->rotate(angle); }
 
-	//Transform  but with borders
+	//Check if the relative position is near predefined borders
 	bool leftBorder(sf::Vector2i relativePosition, int borderLeft);
 	bool rightBorder(sf::Vector2i relativePosition, int borderRight);
 	bool topBorder(sf::Vector2i relativePosition, int borderTop);
@@ -63,7 +67,7 @@ public:
 	//Collisions
 	std::string collisionBox(spriteObject* object);
 
-	//Overwritten functions -----------------------------------
+	//Render Object
 	void render(sf::RenderTarget& target) { target.draw(*m_sprite); }
 
 private:
@@ -82,7 +86,7 @@ public:
 	textObject(std::string objectId, std::string message, sf::Vector2f position, sf::Font& fontFile, int fontSize, short objectLayer = 0);
 	~textObject();
 
-	//Get functions
+	//Size and position
 	sf::Vector2f getPosition() { return { m_text->getGlobalBounds().left, m_text->getGlobalBounds().top }; }
 	sf::Vector2f getSize() { return { m_text->getLocalBounds().width, m_text->getLocalBounds().height }; }
 
@@ -101,10 +105,11 @@ public:
 	//Update the message of the text
 	void updateString(std::string newMessage) { m_text->setString(newMessage); }
 
-	//Overwritten functions ----------------------------------------
+	//Render Text
 	void render(sf::RenderTarget& target) { target.draw(*m_text); }
 
 private:
+	//Store font and text as ptr
 	sf::Font* m_font = new sf::Font;
 	sf::Text* m_text = new sf::Text;
 };

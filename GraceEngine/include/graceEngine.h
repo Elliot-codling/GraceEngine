@@ -7,9 +7,10 @@
 #include "object.h"
 #include "input.h"
 
+//EXPERIMENTAL SUBJECT TO CHANGE
 class debugShape;
-// Main game engine
-//Used to initialise the window of SFML
+
+//Grace engine initialisation - window control
 class graceEngine
 {
 public:
@@ -52,18 +53,18 @@ public:
 	std::vector<textObject*> getTextQueue() { return m_renderQueueText; }
 
 	// Functions passed onto other files ---------------------------------------
-	// Prevents the game.cpp file from having to create an eventHandler
+	// Prevents the users from having to create an eventHandler
 	void updateEvents();
 	bool getEvent(sf::Event::EventType eventType);
 
 	sf::Vector2f getMousePos();
 
 private:
+	//SFML window
+	sf::RenderWindow m_window;
+	//Window properties
 	bool m_windowOpen;
 	sf::Color m_backgroundColor;
-
-	//SFML render objects
-	sf::RenderWindow m_window;
 
 	//Camera
 	sf::View* m_camera;
@@ -72,14 +73,13 @@ private:
 	std::vector<spriteObject*> m_renderQueueSprite;
 	std::vector<textObject*> m_renderQueueText;
 
-
 	void sortRenderQueue();
 
-	//Used for events;
+	//Create event handler;
 	gameEvents m_eventHandler;
 };
 
-
+//EXPERIMENTAL SUBJECT TO CHANGE
 class debugShape
 {
 public:
