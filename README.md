@@ -35,7 +35,7 @@ We currently support both MinGW64 and MSVC. MinGW64 is primarily used on Clion, 
 > [!NOTE]
 > We will be using MinGW64 as the compiler. If you would like to do so, you can use Clang or UCRT instead, however, this guide does not apply to this.
 
-### Installing MinGW64
+### Installing MinGW64 (OPTIONAL)
 
 1. Download MinGW via [MSYS2](https://www.msys2.org/).
 2. Install MSYS2 ensuring to tick run MSYS2 once completed, do not type in any commands into the terminal just yet.
@@ -58,7 +58,7 @@ We currently support both MinGW64 and MSVC. MinGW64 is primarily used on Clion, 
 1. Download the project from the Github release page using your preferred method. However, you can clone from the stable branch if you wish to do so.
 2. Open up the project via VS2022.
 3. By default the configuration is x64-Debug, this needs to change. Click on manage configurations and press the +.
-4. Add x64-Release and change the configuration to x64-Release.
+4. Add x64-Release and hit save. Then change the configuration to x64-Release.
 5. Click the run button.
 
 #### VS2022 - MinGW
@@ -67,7 +67,7 @@ We currently support both MinGW64 and MSVC. MinGW64 is primarily used on Clion, 
 2. If you have MinGW compiler installed please continue. Else follow the steps above to install MinGW64.
 3. Open up the project via VS2022.
 4. By default the configuration is x64-Debug, this needs to change. Click on manage configurations and press the +.
-5. Add MinGW64-Debug/Release and change the configuration to MinGW64-Debug/Release.
+5. Add MinGW64-Debug/Release and hit save. Then change the configuration to MinGW64-Debug/Release.
 6. Click the run button.
 
 ### For VScode
