@@ -13,8 +13,11 @@ Our end goal is to create an open source editor powered Grace Engine, it will be
 
 ## Supported Platforms
 
-This current branch of GraceEngine currently included SFML 2.6.2 built for windows. This is using GCC 13.1.0 MinGW 64-bit.
+This current branch of GraceEngine currently included SFML 2.6.2 64-bit built for windows. This is using GCC 13.1.0 MinGW 64-bit and Visual C++ 17 (2022) 64-bit.
 We have future plans to allow this to be used on different operating systems and architectures however at this current time we are focusing on development.
+
+> [!IMPORTANT]
+> We currently only support 64 bit systems and have no plan to revert this change.
 
 Our recommended fully supported IDE is [Clion](https://www.jetbrains.com/clion/) by Jetbrains.
 We do support other IDEs such as:
@@ -28,7 +31,7 @@ Many IDEs support different compiler versions such as MinGW, Clang, MSVC and mor
 - VS2022 includes MSVC
 - VScode does not include a C++ compiler
 
-Ensure you have MinGW64 as your compiler. If you do not have it installed please follow this guide.
+We currently support both MinGW64 and MSVC. MinGW64 is primarily used on Clion, VScode and others where MSVC is the default used with VS2022. If you plan to use MinGW64 please ensure you have it installed. If you do not have it installed please follow this guide.
 > [!NOTE]
 > We will be using MinGW64 as the compiler. If you would like to do so, you can use Clang or UCRT instead, however, this guide does not apply to this.
 
@@ -46,10 +49,19 @@ Ensure you have MinGW64 as your compiler. If you do not have it installed please
 
 1. Download the project from the Github release page using your preferred method. However, you can clone from the stable branch if you wish to do so. 
 2. Open up the project via Clion.
-3. In the root directory, right click on the CMakeLists.txt and press "Load CMake Project". This will create two folders called "cmake-build-debug" and "cmake-build-release".
+3. In the root directory, right click on the CMakeLists.txt and press "Load CMake Project". This will create a folder called "cmake-build-debug".
 4. Click the run button. Ensure the configuration says "GameTesting".
 
 ### For VS2022
+#### VS2022 - MSVC (Default compiler)
+
+1. Download the project from the Github release page using your preferred method. However, you can clone from the stable branch if you wish to do so.
+2. Open up the project via VS2022.
+3. By default the configuration is x64-Debug, this needs to change. Click on manage configurations and press the +.
+4. Add x64-Release and change the configuration to x64-Release.
+5. Click the run button.
+
+#### VS2022 - MinGW
 
 1. Download the project from the Github release page using your preferred method. However, you can clone from the stable branch if you wish to do so.
 2. If you have MinGW compiler installed please continue. Else follow the steps above to install MinGW64.
@@ -69,9 +81,9 @@ Ensure you have MinGW64 as your compiler. If you do not have it installed please
 
 ### Other IDEs
 
-We have not tested any other IDEs except for Clion and VS2022. However we can give you some guidence.
+We have not tested any other IDEs except for Clion, VS2022 and VScode. However, we can give you some guidence.
 Currently we support MinGW GCC compiler, specifically MinGW64 for x64 windows. Please ensure you have MinGW from [MSYS](https://www.msys2.org/) installed.
-Depending on your IDE it may use clang, ucrt or MinGW, ensure you have installed the right one for your IDE.
+Depending on your IDE it may use Clang, UCRT or MinGW, ensure you have installed the right one for your IDE.
 
 ## Documentation
 
