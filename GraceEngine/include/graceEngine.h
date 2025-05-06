@@ -1,6 +1,6 @@
 #pragma once
 //Include all required external dependencies
-#include <SFML/graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 //Import the other files that will be used to create the engine
 #include "object.h"

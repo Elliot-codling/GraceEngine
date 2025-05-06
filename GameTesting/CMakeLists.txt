@@ -6,7 +6,10 @@ add_executable(GameTesting main.cpp)
 
 #Make everything in the library static
 #Static link gcc runtime and c++ standard library
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static -static-libgcc -static-libstdc++")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    #GNU SPECIFIC
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static -static-libgcc -static-libstdc++")
+endif()
 
 #Link with GraceEngine
 target_link_libraries(${PROJECT_NAME} PRIVATE GraceEngine)
