@@ -13,7 +13,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE GraceEngine)
 
 # Include engine headers
 target_include_directories(${PROJECT_NAME} PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/GraceEngine/src
+        ${CMAKE_SOURCE_DIR}/GraceEngine/src
 )
 
 # Include the assets required to run the project - change if necessary
