@@ -2,7 +2,8 @@
 
 ## What is Grace Engine?
 
-This in mine now a-ha!
+This in mine now a-ha!\
+Well I added stuff so I hope you will re-review me!\
 This is a new upcoming Engine written in C++ using SFML. It is inspired from the on going PiEngine created by Elliot Codling. Grace Engine will allow you to take leverage of the SFML library while being much easier to code with.
 
 ## Why not just write in SFML?
