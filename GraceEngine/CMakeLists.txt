@@ -30,8 +30,10 @@ if(CXX_COMPILER STREQUAL "GNU")
     )
 endif()
 
-#Set sfml as static
-set(SFML_STATIC_LIBRARIES TRUE)
+#Set sfml as static UNLESS os is linux
+if(NOT CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    set(SFML_STATIC_LIBRARIES TRUE)
+endif()
 
 # Find SFML
 if(CXX_COMPILER STREQUAL "GNU")
