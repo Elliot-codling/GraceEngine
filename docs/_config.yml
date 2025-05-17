@@ -2,3 +2,16 @@ title: Grace Engine Docs
 remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-remote-theme
+
+logo: "/assets/images/GraceEngineLogo.png"
+favicon_ico: "/assets/images/GraceEngineLogoMini.ico"
+search_enabled: true
+
+# Aux links for the upper right navigation
+aux_links:
+  "See GraceEngine on Github":
+    - "//github.com/Grace-Engine-Org/GraceEngine"
+
+# Makes Aux links open in a new tab. Default is false
+aux_links_new_tab: true
+color_scheme: dark
