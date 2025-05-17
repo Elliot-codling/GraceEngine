@@ -8,7 +8,7 @@ on:
 jobs:
   run-if-labeled:
     if: contains(github.event.pull_request.labels.*.name, 'Github Action')
-    uses: Grace-Engine-Org/GraceEngine/.github/workflows/Build.yml@Stable
+    uses: Grace-Engine-Org/GraceEngine/.github/workflows/Build.yml@stable
     with:
       pr-number: ${{ github.event.pull_request.number }}
     permissions:
