@@ -2,7 +2,7 @@
 // spriteObject constructor ---------------------------------------------------------------------------------
 //Texture will be loaded from the directory given by string
 
-spriteObject::spriteObject(std::string objectId, std::string textureDir, sf::Vector2f position, sf::Vector2f size, short objectLayer)
+spriteObject::spriteObject(const std::string &objectId, const std::string &textureDir, sf::Vector2f position, sf::Vector2f size, short objectLayer)
 {
 	//Load the texture from the directory provided
 	if (!m_texture->loadFromFile(textureDir))
@@ -15,14 +15,14 @@ spriteObject::spriteObject(std::string objectId, std::string textureDir, sf::Vec
 	m_sprite->setPosition(position.x, position.y);
 
 	//Cannot use texture rect for a file directory
-	m_sprite->setScale(size.x / m_texture->getSize().x, size.y / m_texture->getSize().y);
+	m_sprite->setScale(static_cast<int>(size.x / m_texture->getSize().x), static_cast<int>(size.y / m_texture->getSize().y));
 
 	setId(objectId);
 	setLayer(objectLayer);
 }
 
 //Assuming texture has loaded, set the sprite to the textureFile
-spriteObject::spriteObject(std::string objectId, sf::Texture& textureFile, sf::Vector2f position, sf::Vector2f size, short objectLayer)
+spriteObject::spriteObject(const std::string &objectId, sf::Texture& textureFile, sf::Vector2f position, sf::Vector2f size, short objectLayer)
 {
 	//Apply texture to sprite, set its position and then apply its scale
 	m_texture = &textureFile;
@@ -42,7 +42,7 @@ spriteObject::~spriteObject()
 }
 
 //Replace the sprite texture with a new specified directory
-void spriteObject::replaceTexture(std::string textureDir, sf::Vector2f size) {
+void spriteObject::replaceTexture(const std::string &textureDir, sf::Vector2f size) {
 	if (!m_texture->loadFromFile(textureDir)) {
 		return;
 	}
@@ -152,7 +152,7 @@ std::string spriteObject::collisionBox(spriteObject* object)
 
 
 // textObject constructor ------------------------------------------------------------------------------
-textObject::textObject(std::string objectId, std::string message, sf::Vector2f position, std::string fontDir, int fontSize, short objectLayer)
+textObject::textObject(const std::string &objectId, const std::string &message, sf::Vector2f position, const std::string &fontDir, int fontSize, short objectLayer)
 {
 	if (!m_font->loadFromFile(fontDir))
 	{
@@ -168,7 +168,7 @@ textObject::textObject(std::string objectId, std::string message, sf::Vector2f p
 	setLayer(objectLayer);
 }
 
-textObject::textObject(std::string objectId, std::string message, sf::Vector2f position, sf::Font& fontFile, int fontSize, short objectLayer)
+textObject::textObject(const std::string &objectId, const std::string &message, sf::Vector2f position, const sf::Font& fontFile, int fontSize, short objectLayer)
 {
 	*m_font = fontFile;
 

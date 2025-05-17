@@ -2,7 +2,7 @@
 
 #include <cmath>
 // GraceEngine Constructor -----------------------------------------------------------------------------------
-graceEngine::graceEngine(std::string name, int width, int height, sf::Color color)
+graceEngine::graceEngine(const std::string &name, int width, int height, sf::Color color)
 {
 	m_window.create(sf::VideoMode(width, height), name);
 
@@ -12,7 +12,7 @@ graceEngine::graceEngine(std::string name, int width, int height, sf::Color colo
 		m_windowOpen = true;
 	}
 	else
-	{		//If cannot initialise SFML, exit program
+	{		//If it cannot initialise SFML, exit program
 		std::cout << "Failed to initialise: SFML Window";
 		std::cin.get();
 		exit(EXIT_FAILURE);
@@ -98,7 +98,7 @@ void graceEngine::pushToQueue(textObject* object)
 //Remove the object by its index value
 void graceEngine::popFromQueue(spriteObject* object)
 {
-	int index;
+	int index = 0;
 	for (int i = 0; i <= m_renderQueueSprite.size(); i++)
 	{
 		if (m_renderQueueSprite[i]->getId() == object->getId())
@@ -112,7 +112,7 @@ void graceEngine::popFromQueue(spriteObject* object)
 
 void graceEngine::popFromQueue(textObject* object)
 {
-	int index;
+	int index = 0;
 	for (int i = 0; i <= m_renderQueueText.size(); i++)
 	{
 		if (m_renderQueueText[i]->getId() == object->getId())
@@ -124,17 +124,17 @@ void graceEngine::popFromQueue(textObject* object)
 	m_renderQueueText.erase(m_renderQueueText.begin() + index);
 }
 
+//Sorts the renderQueue from the smallest layer number to the largest
+//Whatever was last pushed to the queue will be on top if all the layer numbers are the same
 void graceEngine::sortRenderQueue()
 {
-	//Sorts the renderQueue from the smallest layer number to the largest
-	//Whatever was last pushed to the queue will be on top if all the layer numbers are the same
 	std::vector<spriteObject*> tempList;
 	tempList.push_back(m_renderQueueSprite[0]);
-	int lengthOfQueue;
+	int lengthOfQueue = 0;
 	spriteObject* object = nullptr;
-	for (int indexOfOjbect = 1; indexOfOjbect < size(m_renderQueueSprite); indexOfOjbect++)
+	for (int indexOfObject = 1; indexOfObject < size(m_renderQueueSprite); indexOfObject++)
 	{
-		object = m_renderQueueSprite[indexOfOjbect];
+		object = m_renderQueueSprite[indexOfObject];
 		lengthOfQueue = size(tempList);
 		for (int index = 0; index < lengthOfQueue; index++)
 		{
@@ -160,8 +160,7 @@ void graceEngine::sortRenderQueue()
 
 }
 
-
-
+//Clears a layer based on the number provided
 void graceEngine::clearLayer(int layerNumber)
 {
 	//Deletes all objects in a given layer
@@ -182,8 +181,6 @@ void graceEngine::clearLayer(int layerNumber)
 	}
 }
 
-
-
 //Render the vector of gameObjects
 void graceEngine::renderObjects()
 {
@@ -191,7 +188,6 @@ void graceEngine::renderObjects()
 	if (m_renderQueueSprite.size() != 0) {
 		sortRenderQueue();		//Sort renderQueue
 	}
-
 
 	//Iterate through the display vector and then draw the object to the display
 	for (auto& object : m_renderQueueSprite)
@@ -207,8 +203,8 @@ void graceEngine::renderObjects()
 	m_window.display();
 }
 
-//DEBUG RENDERER
-void graceEngine::renderObjects(std::vector<debugShape*>* debugQueue)
+//DEBUG RENDERER SUBJECT TO CHANGE
+void graceEngine::renderObjects(const std::vector<debugShape*>* debugQueue)
 {
 	m_window.clear(m_backgroundColor);
 	sortRenderQueue();		//Sort renderQueue
@@ -235,7 +231,7 @@ void graceEngine::renderObjects(std::vector<debugShape*>* debugQueue)
 
 
 //DEBUGGING PURPOSES
-debugShape::debugShape(spriteObject* object)
+debugShape::debugShape(const spriteObject* object)
 {
 	rectangle->setSize(object->getSize());
 	rectangle->setPosition(object->getPosition());

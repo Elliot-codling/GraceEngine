@@ -1,10 +1,12 @@
-#For CLion
-.idea/
-#Clion-build
-cmake-build-*/
+#Ignore everything
+/*
 
-#VS2022
-.vs/
-out/
-x64/
-CMakeSettings.json
+#Except from the following files
+!.gitignore
+!README.md
+!LICENSE.txt
+!CMakeLists.txt
+
+#And the following folders
+!GameTesting/
+!GraceEngine/
