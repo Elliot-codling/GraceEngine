@@ -17,5 +17,4 @@ aux_links_new_tab: true
 color_scheme: dark
 
 # Disable toc
-just_the_docs:
-  show_table_of_contents: false
+show_table_of_contents: false
