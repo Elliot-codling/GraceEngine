@@ -2,8 +2,9 @@
 title: Introduction
 nav_order: 1
 parent: About
+redirect_to: /About/Introduction/aboutGE.html
 ---
 
 # Intro
 
-Write here
+[Use this link if you have not been redirected](/About/Introduction/aboutGE.html)
