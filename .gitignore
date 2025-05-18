@@ -11,3 +11,10 @@
 !GameTesting/
 !GraceEngine/
 !docs/
+
+#For docs
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
