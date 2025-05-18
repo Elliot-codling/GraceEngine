@@ -2,6 +2,7 @@ title: Grace Engine Docs
 remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-remote-theme
+  - jekyll-redirect-from
 
 logo: "/assets/images/GraceEngineLogo.png"
 favicon_ico: "/assets/images/GraceEngineLogoMini.ico"
