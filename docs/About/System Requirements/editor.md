@@ -2,6 +2,13 @@
 title: Grace Editor
 nav_order: 1
 parent: System Requirements
+callouts:
+    important:
+        title: Important
+        color: purple
+    note:
+        title: Note
+        color: blue
 ---
 
 # Grace Editor - System Requirements
@@ -64,7 +71,7 @@ This page contains the system requirements for the GraceEngine editor. These spe
       <td>Operating System</td>
       <td>
         <ul>
-          <li>Windows: 10 or later[^1]</li>
+          <li>Windows: 10 or later</li>
           <li>Linux: 2017 distro or later</li>
           <li>MacOS: 10.14 or later</li>
         </ul>
@@ -77,4 +84,5 @@ This page contains the system requirements for the GraceEngine editor. These spe
 {: .important }
 Theoretically GraceEngine will compile on macOS, it has not been tested.
 
-[^1]: Previous versions of Windows are untested. MSYS2 requires Windows 10 or later while VS2017 does support Windows 7 with SP1. However, we do not recommend using it due to the lack of security updates.
+{: .note}
+Previous versions of Windows are untested. MSYS2 requires Windows 10 or later while VS2017 does support Windows 7 with SP1. However, we do not recommend using it due to the lack of security updates.
