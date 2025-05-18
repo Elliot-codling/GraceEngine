@@ -19,3 +19,13 @@ color_scheme: dark
 
 # Disable toc
 show_table_of_contents: false
+
+#Set colour of callouts
+just_the_docs:
+  callouts:
+    important:
+      title: Important
+      color: purple
+    note:
+      title: Note
+      color: blue

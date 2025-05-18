@@ -2,13 +2,6 @@
 title: Grace Editor
 nav_order: 1
 parent: System Requirements
-callouts:
-    important:
-        title: Important
-        color: purple
-    note:
-        title: Note
-        color: blue
 ---
 
 # Grace Editor - System Requirements
