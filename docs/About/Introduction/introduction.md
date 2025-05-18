@@ -1,7 +1,6 @@
 ---
 title: Introduction
-parent: Introduction
-grand_parent: About
+parent: About
 nav_order: 1
 ---
 

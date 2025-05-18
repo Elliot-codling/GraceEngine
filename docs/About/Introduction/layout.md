@@ -1,7 +1,6 @@
 ---
 title: Layout of the documentation
-parent: Introduction
-grand_parent: About
+parent: About
 nav_order: 3
 ---
 
