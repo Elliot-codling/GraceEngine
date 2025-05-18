@@ -1,6 +1,7 @@
 ---
 title: About this documentation
-parent: About
+parent: Introduction
+grand_parent: About
 nav_order: 4
 ---
 
