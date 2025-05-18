@@ -12,5 +12,3 @@ nav_order: 2
     1. About this documentation
 1. System Requirements
 
-{: .no_toc }
-{: .no_toc .text-delta }

@@ -12,6 +12,10 @@ aux_links:
   "See GraceEngine on Github":
     - "//github.com/Grace-Engine-Org/GraceEngine"
 
-# Makes Aux links open in a new tab. Default is false
+# Makes Aux links open in a new tab.
 aux_links_new_tab: true
 color_scheme: dark
+
+# Disable toc
+just_the_docs:
+  show_table_of_contents: false
