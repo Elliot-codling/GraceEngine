@@ -74,8 +74,8 @@ This page contains the system requirements for the GraceEngine editor. These spe
 </table>
 
 
-{: .important }
+{: .note }
 Theoretically GraceEngine will compile on macOS, it has not been tested.
 
-{: .note}
+{: .important }
 Previous versions of Windows are untested. MSYS2 requires Windows 10 or later while VS2017 does support Windows 7 with SP1. However, we do not recommend using it due to the lack of security updates.

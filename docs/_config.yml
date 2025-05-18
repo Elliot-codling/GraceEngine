@@ -4,7 +4,6 @@ plugins:
   - jekyll-remote-theme
   - jekyll-redirect-from
 
-logo: "/assets/images/GraceEngineLogo.png"
 favicon_ico: "/assets/images/GraceEngineLogoMini.ico"
 search_enabled: true
 
@@ -21,11 +20,10 @@ color_scheme: dark
 show_table_of_contents: false
 
 #Set colour of callouts
-just_the_docs:
-  callouts:
-    important:
-      title: Important
-      color: purple
-    note:
-      title: Note
-      color: blue
+callouts:
+  important:
+    title: Important
+    color: purple
+  note:
+    title: Note
+    color: blue
