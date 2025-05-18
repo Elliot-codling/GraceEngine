@@ -1,7 +1,6 @@
 ---
-title: About GraceEngine
-parent: About
-nav_order: 2
+title: About Grace Engine
+nav_order: 1
 ---
 
 # About GraceEngine

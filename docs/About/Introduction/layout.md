@@ -1,9 +1,8 @@
 ---
-title: Layout of the documentation
-parent: About
-nav_order: 3
+title: Layout of this Documentation
+nav_order: 2
 ---
 
-# Layout of the documentation
+# Documentation Layout
 
 Write here
