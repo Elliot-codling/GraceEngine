@@ -14,7 +14,8 @@ has_toc: false
     1. [Grace Editor](/About/System%20Requirements/editor.html)
     1. [Exported Projects](/About/System%20Requirements/projects.html)
 1. Install
-   1. [Install GraceEngine](/About/Installation/supportedIDEs.html)
+   1. [Install GraceEngine](/About/Installation/installGuide.html)
+   1. [Supported IDEs](/About/Installation/supportedIDEs.html)
    1. [MinGW](/About/Installation/mingw.html)
    1. [Clion](/About/Installation/clion.html)
    1. [VS2022](/About/Installation/vs2022.html)
