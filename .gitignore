@@ -8,7 +8,7 @@
 !CMakeLists.txt
 
 #And the following folders
-!GameTesting/
+!GraceEditor/
 !GraceEngine/
 !docs/
 
