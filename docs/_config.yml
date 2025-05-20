@@ -3,8 +3,8 @@ repository: Grace-Engine-Org/GraceEngine
 title: Grace Engine Docs
 remote_theme: just-the-docs/just-the-docs
 plugins:
-  - jekyll-remote-theme
   - jekyll-redirect-from
+  - jekyll-remote-theme
 
 favicon_ico: "/assets/images/GraceEngineLogoMini.ico"
 search_enabled: true

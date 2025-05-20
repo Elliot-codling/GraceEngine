@@ -8,6 +8,6 @@ nav_order: 1
 Grace Engine is a 2D game engine written in C++ and based on SFML.
 
 ## Getting Started
-- [Installation](installation.md)
+- [Install](/About/Installation/index.html)
 - [Creating Your First Game](first_game.md)
-- [Supported Platforms](supportedPlatforms.md)
+- [System Requirements](/About/System%20Requirements/index.html)

@@ -8,7 +8,7 @@ parent: System Requirements
 
 This page contains the system requirements for the GraceEngine editor. These specifications are to be used as a guide to help users build or upgrade their computer. Please not this is only a guide, performance may vary with newer versions of GraceEngine however performance testing will be carried out occasionally for every few patches.
 
-### Desktop or Laptop - Minimum
+## Desktop or Laptop - Minimum
 
 <table>
   <thead>
@@ -73,9 +73,8 @@ This page contains the system requirements for the GraceEngine editor. These spe
   </tbody>
 </table>
 
+{: .important }
+Theoretically GraceEngine will compile on macOS, this has not been tested and currently we have no guide for the installation of GraceEngine on macOS. 
 
 {: .note }
-Theoretically GraceEngine will compile on macOS, it has not been tested.
-
-{: .important }
 Previous versions of Windows are untested. MSYS2 requires Windows 10 or later while VS2017 does support Windows 7 with SP1. However, we do not recommend using it due to the lack of security updates.
