@@ -82,3 +82,31 @@ jobs:
 
     - name: Build
       run: cmake --build "${{ steps.strings.outputs.build-output-dir }}" --config ${{ matrix.build_type }}
+
+
+  mac-build:
+    name: Build on Mac
+    runs-on: macos-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [Debug, Release]
+        c_compiler: [gcc, clang]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set reusable strings
+      id: strings
+      shell: bash
+      run: echo "build-output-dir=${{ github.workspace }}\\build" >> "$GITHUB_OUTPUT"
+
+    - name: Configure CMake
+      run: >
+        cmake -B "${{ steps.strings.outputs.build-output-dir }}"
+        -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+        -S "${{ github.workspace }}"
+
+    - name: Build
+      run: cmake --build "${{ steps.strings.outputs.build-output-dir }}" --config ${{ matrix.build_type }}
