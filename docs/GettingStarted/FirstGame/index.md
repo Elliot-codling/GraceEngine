@@ -7,4 +7,4 @@ redirect_to: /GettingStarted/FirstGame/firstGame.html
 
 # First Game
 
-[Use this link if you have not been redirected](/GraceEngine/GettingStarted/FirstGame/firstGame.html)
+[Use this link if you have not been redirected](/GettingStarted/FirstGame/firstGame.html)

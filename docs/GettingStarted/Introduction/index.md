@@ -7,4 +7,4 @@ redirect_to: /GettingStarted/Introduction/whatIsGE.html
 
 # Introduction
 
-[Use this link if you have not been redirected](/GraceEngine/GettingStarted/Introduction/whatIsGE.html)
+[Use this link if you have not been redirected](/GettingStarted/Introduction/whatIsGE.html)
