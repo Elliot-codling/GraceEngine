@@ -6,6 +6,8 @@ plugins:
   - jekyll-redirect-from
   - jekyll-remote-theme
 
+baseurl: "/grace-engine-org.github.io/GraceEngine"
+
 favicon_ico: "/assets/images/GraceEngineLogoMini.ico"
 search_enabled: true
 

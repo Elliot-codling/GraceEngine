@@ -1,7 +1,7 @@
 ---
 title: Supported IDEs
 nav_order: 2
-parent: Install
+parent: Install & IDEs
 ---
 
 # Supported IDEs

@@ -1,7 +1,7 @@
 ---
 title: MinGW
 nav_order: 3
-parent: Install
+parent: Install & IDEs
 ---
 
 # MinGW Install (OPTIONAL)

@@ -1,7 +1,7 @@
 ---
 title: Install GraceEngine
 nav_order: 1
-parent: Install
+parent: Install & IDEs
 ---
 # Install GraceEngine
 

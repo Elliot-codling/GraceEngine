@@ -1,7 +1,7 @@
 ---
 title: VScode
 nav_order: 6
-parent: Install
+parent: Install & IDEs
 ---
 
 # Install GraceEngine via VScode

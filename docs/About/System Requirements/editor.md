@@ -6,7 +6,7 @@ parent: System Requirements
 
 # Grace Editor - System Requirements
 
-This page contains the system requirements for the GraceEngine editor. These specifications are to be used as a guide to help users build or upgrade their computer. Please not this is only a guide, performance may vary with newer versions of GraceEngine however performance testing will be carried out occasionally for every few patches.
+This page contains the system requirements for the GraceEngine editor. These specifications are to be used as a guide to help users build or upgrade their computer. Please not this is only a guide, performance may vary with newer versions of GraceEngine, however performance testing will be carried out occasionally for every few patches.
 
 ## Desktop or Laptop - Minimum
 

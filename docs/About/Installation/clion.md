@@ -1,7 +1,7 @@
 ---
 title: Clion
 nav_order: 4
-parent: Install
+parent: Install & IDEs
 ---
 
 # Install GraceEngine via Clion
