@@ -1,4 +1,4 @@
-name: Trigger Build on Label
+name: GraceEngine Build
 
 on:
   pull_request:
