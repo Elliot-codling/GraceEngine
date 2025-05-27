@@ -8,5 +8,13 @@
 !CMakeLists.txt
 
 #And the following folders
-!GameTesting/
+!GraceEditor/
 !GraceEngine/
+!docs/
+
+#For docs
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor

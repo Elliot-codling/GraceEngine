@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.25)
-project(GameTesting)
+project(GraceEditor)
 
 # Add all the files for the engine
-add_executable(GameTesting main.cpp)
+add_executable(${PROJECT_NAME} main.cpp)
 
 #Make everything in the library static
 #Static link gcc runtime and c++ standard library

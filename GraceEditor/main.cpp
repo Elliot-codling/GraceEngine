@@ -1,4 +1,4 @@
-#include "../GraceEngine/include/graceEngine.h"
+#include "../GraceEngine//include/graceEngine.h"
 #include <iostream>
 #include <ctime>
 #include <cmath>
@@ -9,7 +9,8 @@ using namespace sf;
 using namespace std;
 
 float zoom;
-Vector2f cameraSize = { 1920, 1080 };
+float windowWidth = 1280, windowHeight = 720;
+Vector2f cameraSize = { windowWidth, windowHeight };
 Vector2f wirePos = { 0, 0 };
 float guiSize = 30;
 
@@ -115,7 +116,7 @@ void cameraMovement(graceEngine& window, textObject* scoreboard, spriteObject* b
 	{
 		zoom = 0.9f;
 		//Cannot be smaller than that size
-		if (cameraSize.x < 1920)
+		if (cameraSize.x < windowWidth)
 		{
 			return;
 		}
@@ -202,20 +203,20 @@ void cameraMovement(graceEngine& window, textObject* scoreboard, spriteObject* b
 
 
 int main() {
-	graceEngine window("SFML App", 1920, 1080, {0, 0, 192});
+	graceEngine window("SFML App", windowWidth, windowHeight, {0, 0, 192});
 
 	Texture textureBg;
 	textureBg.loadFromFile("assets/textures/dirt.png");
 	textureBg.setRepeated(true);
 
-	spriteObject* bg = new spriteObject("bg", textureBg, { 0, 0 }, { 1920, 1080 }, 0);
+	spriteObject* bg = new spriteObject("bg", textureBg, { 0, 0 }, { windowWidth, windowHeight }, 0);
 	//window.pushToQueue(bg);
 
 	Texture textureWire;
 	textureWire.loadFromFile("assets/textures/wire.png");
 	textureWire.setRepeated(true);
 
-	spriteObject* wire = new spriteObject("wire", textureWire, { 0, 0 }, { 1920, 1080 }, 1);
+	spriteObject* wire = new spriteObject("wire", textureWire, { 0, 0 }, { windowWidth, windowHeight }, 1);
 	window.pushToQueue(wire);
 
 

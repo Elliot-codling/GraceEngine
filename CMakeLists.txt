@@ -6,5 +6,5 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Add subdirectories
-add_subdirectory(GameTesting)
+add_subdirectory(GraceEditor)
 add_subdirectory(GraceEngine)
