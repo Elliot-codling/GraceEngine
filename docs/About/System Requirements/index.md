@@ -7,4 +7,4 @@ redirect_to: About/System%20Requirements/editor.html
 
 # System Requirements
 
-[Use this link if you have not been redirected](/About/System%20Requirements/editor.html)
+[Use this link if you have not been redirected](editor.html)

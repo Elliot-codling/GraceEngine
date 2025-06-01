@@ -7,4 +7,4 @@ redirect_to: About/Introduction/aboutGE.html
 
 # Intro
 
-[Use this link if you have not been redirected](/About/Introduction/aboutGE.html)
+[Use this link if you have not been redirected](aboutGE.html)

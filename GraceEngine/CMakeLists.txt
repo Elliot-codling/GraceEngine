@@ -1,15 +1,18 @@
-cmake_minimum_required(VERSION 3.25)
+cmake_minimum_required(VERSION 3.14)
 project(GraceEngine)
 set(CMAKE_CXX_STANDARD 17)
 
 set(CXX_COMPILER ${CMAKE_CXX_COMPILER_ID})
 
 #Download SFML
+Set(FETCHCONTENT_QUIET FALSE)
+
 include(FetchContent)
 FetchContent_Declare(
     SFML
     GIT_REPOSITORY https://github.com/SFML/SFML.git
     GIT_TAG        2.6.2
+    GIT_PROGRESS TRUE
 )
 set(SFML_STATIC_LIBRARIES TRUE CACHE BOOL "Use SFML as static" FORCE)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libs" FORCE)

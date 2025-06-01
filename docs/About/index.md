@@ -16,8 +16,9 @@ has_toc: false
 1. Install
    1. [Install GraceEngine](Installation/installGuide.html)
    1. [Supported IDEs](Installation/supportedIDEs.html)
-   1. [MinGW](Installation/mingw.html)
    1. [Clion](Installation/clion.html)
    1. [VS2022](Installation/vs2022.html)
    1. [VScode](Installation/vscode.html)
+1. Changelog
+   1. [About Changelog](Changelog/aboutChangelog.html)
 

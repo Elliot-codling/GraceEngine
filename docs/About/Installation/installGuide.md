@@ -6,23 +6,23 @@ parent: Install & IDEs
 # Install GraceEngine
 
 There are a couple different ways of installing GraceEngine with the editor.\
-This page will guide you through the installation process.\
+This page will guide you through the installation process.
 - If you would like to install GraceEngine from your browser click [here](#download-via-browser).
 - If you would like to install GraceEngine via the CLI click [here](#download-via-cli-command-line-interface).
 
-Optionally, if you only want the GraceEngine library and not the included editor please go to [GraceEngineCore](https://github.com/Grace-Engine-Org/GraceEngineCore)
+Optionally, if you only want the GraceEngine library and not the included editor please go to [GraceEngineCore](https://github.com/Grace-Engine-Org/GraceEngineCore).
 
 ## Download via Browser
 
 1. Head over to the 'Releases' section of the repository which will provide the latest release of GraceEngine.
 1. Hit on the 'Source code.zip' or '.tar.gz' whichever you prefer.
-1. Once complete, follow the steps below to [open GraceEngine.](#opening-graceengine)
+1. Once complete, follow the steps below to [open GraceEngine](#opening-graceengine).
 
 ## Download via CLI (Command Line Interface)
 
 1. Open your CLI, on Windows this will be CMD while on macOS and Linux this will be terminal.
 1. Type the command `git clone https://github.com/Grace-Engine-Org/GraceEngine.git`, this will install GraceEngine to the current directory you are inside of.
-1. Once complete, follow the steps below to [open GraceEngine.](#opening-graceengine)
+1. Once complete, follow the steps below to [open GraceEngine](#opening-graceengine).
 
 Changing Branch:\
 By default, git will clone the main branch (stable) when executing the command:\
@@ -39,14 +39,16 @@ Else to download a different branch of GraceEngine type the command:\
 
 ## Opening GraceEngine
 
-If you are on a Linux based OS, please follow [this](#linux-dependencies) guide and then return back here once complete.
+If you are on a Linux based OS, please follow the [Linux Dependencies](#linux-dependencies) guide and then return back here once complete.
 
 When the GraceEngine folder has been installed onto your computer, right-click on the folder and open via your preferred IDE.
 We have guides to tested IDEs such as:
 
-- [CLion](/About/Installation/clion.html)
-- [VS2022](/About/Installation/vs2022.html)
-- [VScode](/About/Installation/vscode.html)
+- [CLion](clion.html)
+- [VS2022](vs2022.html)
+- [VScode](vscode.html)
+
+You can view our information on supported IDEs [here](supportedIDEs.html).
 
 ## Linux Dependencies
 Some extra dependencies are required to get started with the project.

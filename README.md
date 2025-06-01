@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://grace-engine-org.github.io/GraceEngine/">
-    <img src="docs/assets/images/GraceEngineREADMELogo.png" alt="GraceEngine logo">
+    <img src="docs/assets/images/GraceEngineREADMELogo.png" height="200" alt="GraceEngine logo">
   </a>
 </p>
 
@@ -38,6 +38,7 @@ The official documentation can be viewed [here](https://grace-engine-org.github.
 
 ## Requirements
 
+Cmake version: 3.14
 Compiler version: C++17
 
 > [!NOTE]
