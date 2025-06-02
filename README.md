@@ -38,7 +38,7 @@ The official documentation can be viewed [here](https://grace-engine-org.github.
 
 ## Requirements
 
-Cmake version: 3.14
+Cmake version: 3.14\
 Compiler version: C++17
 
 > [!NOTE]

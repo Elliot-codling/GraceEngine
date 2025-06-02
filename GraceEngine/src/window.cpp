@@ -1,5 +1,4 @@
-#include "../include/graceEngine.h"
-
+#include "../include/window.h"
 #include <cmath>
 // GraceEngine Constructor -----------------------------------------------------------------------------------
 graceEngine::graceEngine(const std::string &name, int width, int height, sf::Color color)
@@ -13,9 +12,7 @@ graceEngine::graceEngine(const std::string &name, int width, int height, sf::Col
 	}
 	else
 	{		//If it cannot initialise SFML, exit program
-		std::cout << "Failed to initialise: SFML Window";
-		std::cin.get();
-		exit(EXIT_FAILURE);
+		debugHandler::printErrorInfo("Failed to initialise: " + name);
 	}
 	m_backgroundColor = color;
 
@@ -27,7 +24,6 @@ graceEngine::graceEngine(const std::string &name, int width, int height, sf::Col
 	m_camera->setCenter({std::round(width / 2.f), std::round(height / 2.f) });
 	m_window.setView(*m_camera);
 }
-
 
 graceEngine::~graceEngine()
 {
@@ -204,6 +200,7 @@ void graceEngine::renderObjects()
 }
 
 //DEBUG RENDERER SUBJECT TO CHANGE
+/*
 void graceEngine::renderObjects(const std::vector<debugShape*>* debugQueue)
 {
 	m_window.clear(m_backgroundColor);
@@ -227,10 +224,11 @@ void graceEngine::renderObjects(const std::vector<debugShape*>* debugQueue)
 
 	m_window.display();
 }
-
+*/
 
 
 //DEBUGGING PURPOSES
+/*
 debugShape::debugShape(const spriteObject* object)
 {
 	rectangle->setSize(object->getSize());
@@ -243,3 +241,4 @@ debugShape::~debugShape()
 {
 	delete rectangle;
 }
+*/

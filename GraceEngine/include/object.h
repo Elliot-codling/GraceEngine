@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <iostream>
+#include "debugHandler.h"
 
 //Sprite and Text objects will share some functions
 //This class will be inherited between them
@@ -21,17 +21,21 @@ public:
 	void setVelocity(sf::Vector2f objectVelocity) { m_velocity = objectVelocity; }
 	virtual void setOffset(sf::Vector2f objectOffset) { m_offset = objectOffset; }
 
+	void initialiseObject() { m_initialised = true; }
+	bool isInitialised() { return m_initialised; }
+
 private:
 	//Inherited variables
 	short m_layer = 0;
 	std::string m_id;
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_offset;
+	bool m_initialised = false;
 
 };
 
 // spriteObject class --------------------------------------------------
-class spriteObject : public sharedData
+class spriteObject : public sharedData, public debugHandler
 {
 public:
 	//Constructor

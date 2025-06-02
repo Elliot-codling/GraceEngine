@@ -1,4 +1,5 @@
 #include "../include/input.h"
+
 //Clear current events
 //Then gather new events happening in the window and store them to the queue
 void gameEvents::updateEvents(sf::RenderWindow& target)

@@ -1,12 +1,18 @@
 #include "../include/object.h"
+#include "../include/debugHandler.h"
+
 // spriteObject constructor ---------------------------------------------------------------------------------
 //Texture will be loaded from the directory given by string
 
 spriteObject::spriteObject(const std::string &objectId, const std::string &textureDir, sf::Vector2f position, sf::Vector2f size, short objectLayer)
 {
+	//Assign an id to the object
+	setId(objectId);
+
 	//Load the texture from the directory provided
-	if (!m_texture->loadFromFile(textureDir))
-	{
+	if (!m_texture->loadFromFile(textureDir)) {
+		debugHandler::printWarningInfo("Failed to load texture: " + textureDir);
+		debugHandler::printWarningInfo("Sprite object: " + getId() + " is not initialised");
 		return;
 	}
 
@@ -14,36 +20,42 @@ spriteObject::spriteObject(const std::string &objectId, const std::string &textu
 	m_sprite->setTexture(*m_texture);
 	m_sprite->setPosition(position.x, position.y);
 
-	//Cannot use texture rect for a file directory
-	m_sprite->setScale(static_cast<int>(size.x / m_texture->getSize().x), static_cast<int>(size.y / m_texture->getSize().y));
-
-	setId(objectId);
+	setSize(size);
 	setLayer(objectLayer);
+
+	//Once it's passed through, the object has initialised successfully
+	initialiseObject();
 }
 
 //Assuming texture has loaded, set the sprite to the textureFile
 spriteObject::spriteObject(const std::string &objectId, sf::Texture& textureFile, sf::Vector2f position, sf::Vector2f size, short objectLayer)
 {
+	//Assign the object its id
+	setId(objectId);
+
 	//Apply texture to sprite, set its position and then apply its scale
 	m_texture = &textureFile;
 	m_sprite->setTexture(textureFile);
 	m_sprite->setPosition(position.x, position.y);
 
-	setSize(size);	//Call set size function
-
-	setId(objectId);
+	setSize(size);
 	setLayer(objectLayer);
+
+	//Once it's passed through, the object has initialised successfully
+	initialiseObject();
 }
 
 spriteObject::~spriteObject()
 {
-	std::cout << "Deleted: " << getId() << "\n";
-
+	debugHandler::printInfo("Deleted: " + getId());
 }
 
 //Replace the sprite texture with a new specified directory
-void spriteObject::replaceTexture(const std::string &textureDir, sf::Vector2f size) {
+void spriteObject::replaceTexture(const std::string &textureDir, sf::Vector2f size)
+{
+
 	if (!m_texture->loadFromFile(textureDir)) {
+		debugHandler::printWarningInfo("Failed to load texture: " + textureDir);
 		return;
 	}
 

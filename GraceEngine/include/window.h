@@ -3,21 +3,19 @@
 #include <SFML/Graphics.hpp>
 
 //Import the other files that will be used to create the engine
+#include "debugHandler.h"
 #include "object.h"
 #include "input.h"
 
-//EXPERIMENTAL SUBJECT TO CHANGE
-class debugShape;
-
 //Grace engine initialisation - window control
-class graceEngine
+class graceEngine: public debugHandler
 {
 public:
 	graceEngine(const std::string &name, int width, int height, sf::Color color = {0, 0, 0});
 	~graceEngine();
 
 	void renderObjects();
-	void renderObjects(const std::vector<debugShape*>* debugQueue);
+	//void renderObjects(const std::vector<debugShape*>* debugQueue);
 	void clearLayer(int layerNumber);
 
 	//Check if the window is running
@@ -58,6 +56,8 @@ public:
 
 	sf::Vector2f getMousePos();
 
+	void printDebugInfo(const std::string &content) { debugHandler::printDebugInfo(content); }
+
 private:
 	//SFML window
 	sf::RenderWindow m_window;
@@ -94,7 +94,7 @@ private:
 
 };
 
-
+/*
 class debugHandler
 {
 public:
@@ -106,3 +106,4 @@ public:
 private:
 	std::vector<debugShape*> debugQueue;
 };
+*/
