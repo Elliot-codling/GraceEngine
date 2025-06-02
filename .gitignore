@@ -9,7 +9,7 @@
 
 #And the following folders
 !GraceEditor/
-!GraceEngine/
+!core/
 !docs/
 
 #For docs

@@ -1,5 +1,5 @@
-#include "../include/object.h"
-#include "../include/debugHandler.h"
+#include <GraceEngine/object.h>
+#include <GraceEngine/debugHandler.h>
 
 // spriteObject constructor ---------------------------------------------------------------------------------
 //Texture will be loaded from the directory given by string
@@ -11,8 +11,7 @@ spriteObject::spriteObject(const std::string &objectId, const std::string &textu
 
 	//Load the texture from the directory provided
 	if (!m_texture->loadFromFile(textureDir)) {
-		debugHandler::printWarningInfo("Failed to load texture: " + textureDir);
-		debugHandler::printWarningInfo("Sprite object: " + getId() + " is not initialised");
+		printWarningInfo("Sprite object: " + getId() + " is not initialised");
 		return;
 	}
 

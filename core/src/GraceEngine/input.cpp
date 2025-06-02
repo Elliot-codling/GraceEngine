@@ -1,4 +1,4 @@
-#include "../include/input.h"
+#include <GraceEngine/input.h>
 
 //Clear current events
 //Then gather new events happening in the window and store them to the queue

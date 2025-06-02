@@ -1,5 +1,5 @@
 #pragma once
-#include "../../GraceEngine/include/window.h"
+#include <GraceEngine/window.h>
 //Define the runtime functions
 namespace runtimeFunctions {
     graceEngine* start();

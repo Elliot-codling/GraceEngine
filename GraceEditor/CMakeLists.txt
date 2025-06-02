@@ -5,7 +5,6 @@ file(GLOB SOURCE src/*.cpp include/*.h)
 
 # Add all the files for the engine
 add_executable(${PROJECT_NAME}
-        ../GraceEngine/src/runtime.cpp
         ${SOURCE}
 )
 

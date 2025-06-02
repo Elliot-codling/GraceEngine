@@ -1,8 +1,9 @@
 #include "../include/main.h"
-#include <ctime>
-#include <cmath>
 
 int windowWidth = 1280, windowHeight = 720;
+
+//Declare objects here
+//spriteObject* object = new spriteObject(INFO HERE);
 
 //Runs once, used to set up objects and the window
 graceEngine* runtimeFunctions::start() {
@@ -23,13 +24,12 @@ int runtimeFunctions::logic(graceEngine &window) {
 			window.printDebugInfo("Hello, World!");
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F2)) {
-			throw std::runtime_error("Oh no, I caused a crash!");
+			int _ = 5/0; //Causes a crash to demonstrate an error message
 		}
 	}
 	window.renderObjects();
 	return 0;
 }
-
 
 int runtimeFunctions::end() {
 	return 0;

@@ -1,4 +1,4 @@
-#include "../include/window.h"
+#include <GraceEngine/window.h>
 #include <cmath>
 // GraceEngine Constructor -----------------------------------------------------------------------------------
 graceEngine::graceEngine(const std::string &name, int width, int height, sf::Color color)
@@ -9,9 +9,11 @@ graceEngine::graceEngine(const std::string &name, int width, int height, sf::Col
 	if (m_window.isOpen())
 	{
 		m_windowOpen = true;
+		debugHandler::printInfo("Created SFML window: " + name);
 	}
 	else
-	{		//If it cannot initialise SFML, exit program
+	{
+		//If it cannot initialise SFML, exit program
 		debugHandler::printErrorInfo("Failed to initialise: " + name);
 	}
 	m_backgroundColor = color;

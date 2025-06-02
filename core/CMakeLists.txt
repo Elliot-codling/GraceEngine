@@ -10,7 +10,7 @@ Set(FETCHCONTENT_QUIET FALSE)
 include(FetchContent)
 FetchContent_Declare(
     SFML
-    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_REPOSITORY https://github.com/Grace-Engine-Org/SFML.git
     GIT_TAG        2.6.2
     GIT_PROGRESS TRUE
 )
@@ -29,7 +29,7 @@ add_library(GraceEngine STATIC ${ENGINE_SRC})
 
 #Include the directories src for the cpp files
 target_include_directories(GraceEngine PUBLIC
-            ${CMAKE_CURRENT_SOURCE_DIR}/src
+            ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 #Set sfml as static UNLESS os is linux
 if(NOT CMAKE_SYSTEM_NAME STREQUAL "Linux")
