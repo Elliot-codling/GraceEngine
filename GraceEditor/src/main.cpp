@@ -29,7 +29,7 @@ int runtimeFunctions::update(graceEngine &window) {
 }
 
 int runtimeFunctions::fixedUpdate(float &deltaTime) {
-	//Add movement code here
+	//Add movement and transform code here
 	return 0;
 }
 

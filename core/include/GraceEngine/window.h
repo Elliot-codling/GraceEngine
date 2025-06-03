@@ -18,7 +18,11 @@ public:
 	//void renderObjects(const std::vector<debugShape*>* debugQueue);
 	void clearLayer(int layerNumber);
 
+	//Set target fps and get current fps
 	void setTargetFramerate(int targetFPS) { m_window.setFramerateLimit(targetFPS); }
+	//Used by runtime.cpp - Sets the frametime of the current frame
+	void setFrametime(float currentFrametime) { m_frametime = currentFrametime; }
+	float getFramerate() const { return 1.f / m_frametime; }
 
 	//Check if the window is running
 	bool isRunning() const { return m_windowOpen; }
@@ -73,11 +77,13 @@ private:
 	//Render Queues
 	std::vector<spriteObject*> m_renderQueueSprite;
 	std::vector<textObject*> m_renderQueueText;
-
 	void sortRenderQueue();
 
 	//Create event handler;
 	gameEvents m_eventHandler;
+
+	//Frametime of the current frame
+	float m_frametime;
 };
 
 //EXPERIMENTAL SUBJECT TO CHANGE

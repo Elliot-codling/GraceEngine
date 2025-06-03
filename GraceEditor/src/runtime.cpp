@@ -63,7 +63,6 @@ int main(){
     sf::Clock clock;
     sf::Time timeElapsed;
 
-
     //When the project starts
     graceEngine* window = runtimeFunctions::start();
     //Game loop
@@ -75,6 +74,8 @@ int main(){
             case true:
                 deltaTime = timeSinceLastUpdate / fixedTime;
                 runtimeFunctions::fixedUpdate(deltaTime);
+                //Update current frametime
+                window->setFrametime(timeElapsed.asSeconds());
                 timeSinceLastUpdate = 0;
                 break;
             case false:
