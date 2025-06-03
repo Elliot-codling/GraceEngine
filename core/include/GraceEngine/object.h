@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "debugHandler.h"
+#include <GraceEngine/debugHandler.h>
 
 //Sprite and Text objects will share some functions
 //This class will be inherited between them
@@ -73,18 +73,25 @@ public:
 	//Collisions
 	std::string collisionBox(spriteObject* object);
 
+	//Debug
+	void setDebugActive(sf::Color color = {255, 255, 255});
+
 	//Render Object
-	void render(sf::RenderTarget& target) const { target.draw(*m_sprite); }
+	void render(sf::RenderTarget& target) const;
 
 private:
 	sf::Texture* m_texture = new sf::Texture;
 	sf::Sprite* m_sprite = new sf::Sprite;
+
+	//Initialise debug rectangle - Default: Not in debug mode
+	sf::RectangleShape* m_debugRect = nullptr;
+	bool m_isDebugging = false;
 };
 
 
 
 // textObject class -----------------------------------------------------------------------
-class textObject : public sharedData
+class textObject : public sharedData, public debugHandler
 {
 public:
 	//Constructor

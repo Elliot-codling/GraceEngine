@@ -9,6 +9,7 @@ int windowWidth = 1280, windowHeight = 720;
 graceEngine* runtimeFunctions::start() {
 	graceEngine* window = new graceEngine("SFML App", windowWidth, windowHeight);
 	window->setTargetFramerate(60);
+
 	return window;
 }
 

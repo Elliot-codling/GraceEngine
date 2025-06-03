@@ -54,7 +54,6 @@ void spriteObject::replaceTexture(const std::string &textureDir, sf::Vector2f si
 {
 
 	if (!m_texture->loadFromFile(textureDir)) {
-		debugHandler::printWarningInfo("Failed to load texture: " + textureDir);
 		return;
 	}
 
@@ -159,14 +158,40 @@ std::string spriteObject::collisionBox(spriteObject* object)
 	return object->getId();
 }
 
+//Create rectangle, set its size, pos and colour and then print out to terminal
+void spriteObject::setDebugActive(sf::Color color) {
+	m_debugRect = new sf::RectangleShape;
+	m_debugRect->setSize(getSize());
+	m_debugRect->setPosition(getPosition());
+	m_debugRect->setFillColor(color);
+	m_isDebugging = true;
+	debugHandler::printInfo("Sprite object: " + getId() + " is in debug");
+}
+
+//Render object, if in debug render debug rect too
+void spriteObject::render(sf::RenderTarget &target) const {
+	switch (m_isDebugging) {
+		case true:
+			target.draw(*m_debugRect);
+			break;
+		default:
+			break;
+	}
+	target.draw(*m_sprite);
+}
+
+
+
 
 
 
 // textObject constructor ------------------------------------------------------------------------------
 textObject::textObject(const std::string &objectId, const std::string &message, sf::Vector2f position, const std::string &fontDir, int fontSize, short objectLayer)
 {
+	setId(objectId);
 	if (!m_font->loadFromFile(fontDir))
 	{
+		printWarningInfo("Text object: " + getId() + " is not initialised.");
 		return;
 	}
 
@@ -175,7 +200,6 @@ textObject::textObject(const std::string &objectId, const std::string &message, 
 	m_text->setString(message);
 
 	setPosition(position);
-	setId(objectId);
 	setLayer(objectLayer);
 }
 

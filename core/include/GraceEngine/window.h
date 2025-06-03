@@ -3,9 +3,9 @@
 #include <SFML/Graphics.hpp>
 
 //Import the other files that will be used to create the engine
-#include "debugHandler.h"
-#include "object.h"
-#include "input.h"
+#include <GraceEngine/debugHandler.h>
+#include <GraceEngine/object.h>>
+#include <GraceEngine/input.h>>
 
 //Grace engine initialisation - window control
 class graceEngine: public debugHandler
@@ -101,17 +101,3 @@ private:
 	sf::RectangleShape* rectangle = new sf::RectangleShape;
 
 };
-
-/*
-class debugHandler
-{
-public:
-	debugHandler() = default;
-	~debugHandler() = default;
-	void pushToDebugQueue(debugShape &shape) { debugQueue.push_back(&shape); }
-	std::vector<debugShape*>* getDebugQueue() { return &debugQueue; }
-
-private:
-	std::vector<debugShape*> debugQueue;
-};
-*/
