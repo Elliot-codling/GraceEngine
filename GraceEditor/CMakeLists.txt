@@ -4,9 +4,7 @@ project(GraceEditor)
 file(GLOB SOURCE src/*.cpp include/*.h)
 
 # Add all the files for the engine
-add_executable(${PROJECT_NAME}
-        ${SOURCE}
-)
+add_executable(${PROJECT_NAME} ${SOURCE})
 
 #Remove terminal in windows if on release build
 if (WIN32)

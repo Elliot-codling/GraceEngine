@@ -23,9 +23,6 @@ int runtimeFunctions::logic(graceEngine &window) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1)) {
 			window.printDebugInfo("Hello, World!");
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F2)) {
-			int _ = 5/0; //Causes a crash to demonstrate an error message
-		}
 	}
 	window.renderObjects();
 	return 0;
