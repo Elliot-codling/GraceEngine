@@ -20,7 +20,6 @@ graceEngine::graceEngine(const std::string &name, int width, int height, sf::Col
 
 	//Experimental changes to be made
 	m_window.setKeyRepeatEnabled(false);
-	m_window.setFramerateLimit(60);
 
 	m_camera = new sf::View(sf::FloatRect(0.f, 0.f, width, height));
 	m_camera->setCenter({std::round(width / 2.f), std::round(height / 2.f) });

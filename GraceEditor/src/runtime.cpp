@@ -55,11 +55,32 @@ int main(){
     std::signal(SIGTERM, signalHandler);
     std::signal(SIGINT, signalHandler);
 
+    //Set up variables for fixed update
+    //runs once per 16.666ms (updates at 60fps)
+    float fixedTime = 1.f / 60.f;
+    float timeSinceLastUpdate = 0.f;
+    float deltaTime = 0.f;
+    sf::Clock clock;
+    sf::Time timeElapsed;
+
+
     //When the project starts
     graceEngine* window = runtimeFunctions::start();
     //Game loop
     while (window->isRunning()) {
-        runtimeFunctions::logic(*window);
+        timeElapsed = clock.restart();
+        timeSinceLastUpdate += timeElapsed.asSeconds();
+
+        switch (timeSinceLastUpdate >= fixedTime) {
+            case true:
+                deltaTime = timeSinceLastUpdate / fixedTime;
+                runtimeFunctions::fixedUpdate(deltaTime);
+                timeSinceLastUpdate = 0;
+                break;
+            case false:
+                runtimeFunctions::update(*window);
+                break;
+        }
     }
 
     //Destroy objects

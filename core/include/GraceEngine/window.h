@@ -18,6 +18,8 @@ public:
 	//void renderObjects(const std::vector<debugShape*>* debugQueue);
 	void clearLayer(int layerNumber);
 
+	void setTargetFramerate(int targetFPS) { m_window.setFramerateLimit(targetFPS); }
+
 	//Check if the window is running
 	bool isRunning() const { return m_windowOpen; }
 	void stopRunning() { m_windowOpen = false; }

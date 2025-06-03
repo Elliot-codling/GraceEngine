@@ -3,6 +3,7 @@
 //Define the runtime functions
 namespace runtimeFunctions {
     graceEngine* start();
-    int logic(graceEngine &window);
+    int update(graceEngine &window);
+    int fixedUpdate(float &deltaTime);
     int end();
 }
