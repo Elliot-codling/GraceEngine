@@ -29,20 +29,24 @@ Examples of errors:
 
 */
 
-void debugHandler::printInfo(const std::string &content) {
+void debugHandler::printInfo(const std::string &content)
+{
     std::cout << getTimeAndDate() << GREEN << "INFO"<< DEFAULT << "] "<< content << "\n";
 }
 
-void debugHandler::printDebugInfo(const std::string &content) {
+void debugHandler::printDebugInfo(const std::string &content)
+{
     std::cout << getTimeAndDate() << MAGENTA << "DEBUG"<< DEFAULT << "] "<< content << "\n";
 }
 
 
-void debugHandler::printWarningInfo(const std::string &content) {
+void debugHandler::printWarningInfo(const std::string &content)
+{
     std::cout << getTimeAndDate() << YELLOW << "WARNING"<< DEFAULT << "] "<< content << "\n";
 }
 
-void debugHandler::printErrorInfo(const std::string &content) {
+void debugHandler::printErrorInfo(const std::string &content)
+{
     std::cout << getTimeAndDate() << RED << "ERROR"<< DEFAULT << "] "<< content << "\n";
     std::cout << "Press Enter to close window...";
     //Pause the program before it crashes
@@ -51,7 +55,8 @@ void debugHandler::printErrorInfo(const std::string &content) {
 }
 
 
-char* debugHandler::getTimeAndDate() {
+char* debugHandler::getTimeAndDate()
+{
     //Get current time
     time_t timeStamp = time(nullptr);
     //Create time struct based on local time

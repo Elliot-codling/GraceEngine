@@ -11,22 +11,25 @@ public:
 
 	//Get functions
 	std::string getId() { return m_id; }
-	short getLayer() const { return m_layer; }
+	uint8_t getLayer() const { return m_layer; }
 	sf::Vector2f getVelocity() const { return m_velocity; }
 	sf::Vector2f getOffset() const { return m_offset; }
 
 	//Set functions
 	void setId(const std::string& objectID) { m_id = objectID; }
-	void setLayer(short objectLayer) { m_layer = objectLayer; }
+	void setLayer(uint8_t objectLayer) { m_layer = objectLayer; }
 	void setVelocity(sf::Vector2f objectVelocity) { m_velocity = objectVelocity; }
 	virtual void setOffset(sf::Vector2f objectOffset) { m_offset = objectOffset; }
 
+	bool isInitialised() const { return m_initialised; }
+
+protected:
 	void initialiseObject() { m_initialised = true; }
-	bool isInitialised() { return m_initialised; }
+	void destroyObject() { m_initialised = false; }
 
 private:
 	//Inherited variables
-	short m_layer = 0;
+	uint8_t m_layer = 0;
 	std::string m_id;
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_offset;
@@ -39,8 +42,8 @@ class spriteObject : public sharedData, public debugHandler
 {
 public:
 	//Constructor
-	spriteObject(const std::string &objectId, const std::string &textureDir, sf::Vector2f position, sf::Vector2f size, short objectLayer = 0);
-	spriteObject(const std::string &objectId, sf::Texture& textureFile, sf::Vector2f position, sf::Vector2f size, short objectLayer = 0);
+	spriteObject(const std::string &objectId, const std::string &textureDir, sf::Vector2f position, sf::Vector2f size, uint8_t objectLayer = 0);
+	spriteObject(const std::string &objectId, sf::Texture& textureFile, sf::Vector2f position, sf::Vector2f size, uint8_t objectLayer = 0);
 	~spriteObject() override;
 
 	void replaceTexture(const std::string &textureDir, sf::Vector2f size);
@@ -65,10 +68,10 @@ public:
 	void incrementAngle(float angle) const { m_sprite->rotate(angle); }
 
 	//Check if the relative position is near predefined borders
-	bool leftBorder(sf::Vector2i relativePosition, int borderLeft);
-	bool rightBorder(sf::Vector2i relativePosition, int borderRight);
-	bool topBorder(sf::Vector2i relativePosition, int borderTop);
-	bool bottomBorder(sf::Vector2i relativePosition, int borderBottom);
+	static bool leftBorder(sf::Vector2i relativePosition, int borderLeft);
+	static bool rightBorder(sf::Vector2i relativePosition, int borderRight);
+	static bool topBorder(sf::Vector2i relativePosition, int borderTop);
+	static bool bottomBorder(sf::Vector2i relativePosition, int borderBottom);
 
 	//Collisions
 	std::string collisionBox(spriteObject* object);
@@ -95,8 +98,8 @@ class textObject : public sharedData, public debugHandler
 {
 public:
 	//Constructor
-	textObject(const std::string &objectId, const std::string &message, sf::Vector2f position, const std::string &fontDir, int fontSize, short objectLayer = 0);
-	textObject(const std::string &objectId, const std::string &message, sf::Vector2f position, const sf::Font& fontFile, int fontSize, short objectLayer = 0);
+	textObject(const std::string &objectId, const std::string &message, sf::Vector2f position, const std::string &fontDir, int fontSize, uint8_t objectLayer = 0);
+	textObject(const std::string &objectId, const std::string &message, sf::Vector2f position, const sf::Font& fontFile, int fontSize, uint8_t objectLayer = 0);
 	~textObject() override;
 
 	//Size and position

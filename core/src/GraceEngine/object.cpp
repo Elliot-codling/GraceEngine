@@ -4,13 +4,14 @@
 // spriteObject constructor ---------------------------------------------------------------------------------
 //Texture will be loaded from the directory given by string
 
-spriteObject::spriteObject(const std::string &objectId, const std::string &textureDir, sf::Vector2f position, sf::Vector2f size, short objectLayer)
+spriteObject::spriteObject(const std::string &objectId, const std::string &textureDir, sf::Vector2f position, sf::Vector2f size, uint8_t objectLayer)
 {
 	//Assign an id to the object
 	setId(objectId);
 
 	//Load the texture from the directory provided
-	if (!m_texture->loadFromFile(textureDir)) {
+	if (!m_texture->loadFromFile(textureDir))
+	{
 		printWarningInfo("Sprite object: " + getId() + " is not initialised");
 		return;
 	}
@@ -27,7 +28,7 @@ spriteObject::spriteObject(const std::string &objectId, const std::string &textu
 }
 
 //Assuming texture has loaded, set the sprite to the textureFile
-spriteObject::spriteObject(const std::string &objectId, sf::Texture& textureFile, sf::Vector2f position, sf::Vector2f size, short objectLayer)
+spriteObject::spriteObject(const std::string &objectId, sf::Texture& textureFile, sf::Vector2f position, sf::Vector2f size, uint8_t objectLayer)
 {
 	//Assign the object its id
 	setId(objectId);
@@ -46,19 +47,23 @@ spriteObject::spriteObject(const std::string &objectId, sf::Texture& textureFile
 
 spriteObject::~spriteObject()
 {
+	//De-intialise object
+	destroyObject();
+	delete m_texture;
+	delete m_sprite;
 	debugHandler::printInfo("Deleted: " + getId());
 }
 
 //Replace the sprite texture with a new specified directory
 void spriteObject::replaceTexture(const std::string &textureDir, sf::Vector2f size)
 {
-
-	if (!m_texture->loadFromFile(textureDir)) {
+	if (!m_texture->loadFromFile(textureDir))
+	{
 		return;
 	}
 
 	//Apply new texture
-	m_sprite->setScale(size.x / m_texture->getSize().x, size.y / m_texture->getSize().y);
+	m_sprite->setScale(size.x / static_cast<float>(m_texture->getSize().x), size.y / static_cast<float>(m_texture->getSize().y));
 	m_sprite->setTexture(*m_texture);
 }
 
@@ -72,22 +77,22 @@ void spriteObject::setOffset(sf::Vector2f objectOffset)
 
 //Set the size of the sprite
 //If the sprite has a repeated texture then do texture rect instead
-void spriteObject::setSize(sf::Vector2f size)
+void spriteObject::setSize(const sf::Vector2f size)
 {
 	if (!m_texture->isRepeated())
 	{
-		m_sprite->setScale(size.x / m_texture->getSize().x, size.y / m_texture->getSize().y);
+		m_sprite->setScale(size.x / static_cast<float>(m_texture->getSize().x), size.y / static_cast<float>(m_texture->getSize().y));
 	}
 	else
 	{
-		m_sprite->setTextureRect(sf::IntRect(0, 0, size.x, size.y));
+		m_sprite->setTextureRect(sf::IntRect(0, 0, static_cast<int>(size.x), static_cast<int>(size.y)));
 	}
 }
 
 //Set the texture rect position
 void spriteObject::setSpriteRectPos(sf::Vector2f position)
 {
-	m_sprite->setTextureRect(sf::IntRect(position.x, position.y, m_sprite->getTextureRect().width, m_sprite->getTextureRect().height));
+	m_sprite->setTextureRect(sf::IntRect(static_cast<int>(position.x), static_cast<int>(position.y), m_sprite->getTextureRect().width, m_sprite->getTextureRect().height));
 }
 
 
@@ -159,7 +164,8 @@ std::string spriteObject::collisionBox(spriteObject* object)
 }
 
 //Create rectangle, set its size, pos and colour and then print out to terminal
-void spriteObject::setDebugActive(sf::Color color) {
+void spriteObject::setDebugActive(sf::Color color)
+{
 	m_debugRect = new sf::RectangleShape;
 	m_debugRect->setSize(getSize());
 	m_debugRect->setPosition(getPosition());
@@ -169,8 +175,10 @@ void spriteObject::setDebugActive(sf::Color color) {
 }
 
 //Render object, if in debug render debug rect too
-void spriteObject::render(sf::RenderTarget &target) const {
-	switch (m_isDebugging) {
+void spriteObject::render(sf::RenderTarget &target) const
+{
+	switch (m_isDebugging)
+	{
 		case true:
 			target.draw(*m_debugRect);
 			break;
@@ -186,7 +194,7 @@ void spriteObject::render(sf::RenderTarget &target) const {
 
 
 // textObject constructor ------------------------------------------------------------------------------
-textObject::textObject(const std::string &objectId, const std::string &message, sf::Vector2f position, const std::string &fontDir, int fontSize, short objectLayer)
+textObject::textObject(const std::string &objectId, const std::string &message, sf::Vector2f position, const std::string &fontDir, int fontSize, uint8_t objectLayer)
 {
 	setId(objectId);
 	if (!m_font->loadFromFile(fontDir))
@@ -203,7 +211,7 @@ textObject::textObject(const std::string &objectId, const std::string &message, 
 	setLayer(objectLayer);
 }
 
-textObject::textObject(const std::string &objectId, const std::string &message, sf::Vector2f position, const sf::Font& fontFile, int fontSize, short objectLayer)
+textObject::textObject(const std::string &objectId, const std::string &message, sf::Vector2f position, const sf::Font& fontFile, int fontSize, uint8_t objectLayer)
 {
 	*m_font = fontFile;
 
@@ -218,6 +226,10 @@ textObject::textObject(const std::string &objectId, const std::string &message, 
 
 textObject::~textObject()
 {
+	//De-initialise object
+	destroyObject();
+	delete m_font;
+	delete m_text;
 }
 
 void textObject::setOrigin(sf::Vector2f origin)

@@ -1,7 +1,7 @@
 #include <GraceEngine/window.h>
 #include <cmath>
 // GraceEngine Constructor -----------------------------------------------------------------------------------
-graceEngine::graceEngine(const std::string &name, int width, int height, sf::Color color)
+graceEngine::graceEngine(const std::string &name, const int width, const int height, sf::Color color)
 {
 	m_window.create(sf::VideoMode(width, height), name);
 
@@ -30,10 +30,14 @@ graceEngine::~graceEngine()
 {
 	for (spriteObject* object: m_renderQueueSprite)
 	{
-		delete object;
-	}
-	m_renderQueueSprite.clear();
+		if (object->isInitialised())
+		{
+			delete object;
+		}
 
+	}
+
+	m_renderQueueSprite.clear();
 	for (textObject* object: m_renderQueueText)
 	{
 		delete object;
@@ -41,6 +45,7 @@ graceEngine::~graceEngine()
 	m_renderQueueText.clear();
 
 	delete m_camera;
+	debugHandler::printInfo("Destroying SFML window");
 }
 
 // GraceEngine main functions ---------------------------------------------------------------------------
@@ -85,6 +90,7 @@ void graceEngine::pushToQueue(spriteObject* object)
 	m_renderQueueSprite.push_back(object);
 }
 
+
 void graceEngine::pushToQueue(textObject* object)
 {
 	m_renderQueueText.push_back(object);
@@ -121,6 +127,7 @@ void graceEngine::popFromQueue(textObject* object)
 	m_renderQueueText.erase(m_renderQueueText.begin() + index);
 }
 
+
 //Sorts the renderQueue from the smallest layer number to the largest
 //Whatever was last pushed to the queue will be on top if all the layer numbers are the same
 void graceEngine::sortRenderQueue()
@@ -154,13 +161,20 @@ void graceEngine::sortRenderQueue()
 	object = nullptr;		//Object can be set to a null pointer
 	m_renderQueueSprite = tempList;
 	delete object;		//Ensure no memory leaks
-
 }
 
 //Clears a layer based on the number provided
 void graceEngine::clearLayer(int layerNumber)
 {
 	//Deletes all objects in a given layer
+	for (auto& object: m_renderQueueSprite)
+	{
+		if (object->getLayer() == layerNumber)
+		{
+			popFromQueue(object);
+		}
+	}
+
 	for (auto& object: m_renderQueueSprite)
 	{
 		if (object->getLayer() == layerNumber)
@@ -182,12 +196,12 @@ void graceEngine::clearLayer(int layerNumber)
 void graceEngine::renderObjects()
 {
 	m_window.clear(m_backgroundColor);
-	if (m_renderQueueSprite.size() != 0) {
+	if (m_renderQueueSprite.size() != 0)
+	{
 		sortRenderQueue();		//Sort renderQueue
 	}
 
-	//Iterate through the display vector and then draw the object to the display
-	for (auto& object : m_renderQueueSprite)
+	for (spriteObject* object: m_renderQueueSprite)
 	{
 		object->render(m_window);
 	}

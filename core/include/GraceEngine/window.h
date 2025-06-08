@@ -4,8 +4,8 @@
 
 //Import the other files that will be used to create the engine
 #include <GraceEngine/debugHandler.h>
-#include <GraceEngine/object.h>>
-#include <GraceEngine/input.h>>
+#include <GraceEngine/object.h>
+#include <GraceEngine/input.h>
 
 //Grace engine initialisation - window control
 class graceEngine: public debugHandler
@@ -75,8 +75,10 @@ private:
 	sf::View* m_camera;
 
 	//Render Queues
+	//Render queue for pointers and other for reference
 	std::vector<spriteObject*> m_renderQueueSprite;
 	std::vector<textObject*> m_renderQueueText;
+
 	void sortRenderQueue();
 
 	//Create event handler;
@@ -84,20 +86,4 @@ private:
 
 	//Frametime of the current frame
 	float m_frametime;
-};
-
-//EXPERIMENTAL SUBJECT TO CHANGE
-class debugShape
-{
-public:
-	debugShape(const spriteObject* object);
-	~debugShape();
-
-	void setShapePosition(sf::Vector2f position) const { rectangle->setPosition(position); }
-	sf::RectangleShape getShape() const { return *rectangle; }
-
-
-private:
-	sf::RectangleShape* rectangle = new sf::RectangleShape;
-
 };
