@@ -12,8 +12,9 @@ int runtimeFunctions::start(graceEngine &window)
 
 //Game loop, runs every frame
 int runtimeFunctions::update(graceEngine &window)
-{   //Update window events and check which keys have been pressed
+{
     window.updateEvents();
+
     if (window.getEvent(sf::Event::KeyPressed))
     {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -29,7 +30,7 @@ int runtimeFunctions::update(graceEngine &window)
     return 0;
 }
 
-int runtimeFunctions::fixedUpdate(graceEngine &window, float &deltaTime)
+int runtimeFunctions::fixedUpdate(graceEngine &window, const float &deltaTime)
 {
     //Add movement and transform code here
     return 0;
@@ -37,6 +38,6 @@ int runtimeFunctions::fixedUpdate(graceEngine &window, float &deltaTime)
 
 
 int runtimeFunctions::end()
-{   //Destroy any objects you want here [EXPERIMENTAL]
+{
     return 0;
 }

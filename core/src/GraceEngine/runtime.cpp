@@ -1,7 +1,7 @@
 // Runtime code that controls what scripts are executed and when
 #include <GraceEngine/runtime.h>
 
-runtime::runtime(const std::string &name, const int width, const int height, sf::Color color):
+runtime::runtime(const std::string &name, const int &width, const int &height, const sf::Color &color):
 m_window(name, width, height, color)
 {
     //Start the program

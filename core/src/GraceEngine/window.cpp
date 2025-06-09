@@ -1,7 +1,7 @@
 #include <GraceEngine/window.h>
 #include <cmath>
 // GraceEngine Constructor -----------------------------------------------------------------------------------
-graceEngine::graceEngine(const std::string &name, const int width, const int height, sf::Color color)
+graceEngine::graceEngine(const std::string &name, const int &width, const int &height, const sf::Color &color)
 {
 	m_window.create(sf::VideoMode(width, height), name);
 
@@ -9,12 +9,12 @@ graceEngine::graceEngine(const std::string &name, const int width, const int hei
 	if (m_window.isOpen())
 	{
 		m_windowOpen = true;
-		debugHandler::printInfo("Created SFML window: " + name);
+		debugHandler::printInfo("Created SFML window: '" + name + "'");
 	}
 	else
 	{
 		//If it cannot initialise SFML, exit program
-		debugHandler::printErrorInfo("Failed to initialise: " + name);
+		debugHandler::printErrorInfo("Failed to initialise: '" + name + "'");
 	}
 	m_backgroundColor = color;
 
@@ -34,7 +34,6 @@ graceEngine::~graceEngine()
 		{
 			delete object;
 		}
-
 	}
 
 	m_renderQueueSprite.clear();
@@ -50,32 +49,16 @@ graceEngine::~graceEngine()
 
 // GraceEngine main functions ---------------------------------------------------------------------------
 
-//Events ----------------------------------
-void graceEngine::updateEvents()
-{
-	m_eventHandler.updateEvents(m_window);
-}
-
-bool graceEngine::getEvent(sf::Event::EventType eventType)
-{
-	return m_eventHandler.getEvent(m_windowOpen, eventType);
-}
-
-sf::Vector2f graceEngine::getMousePos()
-{
-	return m_eventHandler.getMousePos(m_window);
-}
-
 //Camera movement ---------------------------------------------
 
-void graceEngine::incrementCamera(sf::Vector2f position)
+void graceEngine::incrementCamera(const sf::Vector2f &position)
 {
 	m_camera->move(position);
 	m_window.setView(*m_camera);
 }
 
 
-void graceEngine::setCameraSize(sf::Vector2f cameraSize)
+void graceEngine::setCameraSize(const sf::Vector2f &cameraSize)
 {
 	m_camera->setSize(cameraSize);
 	m_window.setView(*m_camera);
@@ -99,7 +82,7 @@ void graceEngine::pushToQueue(textObject* object)
 
 //Go through the renderQueue and identify the index where the specified object is
 //Remove the object by its index value
-void graceEngine::popFromQueue(spriteObject* object)
+void graceEngine::popFromQueue(const spriteObject* object)
 {
 	int index = 0;
 	for (int i = 0; i <= m_renderQueueSprite.size(); i++)
@@ -113,7 +96,7 @@ void graceEngine::popFromQueue(spriteObject* object)
 	m_renderQueueSprite.erase(m_renderQueueSprite.begin() + index);
 }
 
-void graceEngine::popFromQueue(textObject* object)
+void graceEngine::popFromQueue(const textObject* object)
 {
 	int index = 0;
 	for (int i = 0; i <= m_renderQueueText.size(); i++)
@@ -164,7 +147,7 @@ void graceEngine::sortRenderQueue()
 }
 
 //Clears a layer based on the number provided
-void graceEngine::clearLayer(int layerNumber)
+void graceEngine::clearLayer(const int &layerNumber)
 {
 	//Deletes all objects in a given layer
 	for (auto& object: m_renderQueueSprite)

@@ -5,6 +5,6 @@ namespace runtimeFunctions
 {
     int start(graceEngine &window);
     int update(graceEngine &window);
-    int fixedUpdate(graceEngine &window, float &deltaTime);
+    int fixedUpdate(graceEngine &window, const float &deltaTime);
     int end();
 }

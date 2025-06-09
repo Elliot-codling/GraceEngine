@@ -1,21 +1,20 @@
 #pragma once
 #include "../../../GraceEditor/include/mainScript.h"
 
-#include <sstream>
-#include <csignal>
-
 //Access to the debug handler
-
 class runtime : public debugHandler
 {
 public:
-    runtime(const std::string &name, int width, int height, sf::Color color = {0, 0, 0});
-    ~runtime() { debugHandler::printInfo("Destroyed runtime"); }
+    //Starts the window
+    runtime(const std::string &name, const int &width, const int &height, const sf::Color &color = {0, 0, 0});
+    ~runtime() = default;
 
-    void printErrorInfo(const std::string &content) { debugHandler::printErrorInfo(content); }
+    static void printErrorInfo(const std::string &content) { debugHandler::printErrorInfo(content); }
 
+    //Update loop
     int update();
-    int end();
+    //End the program
+    static int end();
 
 private:
     //Set up variables for fixed update
