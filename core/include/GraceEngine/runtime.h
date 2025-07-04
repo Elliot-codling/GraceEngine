@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../GraceEditor/include/mainScript.h"
+#include "../../../include/mainScript.h"
 
 //Access to the debug handler
 class runtime : public debugHandler

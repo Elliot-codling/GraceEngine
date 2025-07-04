@@ -1,18 +1,25 @@
-#Ignore everything
+# Ignore everything
 /*
 
-#Except from the following files
+# Except from the following files
 !.gitignore
 !README.md
 !LICENSE.txt
 !CMakeLists.txt
 
-#And the following folders
-!GraceEditor/
+# And the following folders
+# For the editor
+!assets/
+!include/
+!src
+
+# For the core library
 !core/
+
+# For docs
 !docs/
 
-#For docs
+# For docs
 _site
 .sass-cache
 .jekyll-cache
