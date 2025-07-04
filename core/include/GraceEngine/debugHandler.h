@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <string>
 
 #define GREEN "\033[92m"
 #define MAGENTA "\033[95m"
