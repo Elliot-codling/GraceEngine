@@ -1,10 +1,10 @@
-#include <GraceEngine/object.h>
-#include <GraceEngine/debugHandler.h>
+#include <GraceEngine/sprite.h>
+
 
 // spriteObject constructor ---------------------------------------------------------------------------------
 //Texture will be loaded from the directory given by string
 
-spriteObject::spriteObject(const std::string &objectId, const std::string &textureDir, const sf::Vector2f &position, const sf::Vector2f &size, const uint8_t &objectLayer)
+spriteObject::spriteObject(const std::string& objectId, const std::string& textureDir, const sf::Vector2f& position, const sf::Vector2f& size, const uint8_t& objectLayer)
 {
 	//Assign an id to the object
 	setId(objectId);
@@ -28,7 +28,7 @@ spriteObject::spriteObject(const std::string &objectId, const std::string &textu
 }
 
 //Assuming texture has loaded, set the sprite to the textureFile
-spriteObject::spriteObject(const std::string &objectId, const sf::Texture &textureFile, const sf::Vector2f &position, const sf::Vector2f &size, const uint8_t &objectLayer)
+spriteObject::spriteObject(const std::string& objectId, const sf::Texture& textureFile, const sf::Vector2f& position, const sf::Vector2f& size, const uint8_t& objectLayer)
 {
 	//Assign the object its id
 	setId(objectId);
@@ -57,7 +57,7 @@ spriteObject::~spriteObject()
 }
 
 //Replace the sprite texture with a new specified directory
-void spriteObject::replaceTexture(const std::string &textureDir, const sf::Vector2f &size) const
+void spriteObject::replaceTexture(const std::string& textureDir, const sf::Vector2f& size) const
 {
 	if (!m_texture->loadFromFile(textureDir))
 	{
@@ -70,7 +70,7 @@ void spriteObject::replaceTexture(const std::string &textureDir, const sf::Vecto
 }
 
 //A permanent offset value
-void spriteObject::setOffset(const sf::Vector2f &objectOffset)
+void spriteObject::setOffset(const sf::Vector2f& objectOffset)
 {
 	sharedData::setOffset(objectOffset);		//Define the offset value
 	incrementPosition(objectOffset);		//Move the object
@@ -79,7 +79,7 @@ void spriteObject::setOffset(const sf::Vector2f &objectOffset)
 
 //Set the size of the sprite
 //If the sprite has a repeated texture then do texture rect instead
-void spriteObject::setSize(const sf::Vector2f &size) const
+void spriteObject::setSize(const sf::Vector2f& size) const
 {
 	if (!m_texture->isRepeated())
 	{
@@ -92,14 +92,14 @@ void spriteObject::setSize(const sf::Vector2f &size) const
 }
 
 //Set the texture rect position
-void spriteObject::setSpriteRectPos(const sf::Vector2f &position) const
+void spriteObject::setSpriteRectPos(const sf::Vector2f& position) const
 {
 	m_sprite->setTextureRect(sf::IntRect(static_cast<int>(position.x), static_cast<int>(position.y), m_sprite->getTextureRect().width, m_sprite->getTextureRect().height));
 }
 
 
 //Set the Origin point of the sprite
-void spriteObject::setOrigin(const sf::Vector2f &origin) const
+void spriteObject::setOrigin(const sf::Vector2f& origin) const
 {
 	m_sprite->setOrigin(origin.x / m_sprite->getScale().x, origin.y / m_sprite->getScale().y);
 }
@@ -129,7 +129,7 @@ std::string spriteObject::collisionBox(const spriteObject* object) const
 }
 
 //Create rectangle, set its size, pos and colour and then print out to terminal
-void spriteObject::setDebugActive(const sf::Color &color)
+void spriteObject::setDebugActive(const sf::Color& color)
 {
 	m_debugRect = new sf::RectangleShape;
 	m_debugRect->setSize(getSize());
@@ -140,7 +140,7 @@ void spriteObject::setDebugActive(const sf::Color &color)
 }
 
 //Render object, if in debug render debug rect too
-void spriteObject::render(sf::RenderTarget &target) const
+void spriteObject::render(sf::RenderTarget& target) const
 {
 	//Draw debug rect if it is currently debugging
 	if (m_isDebugging)
@@ -148,62 +148,4 @@ void spriteObject::render(sf::RenderTarget &target) const
 		target.draw(*m_debugRect);
 	}
 	target.draw(*m_sprite);
-}
-
-
-
-
-
-
-// textObject constructor ------------------------------------------------------------------------------
-textObject::textObject(const std::string &objectId, const std::string &message, const sf::Vector2f &position, const std::string &fontDir, const uint8_t &fontSize, const uint8_t &objectLayer)
-{
-	setId(objectId);
-	if (!m_font->loadFromFile(fontDir))
-	{
-		printWarningInfo("Text object: '" + getId() + "' is not initialised.");
-		return;
-	}
-
-	m_text->setFont(*m_font);
-	m_text->setCharacterSize(fontSize);
-	m_text->setString(message);
-
-	setPosition(position);
-	setLayer(objectLayer);
-}
-
-textObject::textObject(const std::string &objectId, const std::string &message, const sf::Vector2f &position, const sf::Font &fontFile, const uint8_t &fontSize, const uint8_t &objectLayer)
-{
-	*m_font = fontFile;
-
-	m_text->setFont(*m_font);
-	m_text->setCharacterSize(fontSize);
-	m_text->setString(message);
-
-	setPosition(position);
-	setId(objectId);
-	setLayer(objectLayer);
-}
-
-textObject::~textObject()
-{
-	//De-initialise object
-	destroyObject();
-	delete m_font;
-	delete m_text;
-}
-
-void textObject::setPosition(const sf::Vector2f &position) const
-{
-	sf::Vector2f offSet;
-	offSet.x = { m_text->getGlobalBounds().left - m_text->getPosition().x};
-	offSet.y = { m_text->getGlobalBounds().top - m_text->getPosition().y };
-
-	m_text->setPosition({ position.x - offSet.x, position.y - offSet.y });
-}
-
-void textObject::setOrigin(const sf::Vector2f &origin) const
-{
-	m_text->setOrigin(origin.x, origin.y);
 }

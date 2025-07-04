@@ -4,7 +4,9 @@
 
 //Import the other files that will be used to create the engine
 #include <GraceEngine/debugHandler.h>
-#include <GraceEngine/object.h>
+#include <GraceEngine/sharedObjectClass.h>
+#include <GraceEngine/sprite.h>
+#include <GraceEngine/text.h>
 #include <GraceEngine/input.h>
 
 //Grace engine initialisation - window control
