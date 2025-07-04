@@ -3,7 +3,7 @@
 
 //Used for events and inputs
 //Mouse input currently only supported
-class gameEvents
+class GameEvents
 {
 protected:
     //Must be called every frame to gather new events

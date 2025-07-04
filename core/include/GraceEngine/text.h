@@ -3,13 +3,13 @@
 #include <GraceEngine/sharedObjectClass.h>
 
 // textObject class -----------------------------------------------------------------------
-class textObject : public sharedData, public debugHandler
+class TextObject : public SharedData, public DebugHandler
 {
 public:
 	//Constructor
-	textObject(const std::string& objectId, const std::string& message, const sf::Vector2f& position, const std::string& fontDir, const uint8_t& fontSize, const uint8_t& objectLayer = 0);
-	textObject(const std::string& objectId, const std::string& message, const sf::Vector2f& position, const sf::Font& fontFile, const uint8_t& fontSize, const uint8_t& objectLayer = 0);
-	~textObject() override;
+	TextObject(const std::string& objectId, const std::string& message, const sf::Vector2f& position, const std::string& fontDir, const uint8_t& fontSize, const uint8_t& objectLayer = 0);
+	TextObject(const std::string& objectId, const std::string& message, const sf::Vector2f& position, const sf::Font& fontFile, const uint8_t& fontSize, const uint8_t& objectLayer = 0);
+	~TextObject() override;
 
 	//Size and position
 	[[nodiscard]] sf::Vector2f getPosition() const { return { m_text->getGlobalBounds().left, m_text->getGlobalBounds().top }; }

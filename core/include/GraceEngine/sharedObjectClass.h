@@ -3,10 +3,10 @@
 //Sprite and Text objects will share some functions
 //This class will be inherited between them
 //Nodiscard -> warn users if a get function is called but not used in program
-class sharedData
+class SharedData
 {
 public:
-	virtual ~sharedData() = default;
+	virtual ~SharedData() = default;
 
 	//Get functions
 	[[nodiscard]] std::string getId() const { return m_id; }

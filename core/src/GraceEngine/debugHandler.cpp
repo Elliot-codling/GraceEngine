@@ -2,7 +2,7 @@
 
 
 //Get the date and time to put at the start of a debug message
-std::string debugHandler::getTimeAndDate()
+std::string DebugHandler::getTimeAndDate()
 {
     //Get current time
     time_t timeStamp = time(nullptr);

@@ -1,7 +1,7 @@
 // Runtime code that controls what scripts are executed and when
 #include <GraceEngine/runtime.h>
 
-runtime::runtime(const std::string &name, const int &width, const int &height, const sf::Color &color):
+Runtime::Runtime(const std::string &name, const int &width, const int &height, const sf::Color &color):
 m_window(name, width, height, color)
 {
     //Start the program
@@ -10,7 +10,7 @@ m_window(name, width, height, color)
 
 
 //Update the program
-int runtime::update()
+int Runtime::update()
 {
     //Game loop
     while (m_window.isRunning())
@@ -35,7 +35,7 @@ int runtime::update()
     return 0;
 }
 
-int runtime::end()
+int Runtime::end()
 {
     //Destroy objects
     runtimeFunctions::end();

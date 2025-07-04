@@ -72,7 +72,7 @@ void spriteObject::replaceTexture(const std::string& textureDir, const sf::Vecto
 //A permanent offset value
 void spriteObject::setOffset(const sf::Vector2f& objectOffset)
 {
-	sharedData::setOffset(objectOffset);		//Define the offset value
+    SharedData::setOffset(objectOffset);		//Define the offset value
 	incrementPosition(objectOffset);		//Move the object
 }
 
@@ -136,7 +136,7 @@ void spriteObject::setDebugActive(const sf::Color& color)
 	m_debugRect->setPosition(getPosition());
 	m_debugRect->setFillColor(color);
 	m_isDebugging = true;
-	debugHandler::printInfo("Sprite object: '" + getId() + "' is in debug");
+    DebugHandler::printInfo("Sprite object: '" + getId() + "' is in debug");
 }
 
 //Render object, if in debug render debug rect too

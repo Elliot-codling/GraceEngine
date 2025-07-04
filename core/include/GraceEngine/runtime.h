@@ -2,14 +2,14 @@
 #include "../../../GraceEditor/include/mainScript.h"
 
 //Access to the debug handler
-class runtime : public debugHandler
+class Runtime : public DebugHandler
 {
 public:
     //Starts the window
-    runtime(const std::string &name, const int &width, const int &height, const sf::Color &color = {0, 0, 0});
-    ~runtime() = default;
+    Runtime(const std::string &name, const int &width, const int &height, const sf::Color &color = {0, 0, 0});
+    ~Runtime() = default;
 
-    static void printErrorInfo(const std::string &content) { debugHandler::printErrorInfo(content); }
+    static void printErrorInfo(const std::string &content) { DebugHandler::printErrorInfo(content); }
 
     //Update loop
     int update();
@@ -25,5 +25,5 @@ private:
     sf::Clock m_clock;
     sf::Time m_timeElapsed;
 
-    graceEngine m_window;
+    GraceEngine m_window;
 };

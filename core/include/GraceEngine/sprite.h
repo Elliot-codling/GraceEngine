@@ -3,7 +3,7 @@
 #include <GraceEngine/sharedObjectClass.h>
 
 // spriteObject class --------------------------------------------------
-class spriteObject : public sharedData, public debugHandler
+class spriteObject : public SharedData, public DebugHandler
 {
 public:
 	//Constructor

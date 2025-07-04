@@ -1,7 +1,7 @@
 #include <GraceEngine/window.h>
 #include <cmath>
 // GraceEngine Constructor -----------------------------------------------------------------------------------
-graceEngine::graceEngine(const std::string &name, const int &width, const int &height, const sf::Color &color)
+GraceEngine::GraceEngine(const std::string &name, const int &width, const int &height, const sf::Color &color)
 {
 	m_window.create(sf::VideoMode(width, height), name);
 
@@ -9,12 +9,12 @@ graceEngine::graceEngine(const std::string &name, const int &width, const int &h
 	if (m_window.isOpen())
 	{
 		m_windowOpen = true;
-		debugHandler::printInfo("Created SFML window: '" + name + "'");
+        DebugHandler::printInfo("Created SFML window: '" + name + "'");
 	}
 	else
 	{
 		//If it cannot initialise SFML, exit program
-		debugHandler::printErrorInfo("Failed to initialise: '" + name + "'");
+        DebugHandler::printErrorInfo("Failed to initialise: '" + name + "'");
 	}
 	m_backgroundColor = color;
 
@@ -26,7 +26,7 @@ graceEngine::graceEngine(const std::string &name, const int &width, const int &h
 	m_window.setView(*m_camera);
 }
 
-graceEngine::~graceEngine()
+GraceEngine::~GraceEngine()
 {
 	for (spriteObject* object: m_renderQueueSprite)
 	{
@@ -37,28 +37,28 @@ graceEngine::~graceEngine()
 	}
 
 	m_renderQueueSprite.clear();
-	for (textObject* object: m_renderQueueText)
+	for (TextObject* object: m_renderQueueText)
 	{
 		delete object;
 	}
 	m_renderQueueText.clear();
 
 	delete m_camera;
-	debugHandler::printInfo("Destroying SFML window");
+    DebugHandler::printInfo("Destroying SFML window");
 }
 
 // GraceEngine main functions ---------------------------------------------------------------------------
 
 //Camera movement ---------------------------------------------
 
-void graceEngine::incrementCamera(const sf::Vector2f &position)
+void GraceEngine::incrementCamera(const sf::Vector2f &position)
 {
 	m_camera->move(position);
 	m_window.setView(*m_camera);
 }
 
 
-void graceEngine::setCameraSize(const sf::Vector2f &cameraSize)
+void GraceEngine::setCameraSize(const sf::Vector2f &cameraSize)
 {
 	m_camera->setSize(cameraSize);
 	m_window.setView(*m_camera);
@@ -68,13 +68,13 @@ void graceEngine::setCameraSize(const sf::Vector2f &cameraSize)
 // Render and Queue ----------------------------------------
 
 //Items can be pushed onto the render queue
-void graceEngine::pushToQueue(spriteObject* object)
+void GraceEngine::pushToQueue(spriteObject* object)
 {
 	m_renderQueueSprite.push_back(object);
 }
 
 
-void graceEngine::pushToQueue(textObject* object)
+void GraceEngine::pushToQueue(TextObject* object)
 {
 	m_renderQueueText.push_back(object);
 }
@@ -82,7 +82,7 @@ void graceEngine::pushToQueue(textObject* object)
 
 //Go through the renderQueue and identify the index where the specified object is
 //Remove the object by its index value
-void graceEngine::popFromQueue(const spriteObject* object)
+void GraceEngine::popFromQueue(const spriteObject* object)
 {
 	int index = 0;
 	for (int i = 0; i <= m_renderQueueSprite.size(); i++)
@@ -96,7 +96,7 @@ void graceEngine::popFromQueue(const spriteObject* object)
 	m_renderQueueSprite.erase(m_renderQueueSprite.begin() + index);
 }
 
-void graceEngine::popFromQueue(const textObject* object)
+void GraceEngine::popFromQueue(const TextObject* object)
 {
 	int index = 0;
 	for (int i = 0; i <= m_renderQueueText.size(); i++)
@@ -113,7 +113,7 @@ void graceEngine::popFromQueue(const textObject* object)
 
 //Sorts the renderQueue from the smallest layer number to the largest
 //Whatever was last pushed to the queue will be on top if all the layer numbers are the same
-void graceEngine::sortRenderQueue()
+void GraceEngine::sortRenderQueue()
 {
 	std::vector<spriteObject*> tempList;
 	tempList.push_back(m_renderQueueSprite[0]);
@@ -147,7 +147,7 @@ void graceEngine::sortRenderQueue()
 }
 
 //Clears a layer based on the number provided
-void graceEngine::clearLayer(const int &layerNumber)
+void GraceEngine::clearLayer(const int &layerNumber)
 {
 	//Deletes all objects in a given layer
 	for (auto& object: m_renderQueueSprite)
@@ -176,7 +176,7 @@ void graceEngine::clearLayer(const int &layerNumber)
 }
 
 //Render the vector of gameObjects
-void graceEngine::renderObjects()
+void GraceEngine::renderObjects()
 {
 	m_window.clear(m_backgroundColor);
 	if (m_renderQueueSprite.size() != 0)

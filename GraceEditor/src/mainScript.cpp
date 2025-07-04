@@ -4,14 +4,14 @@
 //spriteObject* object = new spriteObject(INFO HERE);
 
 //Runs once, used to set up objects and the window
-int runtimeFunctions::start(graceEngine &window)
+int runtimeFunctions::start(GraceEngine &window)
 {
     window.setTargetFramerate(60);
     return 0;
 }
 
 //Game loop, runs every frame
-int runtimeFunctions::update(graceEngine &window)
+int runtimeFunctions::update(GraceEngine &window)
 {
     window.updateEvents();
 
@@ -30,7 +30,7 @@ int runtimeFunctions::update(graceEngine &window)
     return 0;
 }
 
-int runtimeFunctions::fixedUpdate(graceEngine &window, const float &deltaTime)
+int runtimeFunctions::fixedUpdate(GraceEngine &window, const float &deltaTime)
 {
     //Add movement and transform code here
     return 0;

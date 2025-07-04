@@ -1,7 +1,7 @@
 #include <GraceEngine/text.h>
 
-// textObject constructor ------------------------------------------------------------------------------
-textObject::textObject(const std::string& objectId, const std::string& message, const sf::Vector2f& position, const std::string& fontDir, const uint8_t& fontSize, const uint8_t& objectLayer)
+// TextObject constructor ------------------------------------------------------------------------------
+TextObject::TextObject(const std::string& objectId, const std::string& message, const sf::Vector2f& position, const std::string& fontDir, const uint8_t& fontSize, const uint8_t& objectLayer)
 {
 	setId(objectId);
 	if (!m_font->loadFromFile(fontDir))
@@ -18,7 +18,7 @@ textObject::textObject(const std::string& objectId, const std::string& message, 
 	setLayer(objectLayer);
 }
 
-textObject::textObject(const std::string& objectId, const std::string& message, const sf::Vector2f& position, const sf::Font& fontFile, const uint8_t& fontSize, const uint8_t& objectLayer)
+TextObject::TextObject(const std::string& objectId, const std::string& message, const sf::Vector2f& position, const sf::Font& fontFile, const uint8_t& fontSize, const uint8_t& objectLayer)
 {
 	*m_font = fontFile;
 
@@ -31,7 +31,7 @@ textObject::textObject(const std::string& objectId, const std::string& message, 
 	setLayer(objectLayer);
 }
 
-textObject::~textObject()
+TextObject::~TextObject()
 {
 	//De-initialise object
 	destroyObject();
@@ -39,7 +39,7 @@ textObject::~textObject()
 	delete m_text;
 }
 
-void textObject::setPosition(const sf::Vector2f& position) const
+void TextObject::setPosition(const sf::Vector2f& position) const
 {
 	sf::Vector2f offSet;
 	offSet.x = { m_text->getGlobalBounds().left - m_text->getPosition().x };
@@ -48,7 +48,7 @@ void textObject::setPosition(const sf::Vector2f& position) const
 	m_text->setPosition({ position.x - offSet.x, position.y - offSet.y });
 }
 
-void textObject::setOrigin(const sf::Vector2f& origin) const
+void TextObject::setOrigin(const sf::Vector2f& origin) const
 {
 	m_text->setOrigin(origin.x, origin.y);
 }

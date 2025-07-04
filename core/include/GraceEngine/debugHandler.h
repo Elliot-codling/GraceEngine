@@ -31,7 +31,7 @@ Examples of errors:
 
 */
 
-class debugHandler
+class DebugHandler
 {
 public:
     static void printDebugInfo(const std::string &content) { std::cout << getTimeAndDate() << MAGENTA << "DEBUG"<< DEFAULT << "] "<< content << "\n"; }
