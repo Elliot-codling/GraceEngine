@@ -4,9 +4,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CXX_COMPILER ${CMAKE_CXX_COMPILER_ID})
 
-#Download SFML
+# Download SFML
 Set(FETCHCONTENT_QUIET FALSE)
 
+# Fetch with tag 2.6.2
 include(FetchContent)
 FetchContent_Declare(
     SFML
@@ -21,22 +22,22 @@ set(SFML_USE_SYSTEM_DEPS OFF CACHE BOOL "Use system dependencies" FORCE)
 
 FetchContent_MakeAvailable(SFML)
 
-#Grab all cpp files from src
+# Grab all cpp files from src
 file(GLOB_RECURSE ENGINE_SRC CONFIGURE_DEPENDS src/*.cpp)
 
-#Make Grace Engine a static library
+# Make Grace Engine a static library
 add_library(GraceEngine STATIC ${ENGINE_SRC})
 
-#Include the directories src for the cpp files
+# Include the directories src for the cpp files
 target_include_directories(GraceEngine PUBLIC
             ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-#Set sfml as static UNLESS os is linux
+# Set sfml as static UNLESS os is linux
 if(NOT CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(SFML_STATIC_LIBRARIES TRUE)
 endif()
 
-#Keep public - SFML static must be  known to all files
+# Keep public - SFML static must be  known to all files
 target_compile_definitions(GraceEngine PUBLIC SFML_STATIC)
 
 # Link SFML - must be public for game to use

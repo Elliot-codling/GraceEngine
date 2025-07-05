@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 3.14)
 project(GraceEditor)
 
+# Gather source and header files
 file(GLOB SOURCE src/*.cpp include/*.h)
 
 # Add all the files for the engine
-add_executable(${PROJECT_NAME} ${SOURCE})
+add_executable(${PROJECT_NAME} ${SOURCE} main.cpp)
 
-#Remove terminal in windows if on release build
+# Remove terminal in windows if on release build
 if (WIN32)
     if (MSVC OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC")
         # MSVC or Clang-cl (Visual Studio)
@@ -21,14 +22,14 @@ if (WIN32)
         )
     endif()
 endif()
-#Make everything in the library static
-#Static link gcc runtime and c++ standard library
+# Make everything in the library static
+# Static link gcc runtime and c++ standard library
 if((CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")  AND CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    #GNU SPECIFIC WINDOWS SPECIFIC
+    # GNU SPECIFIC WINDOWS SPECIFIC
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static -static-libgcc -static-libstdc++")
 endif()
 
-#Link with GraceEngine
+# Link with GraceEngine
 target_link_libraries(${PROJECT_NAME} PRIVATE GraceEngine)
 
 # Include engine headers

@@ -1,17 +1,26 @@
 #include <GraceEngine/debugHandler.h>
-
+#include <chrono>
+#include <iomanip>
 
 //Get the date and time to put at the start of a debug message
 std::string DebugHandler::getTimeAndDate()
 {
-    //Get current time
-    time_t timeStamp = time(nullptr);
-    //Create time struct based on local time
-    tm datetime = *localtime(&timeStamp);
+    // Get current time with high resolution
+    auto now = std::chrono::system_clock::now();
 
+    // Convert to time_t for calendar time (seconds)
+    auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
-    static char output[50];
-    //Get dd/mm/yyyy hr:min:sec
-    strftime(output, 50, "[%d/%m/%Y] [%H:%M:%S] [", &datetime);
-    return output;
+    // Extract milliseconds
+    auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(
+        now.time_since_epoch()) % 1000;
+
+    // Format date and time
+    std::tm buf = *std::localtime(&in_time_t);
+    std::ostringstream output;
+    output << "[" << std::put_time(&buf, "%d/%m/%Y") << "] ";
+    output << "[" << std::put_time(&buf, "%H:%M:%S")
+        << "." << std::setfill('0') << std::setw(3) << milliseconds.count() << "] [";
+
+    return output.str();
 }
