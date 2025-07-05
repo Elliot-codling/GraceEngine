@@ -1,12 +1,12 @@
-#include <GraceEngine/text.h>
+#include <GraceEngine/textObject.h>
 
 // TextObject constructor ------------------------------------------------------------------------------
-TextObject::TextObject(const std::string& objectId, const std::string& message, const sf::Vector2f& position, const std::string& fontDir, const uint8_t& fontSize, const uint8_t& objectLayer)
+TextObject::TextObject(const char* objectId, const char* message, const sf::Vector2f position, const char* fontDir, const uint8_t fontSize, const uint8_t objectLayer)
 {
 	setId(objectId);
 	if (!m_font->loadFromFile(fontDir))
 	{
-		printWarningInfo("Text object: '" + getId() + "' is not initialised.");
+		printWarningInfo("Text object: '" + std::string(getId()) + "' is not initialised.");
 		return;
 	}
 
@@ -18,7 +18,7 @@ TextObject::TextObject(const std::string& objectId, const std::string& message, 
 	setLayer(objectLayer);
 }
 
-TextObject::TextObject(const std::string& objectId, const std::string& message, const sf::Vector2f& position, const sf::Font& fontFile, const uint8_t& fontSize, const uint8_t& objectLayer)
+TextObject::TextObject(const char* objectId, const char* message, const sf::Vector2f position, const sf::Font& fontFile, const uint8_t fontSize, const uint8_t objectLayer)
 {
 	*m_font = fontFile;
 
@@ -39,7 +39,7 @@ TextObject::~TextObject()
 	delete m_text;
 }
 
-void TextObject::setPosition(const sf::Vector2f& position) const
+void TextObject::setPosition(const sf::Vector2f position) const
 {
 	sf::Vector2f offSet;
 	offSet.x = { m_text->getGlobalBounds().left - m_text->getPosition().x };
@@ -48,7 +48,7 @@ void TextObject::setPosition(const sf::Vector2f& position) const
 	m_text->setPosition({ position.x - offSet.x, position.y - offSet.y });
 }
 
-void TextObject::setOrigin(const sf::Vector2f& origin) const
+void TextObject::setOrigin(const sf::Vector2f origin) const
 {
 	m_text->setOrigin(origin.x, origin.y);
 }

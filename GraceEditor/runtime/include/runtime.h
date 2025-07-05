@@ -1,12 +1,13 @@
 #pragma once
-#include <../../GraceEditor/include/mainScript.h>
+#include "../../include/mainScript.h"
+
 
 //Access to the debug handler
 class Runtime : public DebugHandler
 {
 public:
     //Starts the window
-    Runtime(const std::string &name, const int &width, const int &height, const sf::Color &color = {0, 0, 0});
+    Runtime(const char* name, int width, int height, sf::Color color = {0, 0, 0});
     ~Runtime() = default;
 
     static void printErrorInfo(const std::string &content) { DebugHandler::printErrorInfo(content); }

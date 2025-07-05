@@ -1,7 +1,7 @@
 #include "../include/mainScript.h"
 
 //Declare objects here
-//spriteObject* object = new spriteObject(INFO HERE);
+//SpriteObject* object = new spriteObject(INFO HERE);
 
 //Runs once, used to set up objects and the window
 int runtimeFunctions::start(GraceEngine &window)
@@ -23,7 +23,7 @@ int runtimeFunctions::update(GraceEngine &window)
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1))
         {
-            window.printDebugInfo("Hello, World!");
+            GraceEngine::printDebugInfo("Hello, World!");
         }
     }
     window.renderObjects();

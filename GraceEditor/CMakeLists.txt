@@ -2,7 +2,12 @@ cmake_minimum_required(VERSION 3.14)
 project(GraceEditor)
 
 # Gather source and header files
-file(GLOB SOURCE src/*.cpp include/*.h)
+file(GLOB SOURCE
+        src/*.cpp
+        include/*.h
+        runtime/include/*.h
+        runtime/src/*.cpp
+)
 
 # Add all the files for the engine
 add_executable(${PROJECT_NAME} ${SOURCE} main.cpp)
@@ -13,7 +18,6 @@ if (WIN32)
         # MSVC or Clang-cl (Visual Studio)
         set_target_properties(${PROJECT_NAME} PROPERTIES
                 LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS"
-                LINK_FLAGS_RELWITHDEBINFO "/SUBSYSTEM:WINDOWS"
         )
     elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         # MinGW GCC or Clang (MinGW-style)

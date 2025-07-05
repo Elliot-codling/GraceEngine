@@ -4,25 +4,24 @@
 
 //Import the other files that will be used to create the engine
 #include <GraceEngine/debugHandler.h>
-#include <GraceEngine/sprite.h>
-#include <GraceEngine/text.h>
+#include <GraceEngine/spriteObject.h>
+#include <GraceEngine/textObject.h>
 #include <GraceEngine/input.h>
 
 //Grace engine initialisation - window control
 class GraceEngine: public DebugHandler, public GameEvents
 {
 public:
-	GraceEngine(const std::string &name, const int &width, const int &height, const sf::Color &color = {0, 0, 0});
+	GraceEngine(const char* name, int width, int height, sf::Color color = {0, 0, 0});
 	~GraceEngine();
 
 	void renderObjects();
-	//void renderObjects(const std::vector<debugShape*>* debugQueue);
-	void clearLayer(const int &layerNumber);
+	void clearLayer(int layerNumber);
 
 	//Set target fps and get current fps
-	void setTargetFramerate(const int &targetFPS) { m_window.setFramerateLimit(targetFPS); }
+	void setTargetFramerate(const int targetFPS) { m_window.setFramerateLimit(targetFPS); }
 	//Used by runtime.cpp - Sets the frametime of the current frame
-	void setFrametime(const float &currentFrametime) { m_frametime = currentFrametime; }
+	void setFrametime(const float currentFrametime) { m_frametime = currentFrametime; }
 	[[nodiscard]] float getFramerate() const { return 1.f / m_frametime; }
 
 	//Check if the window is running
@@ -33,23 +32,23 @@ public:
 	[[nodiscard]] int getHeight() const { return static_cast<int>(m_window.getSize().y); }
 
 	//Camera movement and window relativity
-	void incrementCamera(const sf::Vector2f &position);
+	void incrementCamera(sf::Vector2f position);
 	[[nodiscard]] sf::Vector2f getCameraPos() const { return m_camera->getCenter(); }
-	void setCameraSize(const sf::Vector2f &cameraSize);
+	void setCameraSize(sf::Vector2f cameraSize);
 
 	//Relative position of object to window
-	[[nodiscard]] sf::Vector2i getRelativePosition(const spriteObject* object) const { return m_window.mapCoordsToPixel(object->getPosition()); }
+	[[nodiscard]] sf::Vector2i getRelativePosition(const SpriteObject* object) const { return m_window.mapCoordsToPixel(object->getPosition()); }
 	[[nodiscard]] sf::Vector2i getRelativePosition(const TextObject* object) const { return m_window.mapCoordsToPixel(object->getPosition()); }
 
 	//Set world position to window position
-	void setRelativePosition(const spriteObject* object, const sf::Vector2f &position) const { object->setPosition(m_window.mapPixelToCoords({ static_cast<int>(position.x), static_cast<int>(position.y) })); }
-	void setRelativePosition(const TextObject* object, const sf::Vector2f &position) const { object->setPosition(m_window.mapPixelToCoords({ static_cast<int>(position.x), static_cast<int>(position.y) })); }
+	void setRelativePosition(const SpriteObject* object, const sf::Vector2f position) const { object->setPosition(m_window.mapPixelToCoords({ static_cast<int>(position.x), static_cast<int>(position.y) })); }
+	void setRelativePosition(const TextObject* object, const sf::Vector2f position) const { object->setPosition(m_window.mapPixelToCoords({ static_cast<int>(position.x), static_cast<int>(position.y) })); }
 
 
-	//Render and the renderQueue - spriteObject
-	void pushToQueue(spriteObject* object);
-	void popFromQueue(const spriteObject* object);
-	[[nodiscard]] std::vector<spriteObject*> getSpriteQueue() { return m_renderQueueSprite; }
+	//Render and the renderQueue - SpriteObject
+	void pushToQueue(SpriteObject* object);
+	void popFromQueue(const SpriteObject* object);
+	[[nodiscard]] std::vector<SpriteObject*> getSpriteQueue() { return m_renderQueueSprite; }
 
 	//Render and the renderQueue - textObject
 	void pushToQueue(TextObject* object);
@@ -59,7 +58,7 @@ public:
 	// Functions passed onto other files ---------------------------------------
 	// Prevents the users from having to create an eventHandler
 	void updateEvents() { GameEvents::updateEvents(m_window); }
-	bool getEvent(const sf::Event::EventType &eventType) { return GameEvents::getEvent(m_windowOpen, eventType); }
+	bool getEvent(const sf::Event::EventType eventType) { return GameEvents::getEvent(m_windowOpen, eventType); }
 
 	[[nodiscard]] sf::Vector2f getMousePos() const { return GameEvents::getMousePos(m_window); }
 
@@ -76,11 +75,11 @@ private:
 
 	//Render Queues
 	//Render queue for pointers and other for reference
-	std::vector<spriteObject*> m_renderQueueSprite;
+	std::vector<SpriteObject*> m_renderQueueSprite;
 	std::vector<TextObject*> m_renderQueueText;
 
 	//Frametime of the current frame
-	float m_frametime;
+	float m_frametime = 0;
 
 	//Private functions
 private:

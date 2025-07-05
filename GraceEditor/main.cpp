@@ -1,4 +1,4 @@
-#include <GraceEngine/runtime.h>
+#include "runtime/include/runtime.h"
 
 int windowWidth = 1280, windowHeight = 720;
 

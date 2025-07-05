@@ -32,6 +32,7 @@ add_library(GraceEngine STATIC ${ENGINE_SRC})
 target_include_directories(GraceEngine PUBLIC
             ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
+
 # Set sfml as static UNLESS os is linux
 if(NOT CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(SFML_STATIC_LIBRARIES TRUE)

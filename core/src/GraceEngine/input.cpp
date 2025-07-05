@@ -13,7 +13,7 @@ void GameEvents::updateEvents(sf::RenderWindow &target)
 
 //Check through the current event list and check if any match the requested event type
 //Close the window if the close button has been pressed
-bool GameEvents::getEvent(bool &windowOpen, const sf::Event::EventType &eventType) const
+bool GameEvents::getEvent(bool &windowOpen, const sf::Event::EventType eventType) const
 {
     for (auto &event : m_currentEvents)
     {
