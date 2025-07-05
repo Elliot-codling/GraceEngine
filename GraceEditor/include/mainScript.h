@@ -8,3 +8,5 @@ namespace runtimeFunctions
     int fixedUpdate(GraceEngine &window, float deltaTime);
     int end();
 }
+
+inline auto create = Create();

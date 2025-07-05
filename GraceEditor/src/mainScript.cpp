@@ -1,7 +1,7 @@
 #include "../include/mainScript.h"
 
 // Declare objects here
-// SpriteObject* object = new SpriteObject(INFO HERE);
+// SpriteObject* object = create.sprite(INFO HERE);
 
 // Runs once, used to set up objects and the window
 int runtimeFunctions::start(GraceEngine &window)
@@ -35,7 +35,6 @@ int runtimeFunctions::fixedUpdate(GraceEngine &window, const float deltaTime)
     // Add movement and transform code here
     return 0;
 }
-
 
 int runtimeFunctions::end()
 {

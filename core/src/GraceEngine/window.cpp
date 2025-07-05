@@ -28,24 +28,7 @@ GraceEngine::GraceEngine(const char* name, const int width, const int height, co
 
 GraceEngine::~GraceEngine()
 {
-	// TODO: Remove this and create a creation file and class
-	for (SpriteObject* object: m_renderQueueSprite)
-	{
-		if (object->isInitialised())
-		{
-			delete object;
-		}
-	}
 
-	m_renderQueueSprite.clear();
-	for (TextObject* object: m_renderQueueText)
-	{
-		delete object;
-	}
-	m_renderQueueText.clear();
-
-	delete m_camera;
-    DebugHandler::printInfo("Destroying SFML window");
 }
 
 // GraceEngine main functions ---------------------------------------------------------------------------

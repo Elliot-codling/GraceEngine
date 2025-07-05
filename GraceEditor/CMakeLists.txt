@@ -12,20 +12,6 @@ file(GLOB SOURCE
 # Add all the files for the engine
 add_executable(${PROJECT_NAME} ${SOURCE} main.cpp)
 
-# Remove terminal in windows if on release build
-if (WIN32)
-    if (MSVC OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC")
-        # MSVC or Clang-cl (Visual Studio)
-        set_target_properties(${PROJECT_NAME} PROPERTIES
-                LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS"
-        )
-    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        # MinGW GCC or Clang (MinGW-style)
-        set_target_properties(${PROJECT_NAME} PROPERTIES
-                LINK_FLAGS_RELEASE "-mwindows"
-        )
-    endif()
-endif()
 # Make everything in the library static
 # Static link gcc runtime and c++ standard library
 if((CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")  AND CMAKE_SYSTEM_NAME STREQUAL "Windows")

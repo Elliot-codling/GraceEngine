@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 // Import the other files that will be used to create the engine
+#include <GraceEngine/creation.h>
 #include <GraceEngine/debugHandler.h>
 #include <GraceEngine/spriteObject.h>
 #include <GraceEngine/textObject.h>

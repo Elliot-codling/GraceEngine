@@ -19,6 +19,7 @@ public:
 	[[nodiscard]] float getAngle() const { return m_sprite->getRotation(); }
 
 	// Transform functions
+	[[nodiscard]] sf::Transform getTransform() const { return m_sprite->getTransform(); }
 	void setPosition(const sf::Vector2f position) const { m_sprite->setPosition(position.x + getOffset().x, position.y + getOffset().y); }
 	void incrementPosition(const sf::Vector2f position) const { m_sprite->setPosition(m_sprite->getPosition().x + position.x, m_sprite->getPosition().y + position.y); }
 	void setOffset(sf::Vector2f objectOffset) override;
