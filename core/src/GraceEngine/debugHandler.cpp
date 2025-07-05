@@ -2,7 +2,7 @@
 #include <chrono>
 #include <iomanip>
 
-//Get the date and time to put at the start of a debug message
+// Get the date and time to put at the start of a debug message
 std::string DebugHandler::getTimeAndDate()
 {
     // Get current time with high resolution

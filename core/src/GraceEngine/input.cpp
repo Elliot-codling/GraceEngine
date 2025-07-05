@@ -1,7 +1,7 @@
 #include <GraceEngine/input.h>
 
-//Clear current events
-//Then gather new events happening in the window and store them to the queue
+// Clear current events
+// Then gather new events happening in the window and store them to the queue
 void GameEvents::updateEvents(sf::RenderWindow &target)
 {
     m_currentEvents.clear();
@@ -11,8 +11,8 @@ void GameEvents::updateEvents(sf::RenderWindow &target)
     }
 }
 
-//Check through the current event list and check if any match the requested event type
-//Close the window if the close button has been pressed
+// Check through the current event list and check if any match the requested event type
+// Close the window if the close button has been pressed
 bool GameEvents::getEvent(bool &windowOpen, const sf::Event::EventType eventType) const
 {
     for (auto &event : m_currentEvents)

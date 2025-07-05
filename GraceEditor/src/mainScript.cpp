@@ -1,17 +1,17 @@
 #include "../include/mainScript.h"
 
-//Declare objects here
-//SpriteObject* object = new spriteObject(INFO HERE);
+// Declare objects here
+// SpriteObject* object = new SpriteObject(INFO HERE);
 
-//Runs once, used to set up objects and the window
+// Runs once, used to set up objects and the window
 int runtimeFunctions::start(GraceEngine &window)
 {
-    window.setTargetFramerate(60);
+    window.setVsyncEnabled();
     return 0;
 }
 
-//Game loop, runs every frame
-int runtimeFunctions::update(GraceEngine &window)
+// Game loop, runs every frame
+int runtimeFunctions::update(GraceEngine &window, const float deltaTime)
 {
     window.updateEvents();
 
@@ -30,9 +30,9 @@ int runtimeFunctions::update(GraceEngine &window)
     return 0;
 }
 
-int runtimeFunctions::fixedUpdate(GraceEngine &window, const float &deltaTime)
+int runtimeFunctions::fixedUpdate(GraceEngine &window, const float deltaTime)
 {
-    //Add movement and transform code here
+    // Add movement and transform code here
     return 0;
 }
 

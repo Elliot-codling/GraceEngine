@@ -37,8 +37,8 @@ public:
     static void printDebugInfo(const int content) { std::cout << getTimeAndDate() << c_MAGENTA << "DEBUG"<< c_DEFAULT << "] "<< std::to_string(content) << "\n"; }
     static void printDebugInfo(const float content) { std::cout << getTimeAndDate() << c_MAGENTA << "DEBUG"<< c_DEFAULT << "] "<< std::to_string(content) << "\n"; }
 protected:
-    //Can be accessed via graceengine when that class inherits this
-    //Anything outside graceengine cannot access this
+    // Can be accessed via graceengine when that class inherits this
+    // Anything outside graceengine cannot access this
 
     static void printInfo(const std::string &content) { std::cout << getTimeAndDate() << c_GREEN << "INFO"<< c_DEFAULT << "] "<< content << "\n"; }
     static void printInfo(const int content) { std::cout << getTimeAndDate() << c_GREEN << "INFO"<< c_DEFAULT << "] "<< std::to_string(content) << "\n"; }

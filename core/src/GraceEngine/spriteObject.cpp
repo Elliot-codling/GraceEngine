@@ -2,38 +2,38 @@
 
 
 // SpriteObject constructor ---------------------------------------------------------------------------------
-//Texture will be loaded from the directory given by string
+// Texture will be loaded from the directory given by string
 
 SpriteObject::SpriteObject(const char* objectId, const char* textureDir, const sf::Vector2f position, const sf::Vector2f size, const uint8_t objectLayer)
 {
-	//Assign an id to the object
+	// Assign an id to the object
 	setId(objectId);
 
-	//Load the texture from the directory provided
+	// Load the texture from the directory provided
 	if (!m_texture->loadFromFile(textureDir))
 	{
 		printWarningInfo("Sprite object: '" + std::string(getId()) + "' is not initialised");
 		return;
 	}
 
-	//Apply texture to sprite, set its position and then apply its scale
+	// Apply texture to sprite, set its position and then apply its scale
 	m_sprite->setTexture(*m_texture);
 	m_sprite->setPosition(position.x, position.y);
 
 	setSize(size);
 	setLayer(objectLayer);
 
-	//Once it's passed through, the object has initialised successfully
+	// Once it's passed through, the object has initialised successfully
 	initialiseObject();
 }
 
-//Assuming texture has loaded, set the sprite to the textureFile
+// Assuming texture has loaded, set the sprite to the textureFile
 SpriteObject::SpriteObject(const char* objectId, const sf::Texture& textureFile, const sf::Vector2f position, const sf::Vector2f size, const uint8_t objectLayer)
 {
-	//Assign the object its id
+	// Assign the object its id
 	setId(objectId);
 
-	//Apply texture to sprite, set its position and then apply its scale
+	// Apply texture to sprite, set its position and then apply its scale
 	*m_texture = textureFile;
 	m_sprite->setTexture(textureFile);
 	m_sprite->setPosition(position.x, position.y);
@@ -41,7 +41,7 @@ SpriteObject::SpriteObject(const char* objectId, const sf::Texture& textureFile,
 	setSize(size);
 	setLayer(objectLayer);
 
-	//Once it's passed through, the object has initialised successfully
+	// Once it's passed through, the object has initialised successfully
 	initialiseObject();
 }
 
@@ -56,7 +56,7 @@ SpriteObject::~SpriteObject()
 	}
 }
 
-//Replace the sprite texture with a new specified directory
+// Replace the sprite texture with a new specified directory
 void SpriteObject::replaceTexture(const char* textureDir, const sf::Vector2f size) const
 {
 	if (!m_texture->loadFromFile(textureDir))
@@ -64,21 +64,21 @@ void SpriteObject::replaceTexture(const char* textureDir, const sf::Vector2f siz
 		return;
 	}
 
-	//Apply new texture
+	// Apply new texture
 	m_sprite->setScale(size.x / static_cast<float>(m_texture->getSize().x), size.y / static_cast<float>(m_texture->getSize().y));
 	m_sprite->setTexture(*m_texture);
 }
 
-//A permanent offset value
+// Define object offset value
 void SpriteObject::setOffset(const sf::Vector2f objectOffset)
 {
-    SharedData::setOffset(objectOffset);		//Define the offset value
-	incrementPosition(objectOffset);		//Move the object
+    SharedData::setOffset(objectOffset);		// Define the offset value
+	incrementPosition(objectOffset);		// Move the object
 }
 
 
-//Set the size of the sprite
-//If the sprite has a repeated texture then do texture rect instead
+// Set the size of the sprite
+// If the sprite has a repeated texture then do texture rect instead
 void SpriteObject::setSize(const sf::Vector2f size) const
 {
 	if (!m_texture->isRepeated())
@@ -91,21 +91,21 @@ void SpriteObject::setSize(const sf::Vector2f size) const
 	}
 }
 
-//Set the texture rect position
+// Set the texture rect position
 void SpriteObject::setSpriteRectPos(const sf::Vector2f position) const
 {
 	m_sprite->setTextureRect(sf::IntRect(static_cast<int>(position.x), static_cast<int>(position.y), m_sprite->getTextureRect().width, m_sprite->getTextureRect().height));
 }
 
 
-//Set the Origin point of the sprite
+// Set the Origin point of the sprite
 void SpriteObject::setOrigin(const sf::Vector2f origin) const
 {
 	m_sprite->setOrigin(origin.x / m_sprite->getScale().x, origin.y / m_sprite->getScale().y);
 }
 
 
-//Return an object ID if the selected sprite has collided with the object
+// Return an object ID if the selected sprite has collided with the object
 std::string SpriteObject::collisionBox(const SpriteObject* object) const
 {
 	if (!(getPosition().x <= object->getPosition().x + object->getSize().x))
@@ -128,7 +128,7 @@ std::string SpriteObject::collisionBox(const SpriteObject* object) const
 	return object->getId();
 }
 
-//Create rectangle, set its size, pos and colour and then print out to terminal
+// Create rectangle, set its size, pos and colour and then print out to terminal
 void SpriteObject::setDebugActive(const sf::Color color)
 {
 	m_debugRect = new sf::RectangleShape;
@@ -139,10 +139,10 @@ void SpriteObject::setDebugActive(const sf::Color color)
     DebugHandler::printInfo("Sprite object: '" + std::string(getId()) + "' is in debug");
 }
 
-//Render object, if in debug render debug rect too
+// Render object, if in debug render debug rect too
 void SpriteObject::render(sf::RenderTarget& target) const
 {
-	//Draw debug rect if it is currently debugging
+	// Draw debug rect if it is currently debugging
 	if (m_isDebugging)
 	{
 		target.draw(*m_debugRect);

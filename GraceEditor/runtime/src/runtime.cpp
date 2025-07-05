@@ -4,36 +4,35 @@
 Runtime::Runtime(const char* name, const int width, const int height, const sf::Color color):
 m_window(name, width, height, color)
 {
-    //Start the program
+    // Start the program
     runtimeFunctions::start(m_window);
 }
 
 
-//Update the program
+// Update the program
 int Runtime::update()
 {
-    //Game loop
+    // Game loop
     while (m_window.isRunning())
     {
         m_timeElapsed = m_clock.restart();
         m_timeSinceLastUpdate += m_timeElapsed.asSeconds();
 
-        while (m_timeSinceLastUpdate >= m_fixedTime)
+        while (m_timeSinceLastUpdate >= c_fixedTime)
         {
-            m_deltaTime = m_timeSinceLastUpdate / m_fixedTime;
-            runtimeFunctions::fixedUpdate(m_window, m_deltaTime);
-            //Update current frametime
+            runtimeFunctions::fixedUpdate(m_window, c_fixedTime);
+            // Update current frametime
             m_window.setFrametime(m_timeElapsed.asSeconds());
-            m_timeSinceLastUpdate -= m_fixedTime;
+            m_timeSinceLastUpdate -= c_fixedTime;
         }
-        runtimeFunctions::update(m_window);
+        runtimeFunctions::update(m_window, m_timeElapsed.asSeconds());
     }
     return 0;
 }
 
 int Runtime::end()
 {
-    //Destroy objects
+    // Destroy objects
     runtimeFunctions::end();
     return 0;
 }

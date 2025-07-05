@@ -1,5 +1,7 @@
 #include <GraceEngine/textObject.h>
 
+// TODO: Add more comments
+
 // TextObject constructor ------------------------------------------------------------------------------
 TextObject::TextObject(const char* objectId, const char* message, const sf::Vector2f position, const char* fontDir, const uint8_t fontSize, const uint8_t objectLayer)
 {

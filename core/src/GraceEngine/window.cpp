@@ -5,7 +5,7 @@ GraceEngine::GraceEngine(const char* name, const int width, const int height, co
 {
 	m_window.create(sf::VideoMode(width, height), name);
 
-	//Constructor should create the render window
+	// Constructor should create the render window
 	if (m_window.isOpen())
 	{
 		m_windowOpen = true;
@@ -13,12 +13,12 @@ GraceEngine::GraceEngine(const char* name, const int width, const int height, co
 	}
 	else
 	{
-		//If it cannot initialise SFML, exit program
+		// If it cannot initialise SFML, exit program
         DebugHandler::printErrorInfo("Failed to initialise: '" + std::string(name) + "'");
 	}
 	m_backgroundColor = color;
 
-	//Experimental changes to be made
+	// Experimental changes to be made
 	m_window.setKeyRepeatEnabled(false);
 
 	m_camera = new sf::View(sf::FloatRect(0.f, 0.f, static_cast<float>(width), static_cast<float>(height)));
@@ -28,6 +28,7 @@ GraceEngine::GraceEngine(const char* name, const int width, const int height, co
 
 GraceEngine::~GraceEngine()
 {
+	// TODO: Remove this and create a creation file and class
 	for (SpriteObject* object: m_renderQueueSprite)
 	{
 		if (object->isInitialised())
@@ -49,7 +50,7 @@ GraceEngine::~GraceEngine()
 
 // GraceEngine main functions ---------------------------------------------------------------------------
 
-//Camera movement ---------------------------------------------
+// Camera movement ---------------------------------------------
 
 void GraceEngine::incrementCamera(const sf::Vector2f position)
 {
@@ -67,7 +68,7 @@ void GraceEngine::setCameraSize(const sf::Vector2f cameraSize)
 
 // Render and Queue ----------------------------------------
 
-//Items can be pushed onto the render queue
+// Items can be pushed onto the render queue
 void GraceEngine::pushToQueue(SpriteObject* object)
 {
 	m_renderQueueSprite.emplace_back(object);
@@ -80,8 +81,8 @@ void GraceEngine::pushToQueue(TextObject* object)
 }
 
 
-//Go through the renderQueue and identify the index where the specified object is
-//Remove the object by its index value
+// Go through the renderQueue and identify the index where the specified object is
+// Remove the object by its index value
 void GraceEngine::popFromQueue(const SpriteObject* object)
 {
 	int index = 0;
@@ -111,8 +112,9 @@ void GraceEngine::popFromQueue(const TextObject* object)
 }
 
 
-//Sorts the renderQueue from the smallest layer number to the largest
-//Whatever was last pushed to the queue will be on top if all the layer numbers are the same
+// Sorts the renderQueue from the smallest layer number to the largest
+// Whatever was last pushed to the queue will be on top if all the layer numbers are the same
+// TODO: Update to use an array instead
 void GraceEngine::sortRenderQueue()
 {
 	std::vector<SpriteObject*> tempList;
@@ -146,7 +148,7 @@ void GraceEngine::sortRenderQueue()
 	delete object;		//Ensure no memory leaks
 }
 
-//Clears a layer based on the number provided
+// Clears a layer based on the number provided
 void GraceEngine::clearLayer(const int layerNumber)
 {
 	//Deletes all objects in a given layer
@@ -175,7 +177,7 @@ void GraceEngine::clearLayer(const int layerNumber)
 	}
 }
 
-//Render the vector of gameObjects
+// Render the vector of gameObjects
 void GraceEngine::renderObjects()
 {
 	m_window.clear(m_backgroundColor);

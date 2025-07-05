@@ -1,10 +1,10 @@
 #pragma once
 #include <GraceEngine/window.h>
-//Define the runtime functions
+// Define the runtime functions
 namespace runtimeFunctions
 {
     int start(GraceEngine &window);
-    int update(GraceEngine &window);
-    int fixedUpdate(GraceEngine &window, const float &deltaTime);
+    int update(GraceEngine &window, float deltaTime);
+    int fixedUpdate(GraceEngine &window, float deltaTime);
     int end();
 }
