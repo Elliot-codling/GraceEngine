@@ -10,7 +10,7 @@
 #include <GraceEngine/input.h>
 
 // Grace engine initialisation - window control
-class GraceEngine: public DebugHandler, public GameEvents
+class GraceEngine: public DebugHandler, public GameEvents, public Create
 {
 public:
 	GraceEngine(const char* name, int width, int height, sf::Color color = {0, 0, 0});
@@ -51,14 +51,14 @@ public:
 
 
 	// Render and the renderQueue - SpriteObject
-	void pushToQueue(SpriteObject* object);
-	void popFromQueue(const SpriteObject* object);
-	[[nodiscard]] std::vector<SpriteObject*> getSpriteQueue() { return m_renderQueueSprite; }
+	void pushToRender(SpriteObject* object);
+	void popFromRender(SpriteObject* object);
+	[[nodiscard]] std::vector<SpriteObject>* getSpriteQueue() { return &m_spriteList; }
 
 	// Render and the renderQueue - textObject
-	void pushToQueue(TextObject* object);
-	void popFromQueue(const TextObject* object);
-	[[nodiscard]] std::vector<TextObject*> getTextQueue() { return m_renderQueueText; }
+	void pushToRender(TextObject* object);
+	void popFromRender(TextObject* object);
+	[[nodiscard]] std::vector<TextObject>* getTextQueue() { return &m_textList; }
 
 	// Functions passed onto other files ---------------------------------------
 	// Prevents the users from having to create an eventHandler
@@ -77,11 +77,6 @@ private:
 
 	// Camera
 	sf::View* m_camera;
-
-	// Render Queues
-	// Render queue for pointers and other for reference
-	std::vector<SpriteObject*> m_renderQueueSprite;
-	std::vector<TextObject*> m_renderQueueText;
 
 	// Frametime of the current frame
 	float m_frametime = 0;

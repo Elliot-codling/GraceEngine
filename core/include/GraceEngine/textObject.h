@@ -31,7 +31,7 @@ public:
 	void updateString(const char* newMessage) const { m_text->setString(newMessage); }
 
 	// Render Text
-	void render(sf::RenderTarget& target) const { target.draw(*m_text); }
+	void render(sf::RenderTarget& target) const;
 
 private:
 	// Store font and text as ptr

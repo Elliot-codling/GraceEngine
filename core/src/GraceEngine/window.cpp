@@ -52,46 +52,36 @@ void GraceEngine::setCameraSize(const sf::Vector2f cameraSize)
 // Render and Queue ----------------------------------------
 
 // Items can be pushed onto the render queue
-void GraceEngine::pushToQueue(SpriteObject* object)
+void GraceEngine::pushToRender(SpriteObject* object)
 {
-	m_renderQueueSprite.emplace_back(object);
+	object->setObjectVisible(true);
 }
 
-
-void GraceEngine::pushToQueue(TextObject* object)
+void GraceEngine::pushToRender(TextObject* object)
 {
-	m_renderQueueText.emplace_back(object);
+	//m_textList.emplace_back(*object);
 }
 
 
 // Go through the renderQueue and identify the index where the specified object is
 // Remove the object by its index value
-void GraceEngine::popFromQueue(const SpriteObject* object)
+void GraceEngine::popFromRender(SpriteObject* object)
 {
-	int index = 0;
-	for (int i = 0; i <= m_renderQueueSprite.size(); i++)
-	{
-		if (m_renderQueueSprite[i]->getId() == object->getId())
-		{
-			index = i;
-			break;
-		}
-	}
-	m_renderQueueSprite.erase(m_renderQueueSprite.begin() + index);
+	object->setObjectVisible(false);
 }
 
-void GraceEngine::popFromQueue(const TextObject* object)
+void GraceEngine::popFromRender(TextObject* object)
 {
 	int index = 0;
-	for (int i = 0; i <= m_renderQueueText.size(); i++)
+	for (int i = 0; i <= m_textList.size(); i++)
 	{
-		if (m_renderQueueText[i]->getId() == object->getId())
+		if (m_textList[i].getId() == object->getId())
 		{
 			index = i;
 			break;
 		}
 	}
-	m_renderQueueText.erase(m_renderQueueText.begin() + index);
+	m_textList.erase(m_textList.begin() + index);
 }
 
 
@@ -100,84 +90,87 @@ void GraceEngine::popFromQueue(const TextObject* object)
 // TODO: Update to use an array instead
 void GraceEngine::sortRenderQueue()
 {
-	std::vector<SpriteObject*> tempList;
-	tempList.emplace_back(m_renderQueueSprite[0]);
+	std::vector<SpriteObject> tempList;
+	tempList.emplace_back(m_spriteList[0]);
 	size_t lengthOfQueue = 0;
 	SpriteObject* object = nullptr;
-	for (int indexOfObject = 1; indexOfObject < size(m_renderQueueSprite); indexOfObject++)
+	for (int indexOfObject = 1; indexOfObject < size(m_spriteList); indexOfObject++)
 	{
-		object = m_renderQueueSprite[indexOfObject];
+		object = &m_spriteList[indexOfObject];
 		lengthOfQueue = size(tempList);
 		for (int index = 0; index < lengthOfQueue; index++)
 		{
 			//Insert only if at the correct index
-			if (object->getLayer() < tempList[index]->getLayer())
+			if (object->getLayer() < tempList[index].getLayer())
 			{
-				tempList.insert(tempList.begin() + index, object);
+				tempList.insert(tempList.begin() + index, *object);
 				break;
 			}
 
 			//For the last item
 			if (index == lengthOfQueue - 1)
 			{
-				tempList.insert(tempList.begin() + index + 1, object);
+				tempList.insert(tempList.begin() + index + 1, *object);
 				break;
 			}
 		}
 	}
 
 	object = nullptr;		//Object can be set to a null pointer
-	m_renderQueueSprite = tempList;
+	m_spriteList = tempList;
 	delete object;		//Ensure no memory leaks
 }
+
 
 // Clears a layer based on the number provided
 void GraceEngine::clearLayer(const int layerNumber)
 {
 	//Deletes all objects in a given layer
-	for (auto& object: m_renderQueueSprite)
+	for (auto& object: m_spriteList)
 	{
-		if (object->getLayer() == layerNumber)
+		if (object.getLayer() == layerNumber)
 		{
-			popFromQueue(object);
+			popFromRender(&object);
 		}
 	}
 
-	for (auto& object: m_renderQueueSprite)
+	for (auto& object: m_spriteList)
 	{
-		if (object->getLayer() == layerNumber)
+		if (object.getLayer() == layerNumber)
 		{
-			popFromQueue(object);
+			popFromRender(&object);
 		}
 	}
 
-	for (auto& object : m_renderQueueText)
+	for (auto& object : m_textList)
 	{
-		if (object->getLayer() == layerNumber)
+		if (object.getLayer() == layerNumber)
 		{
-			popFromQueue(object);
+			popFromRender(&object);
 		}
 	}
 }
+
 
 // Render the vector of gameObjects
 void GraceEngine::renderObjects()
 {
 	m_window.clear(m_backgroundColor);
-	if (!m_renderQueueSprite.empty())
+	if (!m_spriteList.empty())
 	{
-		sortRenderQueue();		//Sort renderQueue
+		sortRenderQueue();
 	}
 
-	for (SpriteObject* object: m_renderQueueSprite)
+	for (SpriteObject &object: m_spriteList)
 	{
-		object->render(m_window);
+		object.render(m_window);
 	}
 
-	for (auto& object : m_renderQueueText)
+	for (TextObject &object : m_textList)
 	{
-		object->render(m_window);
+		object.render(m_window);
 	}
+
 
 	m_window.display();
 }

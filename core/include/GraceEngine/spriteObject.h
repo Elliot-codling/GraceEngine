@@ -46,6 +46,7 @@ public:
 	void setDebugActive(sf::Color color = { 255, 255, 255 });
 
 	// Render Object
+
 	void render(sf::RenderTarget& target) const;
 
 private:

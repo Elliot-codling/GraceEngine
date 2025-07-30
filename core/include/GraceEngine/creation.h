@@ -8,14 +8,14 @@ public:
     Create() = default;
     ~Create();
     // SpriteObject
-    SpriteObject* sprite(const char* objectId, const char* textureDir, sf::Vector2f position, sf::Vector2f size, uint8_t objectLayer = 0);
-    SpriteObject* sprite(const char* objectId, const sf::Texture& textureFile, sf::Vector2f position, sf::Vector2f size, uint8_t objectLayer = 0);
+    SpriteObject* createSprite(const char* objectId, const char* textureDir, sf::Vector2f position, sf::Vector2f size, uint8_t objectLayer = 0);
+    SpriteObject* createSprite(const char* objectId, const sf::Texture& textureFile, sf::Vector2f position, sf::Vector2f size, uint8_t objectLayer = 0);
 
     // TextObject
-    TextObject* text(const char* objectId, const char* message, sf::Vector2f position, const char* fontDir, uint8_t fontSize, uint8_t objectLayer = 0);
-    TextObject* text(const char* objectId, const char* message, sf::Vector2f position, const sf::Font& fontFile, uint8_t fontSize, uint8_t objectLayer = 0);
+    TextObject* createText(const char* objectId, const char* message, sf::Vector2f position, const char* fontDir, uint8_t fontSize, uint8_t objectLayer = 0);
+    TextObject* createText(const char* objectId, const char* message, sf::Vector2f position, const sf::Font& fontFile, uint8_t fontSize, uint8_t objectLayer = 0);
 
-private:
+protected:
     std::vector<SpriteObject> m_spriteList;
     std::vector<TextObject> m_textList;
 };

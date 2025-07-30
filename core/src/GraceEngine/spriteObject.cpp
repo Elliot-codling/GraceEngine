@@ -147,5 +147,8 @@ void SpriteObject::render(sf::RenderTarget& target) const
 	{
 		target.draw(*m_debugRect);
 	}
-	target.draw(*m_sprite);
+	if (isObjectVisible())
+	{
+		target.draw(*m_sprite);
+	}
 }

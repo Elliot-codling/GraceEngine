@@ -54,3 +54,12 @@ void TextObject::setOrigin(const sf::Vector2f origin) const
 {
 	m_text->setOrigin(origin.x, origin.y);
 }
+
+void TextObject::render(sf::RenderTarget &target) const
+{
+	if (isObjectVisible())
+	{
+		target.draw(*m_text);
+	}
+}
+

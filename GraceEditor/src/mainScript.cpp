@@ -1,12 +1,13 @@
 #include "../include/mainScript.h"
 
 // Declare objects here
-// SpriteObject* object = create.sprite(INFO HERE);
+// SpriteObject* object;
 
 // Runs once, used to set up objects and the window
 int runtimeFunctions::start(GraceEngine &window)
 {
     window.setVsyncEnabled();
+    //object = window.createSprite(INFO);
     return 0;
 }
 
