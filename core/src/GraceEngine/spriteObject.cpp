@@ -69,28 +69,6 @@ void SpriteObject::replaceTexture(const char* textureDir, const sf::Vector2f siz
 	m_sprite->setTexture(*m_texture);
 }
 
-// Define object offset value
-void SpriteObject::setOffset(const sf::Vector2f objectOffset)
-{
-    SharedData::setOffset(objectOffset);		// Define the offset value
-	incrementPosition(objectOffset);		// Move the object
-}
-
-
-// Set the size of the sprite
-// If the sprite has a repeated texture then do texture rect instead
-void SpriteObject::setSize(const sf::Vector2f size) const
-{
-	if (!m_texture->isRepeated())
-	{
-		m_sprite->setScale(size.x / static_cast<float>(m_texture->getSize().x), size.y / static_cast<float>(m_texture->getSize().y));
-	}
-	else
-	{
-		m_sprite->setTextureRect(sf::IntRect(0, 0, static_cast<int>(size.x), static_cast<int>(size.y)));
-	}
-}
-
 // Set the texture rect position
 void SpriteObject::setSpriteRectPos(const sf::Vector2f position) const
 {
@@ -98,37 +76,7 @@ void SpriteObject::setSpriteRectPos(const sf::Vector2f position) const
 }
 
 
-// Set the Origin point of the sprite
-void SpriteObject::setOrigin(const sf::Vector2f origin) const
-{
-	m_sprite->setOrigin(origin.x / m_sprite->getScale().x, origin.y / m_sprite->getScale().y);
-}
-
-
-// Return an object ID if the selected sprite has collided with the object
-std::string SpriteObject::collisionBox(const SpriteObject* object) const
-{
-	if (!(getPosition().x <= object->getPosition().x + object->getSize().x))
-	{
-		return "";
-	}
-	if (!(getPosition().x + getSize().x >= object->getPosition().x))
-	{
-		return "";
-	}
-	if (!(getPosition().y <= object->getPosition().y + object->getSize().y))
-	{
-		return "";
-	}
-	if (!(getPosition().y + getSize().y >= object->getPosition().y))
-	{
-		return "";
-	}
-
-	return object->getId();
-}
-
-// Create rectangle, set its size, pos and colour and then print out to terminal
+// Create a rectangle, set its size, pos and colour and then print out to terminal
 void SpriteObject::setDebugActive(const sf::Color color)
 {
 	m_debugRect = new sf::RectangleShape;
@@ -145,10 +93,16 @@ void SpriteObject::render(sf::RenderTarget& target) const
 	// Draw debug rect if it is currently debugging
 	if (m_isDebugging)
 	{
+		m_debugRect->setSize(getSize());
+		m_debugRect->setRotation(m_sprite->getRotation());
+		m_debugRect->setOrigin(32, 32);
+		m_debugRect->setPosition(getPosition() + getOffset());
+
 		target.draw(*m_debugRect);
 	}
-	if (isObjectVisible())
+	if (!isObjectVisible())
 	{
-		target.draw(*m_sprite);
+		return;
 	}
+	target.draw(*m_sprite);
 }

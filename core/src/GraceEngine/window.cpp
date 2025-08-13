@@ -158,7 +158,7 @@ void GraceEngine::renderObjects()
 	m_window.clear(m_backgroundColor);
 	if (!m_spriteList.empty())
 	{
-		sortRenderQueue();
+		//sortRenderQueue();
 	}
 
 	for (SpriteObject &object: m_spriteList)
