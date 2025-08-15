@@ -1,7 +1,7 @@
 #include <GraceEngine/window.h>
 #include <cmath>
 // GraceEngine Constructor -----------------------------------------------------------------------------------
-GraceEngine::GraceEngine(const char* name, const int width, const int height, const sf::Color color)
+GraceEngine::GraceEngine(const char* name, const uint16_t width, const uint16_t height, const sf::Color color)
 {
 	m_window.create(sf::VideoMode(width, height), name);
 
@@ -26,10 +26,6 @@ GraceEngine::GraceEngine(const char* name, const int width, const int height, co
 	m_window.setView(*m_camera);
 }
 
-GraceEngine::~GraceEngine()
-{
-
-}
 
 // GraceEngine main functions ---------------------------------------------------------------------------
 
@@ -51,44 +47,10 @@ void GraceEngine::setCameraSize(const sf::Vector2f cameraSize)
 
 // Render and Queue ----------------------------------------
 
-// Items can be pushed onto the render queue
-void GraceEngine::pushToRender(SpriteObject* object)
-{
-	object->setObjectVisible(true);
-}
-
-void GraceEngine::pushToRender(TextObject* object)
-{
-	//m_textList.emplace_back(*object);
-}
-
-
-// Go through the renderQueue and identify the index where the specified object is
-// Remove the object by its index value
-void GraceEngine::popFromRender(SpriteObject* object)
-{
-	object->setObjectVisible(false);
-}
-
-void GraceEngine::popFromRender(TextObject* object)
-{
-	int index = 0;
-	for (int i = 0; i <= m_textList.size(); i++)
-	{
-		if (m_textList[i].getId() == object->getId())
-		{
-			index = i;
-			break;
-		}
-	}
-	m_textList.erase(m_textList.begin() + index);
-}
-
-
 // Sorts the renderQueue from the smallest layer number to the largest
 // Whatever was last pushed to the queue will be on top if all the layer numbers are the same
 // TODO: Update to use an array instead
-void GraceEngine::sortRenderQueue()
+std::vector<SpriteObject> GraceEngine::sortRenderQueue()
 {
 	std::vector<SpriteObject> tempList;
 	tempList.emplace_back(m_spriteList[0]);
@@ -101,7 +63,7 @@ void GraceEngine::sortRenderQueue()
 		for (int index = 0; index < lengthOfQueue; index++)
 		{
 			//Insert only if at the correct index
-			if (object->getLayer() < tempList[index].getLayer())
+			if (object->getLayerNumber() < tempList[index].getLayerNumber())
 			{
 				tempList.insert(tempList.begin() + index, *object);
 				break;
@@ -117,18 +79,20 @@ void GraceEngine::sortRenderQueue()
 	}
 
 	object = nullptr;		//Object can be set to a null pointer
-	m_spriteList = tempList;
 	delete object;		//Ensure no memory leaks
+
+	tempList.clear();
+	return tempList;
 }
 
 
 // Clears a layer based on the number provided
-void GraceEngine::clearLayer(const int layerNumber)
+void GraceEngine::clearLayer(const uint16_t layerNumber)
 {
 	//Deletes all objects in a given layer
 	for (auto& object: m_spriteList)
 	{
-		if (object.getLayer() == layerNumber)
+		if (object.getLayerNumber() == layerNumber)
 		{
 			popFromRender(&object);
 		}
@@ -136,7 +100,7 @@ void GraceEngine::clearLayer(const int layerNumber)
 
 	for (auto& object: m_spriteList)
 	{
-		if (object.getLayer() == layerNumber)
+		if (object.getLayerNumber() == layerNumber)
 		{
 			popFromRender(&object);
 		}
@@ -144,7 +108,7 @@ void GraceEngine::clearLayer(const int layerNumber)
 
 	for (auto& object : m_textList)
 	{
-		if (object.getLayer() == layerNumber)
+		if (object.getLayerNumber() == layerNumber)
 		{
 			popFromRender(&object);
 		}
@@ -158,9 +122,13 @@ void GraceEngine::renderObjects()
 	m_window.clear(m_backgroundColor);
 	if (!m_spriteList.empty())
 	{
-		//sortRenderQueue();
+
 	}
 
+	m_window.display();
+
+
+	/*
 	for (SpriteObject &object: m_spriteList)
 	{
 		object.render(m_window);
@@ -170,7 +138,8 @@ void GraceEngine::renderObjects()
 	{
 		object.render(m_window);
 	}
+	*/
 
 
-	m_window.display();
+
 }

@@ -13,11 +13,11 @@
 class GraceEngine: public DebugHandler, public GameEvents, public Create
 {
 public:
-	GraceEngine(const char* name, int width, int height, sf::Color color = {0, 0, 0});
-	~GraceEngine();
+	GraceEngine(const char* name, uint16_t width, uint16_t height, sf::Color color = {0, 0, 0});
+	~GraceEngine() = default;
 
 	void renderObjects();
-	void clearLayer(int layerNumber);
+	void clearLayer(uint16_t layerNumber);
 
 	// Set target fps and get current fps
 	void setTargetFramerate(const int targetFPS) { m_window.setFramerateLimit(targetFPS); }
@@ -41,7 +41,7 @@ public:
 	[[nodiscard]] sf::Vector2f getCameraPos() const { return m_camera->getCenter(); }
 	void setCameraSize(sf::Vector2f cameraSize);
 
-	// Relative position of object to window
+	// Relative position of the object to window
 	[[nodiscard]] sf::Vector2i getRelativePosition(const SpriteObject* object) const { return m_window.mapCoordsToPixel(object->getPosition()); }
 	[[nodiscard]] sf::Vector2i getRelativePosition(const TextObject* object) const { return m_window.mapCoordsToPixel(object->getPosition()); }
 
@@ -51,13 +51,13 @@ public:
 
 
 	// Render and the renderQueue - SpriteObject
-	void pushToRender(SpriteObject* object);
-	void popFromRender(SpriteObject* object);
+	static void pushToRender(SpriteObject* object) { object->setObjectVisible(true); }
+	static void popFromRender(SpriteObject* object) { object->setObjectVisible(false); }
 	[[nodiscard]] std::vector<SpriteObject>* getSpriteQueue() { return &m_spriteList; }
 
 	// Render and the renderQueue - textObject
-	void pushToRender(TextObject* object);
-	void popFromRender(TextObject* object);
+	static void pushToRender(TextObject* object) { object->setObjectVisible(true); }
+	static void popFromRender(TextObject* object) { object->setObjectVisible(false); }
 	[[nodiscard]] std::vector<TextObject>* getTextQueue() { return &m_textList; }
 
 	// Functions passed onto other files ---------------------------------------
@@ -83,5 +83,5 @@ private:
 
 	// Private functions
 private:
-	void sortRenderQueue();
+	std::vector<SpriteObject> sortRenderQueue();
 };

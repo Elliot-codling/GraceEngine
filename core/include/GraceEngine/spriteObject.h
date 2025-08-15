@@ -58,5 +58,6 @@ private:
 
 	// Initialise debug rectangle - Default: Not in debug mode
 	sf::RectangleShape* m_debugRect = nullptr;
+
 	bool m_isDebugging = false;
 };

@@ -17,7 +17,7 @@ TextObject::TextObject(const char* objectId, const char* message, const sf::Vect
 	m_text->setString(message);
 
 	setPosition(position);
-	setLayer(objectLayer);
+	setLayerNumber(objectLayer);
 }
 
 TextObject::TextObject(const char* objectId, const char* message, const sf::Vector2f position, const sf::Font& fontFile, const uint8_t fontSize, const uint8_t objectLayer)
@@ -30,7 +30,7 @@ TextObject::TextObject(const char* objectId, const char* message, const sf::Vect
 
 	setPosition(position);
 	setId(objectId);
-	setLayer(objectLayer);
+	setLayerNumber(objectLayer);
 }
 
 TextObject::~TextObject()

@@ -21,7 +21,7 @@ SpriteObject::SpriteObject(const char* objectId, const char* textureDir, const s
 	m_sprite->setPosition(position.x, position.y);
 
 	setSize(size);
-	setLayer(objectLayer);
+	setLayerNumber(objectLayer);
 
 	// Once it's passed through, the object has initialised successfully
 	initialiseObject();
@@ -39,7 +39,7 @@ SpriteObject::SpriteObject(const char* objectId, const sf::Texture& textureFile,
 	m_sprite->setPosition(position.x, position.y);
 
 	setSize(size);
-	setLayer(objectLayer);
+	setLayerNumber(objectLayer);
 
 	// Once it's passed through, the object has initialised successfully
 	initialiseObject();
@@ -81,8 +81,8 @@ void SpriteObject::setDebugActive(const sf::Color color)
 {
 	m_debugRect = new sf::RectangleShape;
 	m_debugRect->setSize(getSize());
-	m_debugRect->setPosition(getPosition());
 	m_debugRect->setFillColor(color);
+	m_debugRect->setPosition(getPosition());
 	m_isDebugging = true;
     DebugHandler::printInfo("Sprite object: '" + std::string(getId()) + "' is in debug");
 }
@@ -95,14 +95,13 @@ void SpriteObject::render(sf::RenderTarget& target) const
 	{
 		m_debugRect->setSize(getSize());
 		m_debugRect->setRotation(m_sprite->getRotation());
-		m_debugRect->setOrigin(32, 32);
 		m_debugRect->setPosition(getPosition() + getOffset());
-
+		m_debugRect->setOrigin(m_debugRect->getSize().x / 2.f, m_debugRect->getSize().y / 2.f);
 		target.draw(*m_debugRect);
 	}
-	if (!isObjectVisible())
+	if (isObjectVisible())
 	{
-		return;
+		target.draw(*m_sprite);
 	}
-	target.draw(*m_sprite);
+
 }
