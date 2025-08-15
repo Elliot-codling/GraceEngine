@@ -53,7 +53,7 @@ void GraceEngine::setCameraSize(const sf::Vector2f cameraSize)
 std::vector<SpriteObject> GraceEngine::sortRenderQueue()
 {
 	std::vector<SpriteObject> tempList;
-	tempList.emplace_back(m_spriteList[0]);
+	//tempList.emplace_back(m_spriteList[0]);
 	size_t lengthOfQueue = 0;
 	SpriteObject* object = nullptr;
 	for (int indexOfObject = 1; indexOfObject < size(m_spriteList); indexOfObject++)
@@ -122,13 +122,9 @@ void GraceEngine::renderObjects()
 	m_window.clear(m_backgroundColor);
 	if (!m_spriteList.empty())
 	{
-
+		// TODO: Change the queue from std::vector to a map
 	}
 
-	m_window.display();
-
-
-	/*
 	for (SpriteObject &object: m_spriteList)
 	{
 		object.render(m_window);
@@ -138,8 +134,6 @@ void GraceEngine::renderObjects()
 	{
 		object.render(m_window);
 	}
-	*/
 
-
-
+	m_window.display();
 }

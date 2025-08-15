@@ -48,8 +48,6 @@ SpriteObject::SpriteObject(const char* objectId, const sf::Texture& textureFile,
 SpriteObject::~SpriteObject()
 {
 	destroyObject();
-	delete m_texture;
-	delete m_sprite;
 	if (m_isDebugging)
 	{
 		printInfo("Deleted: '" + std::string(getId()) + "'");
