@@ -91,12 +91,14 @@ void SpriteObject::render(sf::RenderTarget& target) const
 	// Draw debug rect if it is currently debugging
 	if (m_isDebugging)
 	{
+		printInfo("Debug rect draw");
 		m_debugRect->setSize(getSize());
 		m_debugRect->setRotation(m_sprite->getRotation());
 		m_debugRect->setPosition(getPosition() + getOffset());
 		m_debugRect->setOrigin(m_debugRect->getSize().x / 2.f, m_debugRect->getSize().y / 2.f);
 		target.draw(*m_debugRect);
 	}
+
 	if (isObjectVisible())
 	{
 		target.draw(*m_sprite);

@@ -83,11 +83,14 @@ void GraceEngine::renderObjects()
 	if (!m_spriteList.empty())
 	{
 		// Sort the queue from the smallest layer number to the largest
-		// Smallest items render first while largest render last
+		// Objects with the smallest layer number renders first
+		// While the largest layer numbered objects renders last
+		#if 0
 		std::sort(m_spriteList.begin(), m_spriteList.end(),
 		[](const SpriteObject& a, const SpriteObject& b) {
 			return a.getLayerNumber() < b.getLayerNumber();
 		});
+		#endif
 	}
 
 	for (SpriteObject &object: m_spriteList)
