@@ -80,8 +80,4 @@ private:
 
 	// Frametime of the current frame
 	float m_frametime = 0;
-
-	// Private functions
-private:
-	std::vector<SpriteObject> sortRenderQueue();
 };

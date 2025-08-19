@@ -46,46 +46,6 @@ void GraceEngine::setCameraSize(const sf::Vector2f cameraSize)
 
 
 // Render and Queue ----------------------------------------
-
-// Sorts the renderQueue from the smallest layer number to the largest
-// Whatever was last pushed to the queue will be on top if all the layer numbers are the same
-// TODO: Update to use an array instead
-std::vector<SpriteObject> GraceEngine::sortRenderQueue()
-{
-	std::vector<SpriteObject> tempList;
-	//tempList.emplace_back(m_spriteList[0]);
-	size_t lengthOfQueue = 0;
-	SpriteObject* object = nullptr;
-	for (int indexOfObject = 1; indexOfObject < size(m_spriteList); indexOfObject++)
-	{
-		object = &m_spriteList[indexOfObject];
-		lengthOfQueue = size(tempList);
-		for (int index = 0; index < lengthOfQueue; index++)
-		{
-			//Insert only if at the correct index
-			if (object->getLayerNumber() < tempList[index].getLayerNumber())
-			{
-				tempList.insert(tempList.begin() + index, *object);
-				break;
-			}
-
-			//For the last item
-			if (index == lengthOfQueue - 1)
-			{
-				tempList.insert(tempList.begin() + index + 1, *object);
-				break;
-			}
-		}
-	}
-
-	object = nullptr;		//Object can be set to a null pointer
-	delete object;		//Ensure no memory leaks
-
-	tempList.clear();
-	return tempList;
-}
-
-
 // Clears a layer based on the number provided
 void GraceEngine::clearLayer(const uint16_t layerNumber)
 {
@@ -122,7 +82,12 @@ void GraceEngine::renderObjects()
 	m_window.clear(m_backgroundColor);
 	if (!m_spriteList.empty())
 	{
-		// TODO: Change the queue from std::vector to a map
+		// Sort the queue from the smallest layer number to the largest
+		// Smallest items render first while largest render last
+		std::sort(m_spriteList.begin(), m_spriteList.end(),
+		[](const SpriteObject& a, const SpriteObject& b) {
+			return a.getLayerNumber() < b.getLayerNumber();
+		});
 	}
 
 	for (SpriteObject &object: m_spriteList)
