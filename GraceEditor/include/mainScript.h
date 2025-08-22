@@ -1,5 +1,7 @@
 #pragma once
 #include <GraceEngine/window.h>
+#include <GraceEngine/sceneManager.h>
+
 // Define the runtime functions
 namespace runtimeFunctions
 {
@@ -8,3 +10,5 @@ namespace runtimeFunctions
     int fixedUpdate(GraceEngine &window, float deltaTime);
     int end();
 }
+
+inline SceneManager sceneManager;

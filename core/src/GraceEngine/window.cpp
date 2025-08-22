@@ -47,6 +47,7 @@ void GraceEngine::setCameraSize(const sf::Vector2f cameraSize)
 
 // Render and Queue ----------------------------------------
 // Clears a layer based on the number provided
+/*
 void GraceEngine::clearLayer(const uint16_t layerNumber)
 {
 	//Deletes all objects in a given layer
@@ -74,34 +75,4 @@ void GraceEngine::clearLayer(const uint16_t layerNumber)
 		}
 	}
 }
-
-
-// Render the vector of gameObjects
-void GraceEngine::renderObjects()
-{
-	m_window.clear(m_backgroundColor);
-	if (!m_spriteList.empty())
-	{
-		// Sort the queue from the smallest layer number to the largest
-		// Objects with the smallest layer number renders first
-		// While the largest layer numbered objects renders last
-		#if 0
-		std::sort(m_spriteList.begin(), m_spriteList.end(),
-		[](const SpriteObject& a, const SpriteObject& b) {
-			return a.getLayerNumber() < b.getLayerNumber();
-		});
-		#endif
-	}
-
-	for (SpriteObject &object: m_spriteList)
-	{
-		object.render(m_window);
-	}
-
-	for (TextObject &object : m_textList)
-	{
-		object.render(m_window);
-	}
-
-	m_window.display();
-}
+*/

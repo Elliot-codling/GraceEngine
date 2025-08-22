@@ -1,25 +1,24 @@
 #include "../include/mainScript.h"
+#include <GraceEngine/scene.h>
 
-float scaleFactor = 0.9f;
-SpriteObject* player;
-SpriteObject* player2;
+#include "GraceEngine/sceneManager.h"
 // Declare objects here
 // SpriteObject* object;
+float sizeFactor = 0.9f;
+Scene* mainScene;
+SpriteObject* player;
 
 // Runs once, used to set up objects and the window
 int runtimeFunctions::start(GraceEngine &window)
 {
     window.setVsyncEnabled();
     //object = window.createSprite(INFO);
-    player = window.createSprite("player", "assets/textures/spaceship.png", {0, 0}, {64, 64});
-    //player->setDebugActive();
-    player->setOrigin({32, 32});
-    player->setOffset({32, 32});
-    window.pushToRender(player);
+    mainScene = sceneManager.createScene("mainScene");
+    mainScene->defineName("myScene");
+    mainScene->defineVectorSize(2);
+    player = mainScene->createSprite("player", "assets/textures/spaceship.png", {0, 0}, {64, 64}, 2);
+    mainScene->pushToRender(player);
 
-    //window.pushToRender(window.createText("text", "Hello World!", {50, 50}, "assets/font/Roboto.ttf", 30));
-    //player2 = window.createSprite("player2", "assets/textures/spaceship.png", {0, 0}, {64, 64}, 1);
-    //window.pushToRender(player2);
     return 0;
 }
 
@@ -38,11 +37,8 @@ int runtimeFunctions::update(GraceEngine &window, const float deltaTime)
         {
             GraceEngine::printDebugInfo("Hello, World!");
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::F2)) {
-            window.printDebugInfo(player->isObjectVisible());
-        }
     }
-    window.renderObjects();
+    window.renderScene(mainScene);
     return 0;
 }
 
@@ -61,25 +57,19 @@ int runtimeFunctions::fixedUpdate(GraceEngine &window, const float deltaTime)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         player->incrementPosition({0, 10});
     }
-
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         player->incrementAngle(-10);
     }
-
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         player->incrementAngle(10);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-        player->setSize({player->getSize().x * scaleFactor, player->getSize().y * scaleFactor});
-
+        player->setSize(player->getSize() * sizeFactor);
     }
-
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
-        player->setSize({player->getSize().x * (2 - scaleFactor), player->getSize().y * (2 - scaleFactor)});
-
+        player->setSize(player->getSize() * (2 - sizeFactor));
     }
-
 
     return 0;
 }

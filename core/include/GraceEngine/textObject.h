@@ -7,8 +7,8 @@ class TextObject : public SharedData, public DebugHandler
 {
 public:
 	// Constructor
-	TextObject(const char* objectId, const char* message, sf::Vector2f position, const char* fontDir, uint8_t fontSize, uint8_t objectLayer = 0);
-	TextObject(const char* objectId, const char* message, sf::Vector2f position, const sf::Font& fontFile, uint8_t fontSize, uint8_t objectLayer = 0);
+	TextObject(const char* objectId, const char* message, sf::Vector2f position, const char* fontDir, uint8_t fontSize);
+	TextObject(const char* objectId, const char* message, sf::Vector2f position, const sf::Font& fontFile, uint8_t fontSize);
 	~TextObject() override;
 
 	// Size and position

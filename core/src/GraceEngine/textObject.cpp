@@ -3,7 +3,7 @@
 // TODO: Add more comments
 
 // TextObject constructor ------------------------------------------------------------------------------
-TextObject::TextObject(const char* objectId, const char* message, const sf::Vector2f position, const char* fontDir, const uint8_t fontSize, const uint8_t objectLayer)
+TextObject::TextObject(const char* objectId, const char* message, const sf::Vector2f position, const char* fontDir, const uint8_t fontSize)
 {
 	setId(objectId);
 	if (!m_font->loadFromFile(fontDir))
@@ -17,10 +17,10 @@ TextObject::TextObject(const char* objectId, const char* message, const sf::Vect
 	m_text->setString(message);
 
 	setPosition(position);
-	setLayerNumber(objectLayer);
+	setLayerNumber(0);
 }
 
-TextObject::TextObject(const char* objectId, const char* message, const sf::Vector2f position, const sf::Font& fontFile, const uint8_t fontSize, const uint8_t objectLayer)
+TextObject::TextObject(const char* objectId, const char* message, const sf::Vector2f position, const sf::Font& fontFile, const uint8_t fontSize)
 {
 	*m_font = fontFile;
 
@@ -30,7 +30,7 @@ TextObject::TextObject(const char* objectId, const char* message, const sf::Vect
 
 	setPosition(position);
 	setId(objectId);
-	setLayerNumber(objectLayer);
+	setLayerNumber(0);
 }
 
 TextObject::~TextObject()
@@ -55,7 +55,7 @@ void TextObject::setOrigin(const sf::Vector2f origin) const
 	m_text->setOrigin(origin.x, origin.y);
 }
 
-void TextObject::render(sf::RenderTarget &target) const
+void TextObject::render(sf::RenderTarget& target) const
 {
 	if (isObjectVisible())
 	{

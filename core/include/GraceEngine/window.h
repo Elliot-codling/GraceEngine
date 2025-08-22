@@ -3,21 +3,20 @@
 #include <SFML/Graphics.hpp>
 
 // Import the other files that will be used to create the engine
-#include <GraceEngine/creation.h>
 #include <GraceEngine/debugHandler.h>
 #include <GraceEngine/spriteObject.h>
 #include <GraceEngine/textObject.h>
 #include <GraceEngine/input.h>
+#include <GraceEngine/renderer.h>
 
 // Grace engine initialisation - window control
-class GraceEngine: public DebugHandler, public GameEvents, public Create
+class GraceEngine: public DebugHandler, public GameEvents, Renderer
 {
 public:
 	GraceEngine(const char* name, uint16_t width, uint16_t height, sf::Color color = {0, 0, 0});
-	~GraceEngine() = default;
+	~GraceEngine() override = default;
 
-	void renderObjects();
-	void clearLayer(uint16_t layerNumber);
+	void renderScene(Scene* scene) { Renderer::renderScene(m_window, m_backgroundColor, scene); }
 
 	// Set target fps and get current fps
 	void setTargetFramerate(const int targetFPS) { m_window.setFramerateLimit(targetFPS); }
@@ -50,15 +49,8 @@ public:
 	void setRelativePosition(const TextObject* object, const sf::Vector2f position) const { object->setPosition(m_window.mapPixelToCoords({ static_cast<int>(position.x), static_cast<int>(position.y) })); }
 
 
-	// Render and the renderQueue - SpriteObject
-	static void pushToRender(SpriteObject* object) { object->setObjectVisible(true); }
-	static void popFromRender(SpriteObject* object) { object->setObjectVisible(false); }
-	[[nodiscard]] std::vector<SpriteObject>* getSpriteQueue() { return &m_spriteList; }
 
-	// Render and the renderQueue - textObject
-	static void pushToRender(TextObject* object) { object->setObjectVisible(true); }
-	static void popFromRender(TextObject* object) { object->setObjectVisible(false); }
-	[[nodiscard]] std::vector<TextObject>* getTextQueue() { return &m_textList; }
+
 
 	// Functions passed onto other files ---------------------------------------
 	// Prevents the users from having to create an eventHandler
@@ -80,4 +72,7 @@ private:
 
 	// Frametime of the current frame
 	float m_frametime = 0;
+
+
+
 };
