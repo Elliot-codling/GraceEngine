@@ -1,5 +1,12 @@
 #include <GraceEngine/scene.h>
 
+Scene::Scene(const char* sceneName, const uint32_t vectorSize)
+{
+    // Set name and vector size
+    m_sceneName = sceneName;
+    m_spriteList.reserve(vectorSize);
+}
+
 /* Steps:
  * 1. Create a pointer to a SpriteObject.
  * 2. Check if we have met the capacity of the list, if we have then print a warning and return the temporary sprite.

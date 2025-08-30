@@ -4,12 +4,9 @@
 
 class Scene : DebugHandler {
 public:
-    Scene() = default;
+    explicit Scene(const char* sceneName, uint32_t vectorSize);
     ~Scene() = default;
 
-    // Scene properties
-    void defineName(const char* sceneName) { m_sceneName = sceneName; }
-    void defineVectorSize(const uint32_t vectorSize) { m_spriteList.reserve(vectorSize); }
     // SpriteObject
     [[nodiscard]] SpriteObject* createSprite(const char* objectId, const char* textureDir, sf::Vector2f position, sf::Vector2f size, uint8_t objectLayer = 0);
     [[nodiscard]] SpriteObject* createSprite(const char* objectId, const sf::Texture& textureFile, sf::Vector2f position, sf::Vector2f size, uint8_t objectLayer = 0);
@@ -40,7 +37,6 @@ private:
     std::vector<SpriteObject> m_spriteList;
     // Vector of indexes of each sprite. This can be sorted so that the correct order of sprites are rendered
     std::vector<size_t> m_spriteRenderList;
-
     // Vector to hold the text objects
     std::vector<TextObject> m_textList;
 };
